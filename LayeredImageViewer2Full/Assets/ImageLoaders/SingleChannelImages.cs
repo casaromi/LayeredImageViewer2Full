@@ -8,8 +8,8 @@ public class SingleChannelImages : MonoBehaviour
 	public int imageStart = 1;
 	public int imageStop = 1;
 	public GameObject imagePlanePRE;
-	//public string path1 = "Images/Pole_cells_red/";
-	public string path1 = "https://github.com/casaromi/ImageTest/blob/e9b9e87e5e91f21c986d53115146eb85459e0ab6/Pole_cells_red/";
+	public string path1 = "Images/Pole_cells_red/";
+	//public string path1 = "https://github.com/casaromi/ImageTest/blob/e9b9e87e5e91f21c986d53115146eb85459e0ab6/Pole_cells_red/";
 
 	public float cutoff = 0.3f;
 	public float alphaMultiplier = 1.0f;
@@ -19,7 +19,7 @@ public class SingleChannelImages : MonoBehaviour
 	public float blueMultiplier = 1.0f;
 	// Start is called before the first frame update
 
-
+	/*
 	//ISSUE IS HERE, CHECK WWWLOADER AGENST PATH1
 	private IEnumerator LoadFromLikeCoroutine()
 	{
@@ -28,11 +28,12 @@ public class SingleChannelImages : MonoBehaviour
 		yield return wwwLoader;         // start loading whatever in that url ( delay happens here )
 		Debug.Log("Loaded");
 	}
+	*/
 
 
 	void Start()
 	{
-		StartCoroutine(LoadFromLikeCoroutine()); // execute the section independently
+		//StartCoroutine(LoadFromLikeCoroutine()); // execute the section independently
 
 		for (int i = imageStart; i <= imageStop; i++)
 		{

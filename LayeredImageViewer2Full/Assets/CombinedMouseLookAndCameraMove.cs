@@ -8,9 +8,9 @@ public class CombinedMouseLookAndCameraMove : MonoBehaviour
     //P: Moves camera up and down; camera gains height
 
 
-	float mainSpeed = 10.0f; //regular speed
-	float shiftAdd = 20.0f; //multiplied by how long shift is held.  Basically running
-	float maxShift = 20.0f; //Maximum speed when holdin gshift
+	float mainSpeed = 5.0f; //regular speed
+	float shiftAdd = 10.0f; //multiplied by how long shift is held.  Basically running
+	float maxShift = 15.0f; //Maximum speed when holdin gshift
 	float camSens = 0.2f; //How sensitive it with mouse
 
 
