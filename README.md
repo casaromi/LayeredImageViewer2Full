@@ -1,2 +1,2 @@
-# LayeredImageViewer2
-Layered Image Viewer
+# LayeredImageViewer2Full
+Layered Image Viewer test repository
