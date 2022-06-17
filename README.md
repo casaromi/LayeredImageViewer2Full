@@ -1,2 +1,2 @@
 # LayeredImageViewer2Full
-Layered Image Viewer test repository
+Networked application to view VR cell modles
