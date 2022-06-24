@@ -10,13 +10,13 @@ EditorBuildSettings:
     guid: c7ab51222131d2844944205387845cfb
   - enabled: 1
     path: Assets/Scenes/CellLab1.unity
-    guid: dbea62389d73e2a4aa4d78fc96ccb4b1
+    guid: f82ab8f2e8f06fd4cba56aa95431564d
   - enabled: 1
     path: Assets/Scenes/CellLab2.unity
     guid: f63bb1cd349ec6d479db67481fec67ae
   - enabled: 1
     path: Assets/Scenes/CellViewerTesting.unity
-    guid: f694f54e3c680a24290c5390781a8277
+    guid: 0367679321f70f8449ae7c6f436c823c
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 5cbd7cf1436a8f54891e643b565588ba, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 34a60ed5433f359418988be8398e492f, type: 2}
