@@ -3122,22 +3122,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   head:
-    vrTarget: {fileID: 0}
+    vrTarget: {fileID: 1881506454}
     rigTarget: {fileID: 1997076005}
-    trackingPositionOffset: {x: 0, y: -0.25, z: -0.2}
+    trackingPositionOffset: {x: 0, y: -0.5, z: -0.5}
     trackingRotationOffset: {x: 180, y: 90, z: 90}
   leftHand:
-    vrTarget: {fileID: 0}
+    vrTarget: {fileID: 676470800}
     rigTarget: {fileID: 913515528}
     trackingPositionOffset: {x: 0, y: 0, z: 0}
     trackingRotationOffset: {x: -90, y: 90, z: 0}
   rightHand:
-    vrTarget: {fileID: 0}
+    vrTarget: {fileID: 433845936}
     rigTarget: {fileID: 705586323}
     trackingPositionOffset: {x: 0, y: 0, z: 0}
     trackingRotationOffset: {x: 0, y: 0, z: 0}
-  headConstraint: {fileID: 0}
+  headConstraint: {fileID: 1997076005}
   headBodyOffset: {x: 90, y: -90, z: 0}
+  turnSmoothness: 3
 --- !u!1 &305731763
 GameObject:
   m_ObjectHideFlags: 0
@@ -5739,7 +5740,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00000333786, y: 117.00002}
+  m_AnchoredPosition: {x: 0.00000333786, y: 117.00006}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &575624669
@@ -12182,7 +12183,7 @@ MonoBehaviour:
   voiceDetectionThreshold: 0.01
   voiceDetectionDelayMs: 500
   unityMicrophoneDevice: 
-  photonMicrophoneDeviceId: -1
+  photonMicrophoneDeviceId: 0
   interestGroup: 0
   debugEchoMode: 0
   reliableMode: 0
@@ -15455,8 +15456,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1326320592}
   m_HandleRect: {fileID: 1326320591}
   m_Direction: 2
-  m_Value: -0.000000260834
-  m_Size: 0.61
+  m_Value: -0.000000652085
+  m_Size: 0.60997033
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

@@ -26,7 +26,7 @@ public class VRRig : MonoBehaviour
     public Transform headConstraint;
     public Vector3 headBodyOffset;
 
-    public float turnSmoothness = 3;
+    public float turnSmoothness;
 
     // Start is called before the first frame update
     void Start()
