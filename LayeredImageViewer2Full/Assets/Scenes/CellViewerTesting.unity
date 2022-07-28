@@ -10110,7 +10110,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 87}
+  m_AnchoredPosition: {x: 0, y: 94.6}
   m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &980888410
@@ -16906,7 +16906,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -30.6}
+  m_AnchoredPosition: {x: 0, y: -26.4}
   m_SizeDelta: {x: 300, y: 175}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1450776836
@@ -16942,9 +16942,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "To use the voice/ text chat: \n\nEnter a Username and press Login.\n\nEnter
-    the Channel you would like to  connect to and press Join Channel. \n\nVoice chat
-    is now active. \n\nTo end voice chat, press the Leave button."
+  m_Text: "Press F1 to open the login menu \nPress F2 to close the login menu \nPress
+    F3 to open the text chat \n Press F4 to close the text chat \n\nEnter a Username
+    and press Login.\nEnter the Channel you would like to  connect to and press Join
+    Channel. \nVoice chat is now active.\nPress the Leave button to end voice chat."
 --- !u!222 &1450776837
 CanvasRenderer:
   m_ObjectHideFlags: 0
