@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
+    LobbyUI lobby;
+
     public GameObject loginKey;
     public GameObject chatKey;
 
@@ -16,23 +18,31 @@ public class MenuManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
+    {   
+        //Open and Close Menus
+        if(Input.GetKeyDown(KeyCode.F1))
         {
-            chatKey.SetActive(false);
-        }
-        if(Input.GetKeyDown(KeyCode.Y))
-        {
-            chatKey.SetActive(true);
+            loginKey.SetActive(true);
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {
             loginKey.SetActive(false);
         }
-        if(Input.GetKeyDown(KeyCode.F1))
+        if (Input.GetKeyDown(KeyCode.F3))
         {
-            loginKey.SetActive(true);
+            chatKey.SetActive(true);
         }
-        
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            chatKey.SetActive(false);
+        }
+
+        /*
+        //Send Message
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            lobby.Send_Event_Message();
+        }
+        */
     }
 }
