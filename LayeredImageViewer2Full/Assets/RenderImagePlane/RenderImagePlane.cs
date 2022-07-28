@@ -9,6 +9,7 @@ public class RenderImagePlane : MonoBehaviour
 	public Texture2D inputTexture;
 	Texture2D texture;
 	Color [] pixels;
+	Color [] rawPixels;
 	bool forceDraw = false;
 	bool requestDraw = true;
 
@@ -28,7 +29,6 @@ public class RenderImagePlane : MonoBehaviour
 
 		this.inputTexture = inputTexture;
 		renderTexture = new RenderTexture(inputTexture.width, inputTexture.height, 32);
-		Debug.Log(renderTexture.width);
 		pixels = inputTexture.GetPixels();
 		texture = new Texture2D(renderTexture.width, renderTexture.height);
 		renderer.material.mainTexture = texture;
@@ -46,6 +46,24 @@ public class RenderImagePlane : MonoBehaviour
 				requestDraw = false;
 			}
 		}
+	}
+
+	public void setRawPixels(Color[] rawPixels)
+	{
+		this.rawPixels = new Color[rawPixels.Length];
+		for(int i=0;i<rawPixels.Length;i++) this.rawPixels[i] = rawPixels[i];
+	}
+
+	public Color[] getRawPixels()
+	{
+		Color [] returnPixels = new Color[rawPixels.Length];
+		for(int i=0;i<rawPixels.Length;i++) returnPixels[i] = rawPixels[i];
+		return returnPixels;
+	}
+
+	public void resetPixelsToRaw()
+	{
+		for(int i=0;i<rawPixels.Length;i++) pixels[i] = rawPixels[i];
 	}
 
 	public void setPixels(Color [] pixels)
