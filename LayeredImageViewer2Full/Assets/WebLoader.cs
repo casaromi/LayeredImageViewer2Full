@@ -10,6 +10,7 @@ using System.Collections;
         "ImageURL" : "..."
       }
 */
+
 public struct Data
 {
     //Set 1
@@ -76,7 +77,7 @@ public class WebLoader : MonoBehaviour
             uiNameText2.text = data.Name2;
 
             // Load image:
-            StartCoroutine(GetImage(data.ImageURL2));
+            StartCoroutine(GetImage2(data.ImageURL2));
             
             
             //Set 3
@@ -84,13 +85,15 @@ public class WebLoader : MonoBehaviour
             uiNameText3.text = data.Name3;
 
             // Load image:
-            StartCoroutine(GetImage(data.ImageURL3));
+            StartCoroutine(GetImage3(data.ImageURL3));
         }
 
         // Clean up any resources it is using.
         request.Dispose();
     }
 
+
+    //Load Image 1
     IEnumerator GetImage(string url)
     {
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
@@ -105,9 +108,48 @@ public class WebLoader : MonoBehaviour
         {
             //success...
             uiRawImage.texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
+        }
 
+        // Clean up any resources it is using.
+        request.Dispose();
+    }
+
+    //Load Image 2
+    IEnumerator GetImage2(string url)
+    {
+        UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
+
+        yield return request.SendWebRequest();
+
+        if (request.isNetworkError || request.isHttpError)
+        {
+            // error ...
+        }
+        else
+        {
+            //success...
             uiRawImage2.texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
+        }
 
+        // Clean up any resources it is using.
+        request.Dispose();
+    }
+
+
+    //Load Image 2
+    IEnumerator GetImage3(string url)
+    {
+        UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
+
+        yield return request.SendWebRequest();
+
+        if (request.isNetworkError || request.isHttpError)
+        {
+            // error ...
+        }
+        else
+        {
+            //success...
             uiRawImage3.texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
         }
 
@@ -115,4 +157,3 @@ public class WebLoader : MonoBehaviour
         request.Dispose();
     }
 }
-
