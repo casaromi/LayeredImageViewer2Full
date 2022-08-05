@@ -35,6 +35,7 @@ public class ShaderChannelLoader : MonoBehaviour
 		return return_value;
 	}
 
+	//Change the Alpha/ Transparency
 	public void changeAlpha(float alphaMultiplier)
 	{
 		this.alphaMultiplier = alphaMultiplier;
@@ -45,6 +46,7 @@ public class ShaderChannelLoader : MonoBehaviour
 		}
 	}
 
+	//Change the Cutoff
 	public void changeCutoff(float cutoff)
 	{
 		this.cutoff = cutoff;
@@ -55,12 +57,19 @@ public class ShaderChannelLoader : MonoBehaviour
 		}
 	}
 
+	//Chage the spacing between images 
 	public void scaleHeight(float scale)
 	{
 		transform.localScale = new Vector3(1, scale / (spacing[1] - spacing[0]), 1);
 	}
 
-
+	/*
+	//Move the model up or down
+	public void changePosition(float modelPosition)
+	{
+		transform.localScale = new Vector3(1, modelPosition, 1);
+	}
+	*/
 
 
 
