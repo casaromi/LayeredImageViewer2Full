@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicRig : MonoBehaviour
-{
+public class BasicRig : MonoBehaviour 
+{ 
 
-	float moveSpeed = 10.0f;
-	float turnSpeed = 1000.0f;
+	float moveSpeed = 3.0f;
+	float turnSpeed = 50.0f;
 
 	CharacterController cc;
     // Start is called before the first frame update
@@ -19,16 +19,6 @@ public class BasicRig : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		/* This is client code
-		if (!networkObject.IsServer)
-		{
-			transform.position = networkObject.position;
-			transform.rotation = networkObject.rotation;
-			return;
-		}
-		*/
-
-		// This is server code
 		float forward = Input.GetAxis("Vertical");
 		float side = Input.GetAxis("Horizontal");
 		float up = Input.GetAxis("Jump");
@@ -43,10 +33,11 @@ public class BasicRig : MonoBehaviour
 			float twist = Input.GetAxis("Mouse X");
 			float lookUp = -Input.GetAxis("Mouse Y");
 			transform.Rotate(transform.up, turnSpeed * twist * Time.deltaTime, Space.World);
-			transform.Rotate(transform.right, turnSpeed * lookUp * Time.deltaTime, Space.Self);
+			transform.Rotate(transform.right, turnSpeed * lookUp * Time.deltaTime, Space.World);
 		}
+		float roll = Input.GetAxis("Roll");
+		transform.Rotate(transform.forward, -0.1f*turnSpeed * roll * Time.deltaTime, Space.World);
 
-		//networkObject.position = transform.position;
-		//networkObject.rotation = transform.rotation;
+
 	}
 }
