@@ -24083,6 +24083,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5064516232766746771, guid: 63820d9d2c722104fb6290392c6c2f9d, type: 3}
+      propertyPath: path1
+      value: Images/Germ_cells_red/
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064516232766746771, guid: 63820d9d2c722104fb6290392c6c2f9d, type: 3}
+      propertyPath: imageStop
+      value: 46
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064516232766746771, guid: 63820d9d2c722104fb6290392c6c2f9d, type: 3}
+      propertyPath: redMultiplier
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5064516232766746772, guid: 63820d9d2c722104fb6290392c6c2f9d, type: 3}
       propertyPath: m_Name
       value: SingleChannelLoader
