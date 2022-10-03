@@ -17,7 +17,7 @@ public class SingleChannelImagesTST : MonoBehaviour
 	public float redMultiplier = 0.0f;
 	public float greenMultiplier = 0.0f;
 	public float blueMultiplier = 1.0f;
-	// Start is called before the first frame update
+	// Start is called before the first frame update 
 
 	/*
 	//ISSUE IS HERE, CHECK WWWLOADER AGENST PATH1
