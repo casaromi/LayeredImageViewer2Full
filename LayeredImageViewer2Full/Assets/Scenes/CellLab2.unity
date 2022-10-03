@@ -24340,5 +24340,33 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5064516232766746771, guid: 63820d9d2c722104fb6290392c6c2f9d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 63820d9d2c722104fb6290392c6c2f9d, type: 3}
+--- !u!1 &5064516233475908296 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5064516232766746772, guid: 63820d9d2c722104fb6290392c6c2f9d, type: 3}
+  m_PrefabInstance: {fileID: 5064516233475908295}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5064516233475908297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5064516233475908296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e0fe75a2755508438bc9cf10f04e964, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  imageStart: 1
+  imageStop: 50
+  imagePlanePRE: {fileID: 5549537630739903702, guid: 54792ddf848e69144b629c6389d3e1cf, type: 3}
+  path1: Images/Germ_cells_magenta/
+  cutoff: 0.3
+  alphaMultiplier: 1
+  sliceHeight: 0.02
+  redMultiplier: 0
+  greenMultiplier: 0
+  blueMultiplier: 1
