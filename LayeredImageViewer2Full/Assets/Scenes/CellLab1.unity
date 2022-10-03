@@ -24092,8 +24092,16 @@ PrefabInstance:
       value: 46
       objectReference: {fileID: 0}
     - target: {fileID: 5064516232766746771, guid: 63820d9d2c722104fb6290392c6c2f9d, type: 3}
+      propertyPath: sliceHeight
+      value: 0.024
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064516232766746771, guid: 63820d9d2c722104fb6290392c6c2f9d, type: 3}
       propertyPath: redMultiplier
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064516232766746771, guid: 63820d9d2c722104fb6290392c6c2f9d, type: 3}
+      propertyPath: blueMultiplier
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5064516232766746772, guid: 63820d9d2c722104fb6290392c6c2f9d, type: 3}
       propertyPath: m_Name

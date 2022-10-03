@@ -24366,7 +24366,7 @@ MonoBehaviour:
   path1: Images/Germ_cells_magenta/
   cutoff: 0.3
   alphaMultiplier: 1
-  sliceHeight: 0.02
-  redMultiplier: 0
+  sliceHeight: 0.024
+  redMultiplier: 1
   greenMultiplier: 0
   blueMultiplier: 1
