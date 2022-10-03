@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class SingleChannelImages : MonoBehaviour
 {
 	public int imageStart = 1;
-	public int imageStop = 1;
+	public int imageStop = 46;
 	public GameObject imagePlanePRE;
-	public string path1 = "Images/Pole_cells_red/";
+	public string path1 = "Images/Germ_cells_red/";
 	//public string path1 = "https://github.com/casaromi/ImageTest/blob/e9b9e87e5e91f21c986d53115146eb85459e0ab6/Pole_cells_red/";
 
 	public float cutoff = 0.3f;
