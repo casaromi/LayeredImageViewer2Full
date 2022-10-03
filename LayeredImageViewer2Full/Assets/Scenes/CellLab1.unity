@@ -5211,7 +5211,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00000333786, y: 117.000015}
+  m_AnchoredPosition: {x: 0.00000333786, y: 117.00002}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &575624669
@@ -14759,8 +14759,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1326320592}
   m_HandleRect: {fileID: 1326320591}
   m_Direction: 2
-  m_Value: 0.000000130417
-  m_Size: 0.60844266
+  m_Value: -0.000000260834
+  m_Size: 0.6099959
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -22505,6 +22505,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfe4638323fbcd04eab5d17202c64ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultRooms: []
+  roomUI: {fileID: 0}
 --- !u!114 &2050187080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23820,6 +23822,14 @@ PrefabInstance:
     - target: {fileID: 5064516232766746770, guid: 63820d9d2c722104fb6290392c6c2f9d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064516232766746771, guid: 63820d9d2c722104fb6290392c6c2f9d, type: 3}
+      propertyPath: path1
+      value: Images/Germ_cells_red/
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064516232766746771, guid: 63820d9d2c722104fb6290392c6c2f9d, type: 3}
+      propertyPath: imageStop
+      value: 46
       objectReference: {fileID: 0}
     - target: {fileID: 5064516232766746772, guid: 63820d9d2c722104fb6290392c6c2f9d, type: 3}
       propertyPath: m_Name
