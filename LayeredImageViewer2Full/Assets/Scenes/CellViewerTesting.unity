@@ -5767,7 +5767,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 145177008}
         m_TargetAssemblyTypeName: ShaderChannelLoader, Assembly-CSharp
         m_MethodName: changeAlpha
         m_Mode: 0
@@ -8437,7 +8437,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 145177008}
         m_TargetAssemblyTypeName: ShaderChannelLoader, Assembly-CSharp
         m_MethodName: changeCutoff
         m_Mode: 0
@@ -9729,7 +9729,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 145177008}
         m_TargetAssemblyTypeName: ShaderChannelLoader, Assembly-CSharp
         m_MethodName: scaleHeight
         m_Mode: 0
