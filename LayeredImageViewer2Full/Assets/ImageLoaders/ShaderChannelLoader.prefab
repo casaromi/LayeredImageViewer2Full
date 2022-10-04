@@ -53,5 +53,3 @@ MonoBehaviour:
   redMultiplier: 0
   greenMultiplier: 0
   blueMultiplier: 1
-  edgeDetection: 0
-  defaultMat: {fileID: 2100000, guid: 8cb39d39407a9364baeed277d22cdf2b, type: 2}
