@@ -114,49 +114,10 @@ public class ImgLoaderTest : MonoBehaviour
 
 
 	//Main Method to Create Model 
-	void Start(int numImgs, string baseURL)
+	void Start()
 	{
 		//Call Web Loader 
 		StartCoroutine(GetConfigImgData(jsonURL));
-
-
-		//Define Stop Image
-		imageStop = numImgs;
-
-
-		//Initialize plane and spacing 
-		thePlanes = new GameObject[imageStop - imageStart + 1];
-		spacing = linspace(0, 1, imageStop - imageStart + 1);
-
-		//Cycle though images
-		for (int i = imageStart; i <= imageStop; i++)
-		{
-			GameObject plane = Instantiate(imagePlanePRE);
-
-			//Load in Images
-			Texture2D myTexture1 = Resources.Load<Texture2D>(baseURL + string.Format("{0:D5}", i)) as Texture2D;
-			
-
-			Color[] pixelArray1 = myTexture1.GetPixels();
-			plane.GetComponent<RenderImagePlane>().setRawPixels(pixelArray1);
-
-			plane.transform.parent = transform;
-			
-			Material mat = new Material(defaultMat.shader);
-			mat.mainTexture = myTexture1;
-			
-			plane.transform.localPosition = new Vector3(0.0f, spacing[i - imageStart], 0.0f);
-			plane.GetComponent<MeshRenderer>().material = mat;
-			plane.GetComponent<RenderImagePlane>().setTexture(myTexture1);
-			
-			thePlanes[i - imageStart] = plane;
-			thePlanes[i - imageStart].GetComponent<Renderer>().material.SetFloat("_AlphaMult", alphaMultiplier);
-			thePlanes[i - imageStart].GetComponent<Renderer>().material.SetFloat("_Cutoff", cutoff);
-
-		}
-		//Change Height
-		scaleHeight(sliceHeight);
-
 	}
 
 
@@ -202,7 +163,7 @@ public class ImgLoaderTest : MonoBehaviour
 				index = i;
 
 				// Load image
-				StartCoroutine(GetImage(currentURL, index));
+				StartCoroutine(GetImage(currentURL, baseURL, index, numImgs));
 
 				// Clean up any resources it is using.
 				request.Dispose();
@@ -214,7 +175,7 @@ public class ImgLoaderTest : MonoBehaviour
 
 
 	//Method for SETTING Images
-	IEnumerator GetImage(string url, int index)
+	IEnumerator GetImage(string url, string baseURL, int index, int numImgs)
 	{
 		UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
 
@@ -228,6 +189,42 @@ public class ImgLoaderTest : MonoBehaviour
 		{
 			//success...
 			Debug.Log("Success!");
+
+			//Define Stop Image
+			imageStop = numImgs;
+
+
+			//Initialize plane and spacing 
+			thePlanes = new GameObject[imageStop - imageStart + 1];
+			spacing = linspace(0, 1, imageStop - imageStart + 1);
+
+			
+
+			//Cycle though images
+			GameObject plane = Instantiate(imagePlanePRE);
+
+			//Load in Images
+			Texture2D myTexture1 = Resources.Load<Texture2D>(baseURL + string.Format("{0:D5}", index)) as Texture2D;
+
+
+			Color[] pixelArray1 = myTexture1.GetPixels();
+			plane.GetComponent<RenderImagePlane>().setRawPixels(pixelArray1);
+
+			plane.transform.parent = transform;
+
+			Material mat = new Material(defaultMat.shader);
+			mat.mainTexture = myTexture1;
+
+			plane.transform.localPosition = new Vector3(0.0f, spacing[index - imageStart], 0.0f);
+			plane.GetComponent<MeshRenderer>().material = mat;
+			plane.GetComponent<RenderImagePlane>().setTexture(myTexture1);
+
+			thePlanes[index - imageStart] = plane;
+			thePlanes[index - imageStart].GetComponent<Renderer>().material.SetFloat("_AlphaMult", alphaMultiplier);
+			thePlanes[index - imageStart].GetComponent<Renderer>().material.SetFloat("_Cutoff", cutoff);
+
+			//Change Height
+			scaleHeight(sliceHeight);
 		}
 		// Clean up any resources it is using.
 		request.Dispose();
