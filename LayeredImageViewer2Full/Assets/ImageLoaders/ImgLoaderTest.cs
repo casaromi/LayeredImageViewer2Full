@@ -204,8 +204,8 @@ public class ImgLoaderTest : MonoBehaviour
 			GameObject plane = Instantiate(imagePlanePRE);
 
 			//Load in Images
-			Texture2D myTexture1 = Resources.Load<Texture2D>(baseURL + string.Format("{0:D5}", index)) as Texture2D;
-
+			//Texture2D myTexture1 = Resources.Load<Texture2D>(baseURL + string.Format("{0:D5}", index)) as Texture2D;
+			Texture2D myTexture1 = ((DownloadHandlerTexture)request.downloadHandler).texture;
 
 			Color[] pixelArray1 = myTexture1.GetPixels();
 			plane.GetComponent<RenderImagePlane>().setRawPixels(pixelArray1);
