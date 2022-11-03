@@ -2,16 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
+
+// Json data format
+/*
+      {
+        "baseURL" : "..." ,
+        "numImgs" : "..."
+      }
+*/
 
 
+//Intialize JSON Data Feilds
+public struct ConfigImgData
+{
+	public string baseURL;
+	public int numImgs;
+}
 
 
+//Main Class
 public class ImgLoaderTest : MonoBehaviour
 {
 	//Image Paths
+
+	//Intialize Loop Indexing
+	public int index;
+
+	//Get JSON File
+	string jsonURL = "https://drive.google.com/uc?export=download&id=10g7MWCq2en2bufGgMC7mY0pvZt2diM0z";
+
+	//Image Start and Stop
 	public int imageStart = 1;
-	public int imageStop = 47;
-	public string path1 = "Images/Pole_cells_red/";
+	public int imageStop;
 
 
 	//Shaderes and Such
@@ -90,8 +113,17 @@ public class ImgLoaderTest : MonoBehaviour
 
 
 
-	void Start()
+	//Main Method to Create Model 
+	void Start(int numImgs, string baseURL)
 	{
+		//Call Web Loader 
+		StartCoroutine(GetConfigImgData(jsonURL));
+
+
+		//Define Stop Image
+		imageStop = numImgs;
+
+
 		//Initialize plane and spacing 
 		thePlanes = new GameObject[imageStop - imageStart + 1];
 		spacing = linspace(0, 1, imageStop - imageStart + 1);
@@ -102,7 +134,7 @@ public class ImgLoaderTest : MonoBehaviour
 			GameObject plane = Instantiate(imagePlanePRE);
 
 			//Load in Images
-			Texture2D myTexture1 = Resources.Load<Texture2D>(path1 + string.Format("{0:D5}", i)) as Texture2D;
+			Texture2D myTexture1 = Resources.Load<Texture2D>(baseURL + string.Format("{0:D5}", i)) as Texture2D;
 			
 
 			Color[] pixelArray1 = myTexture1.GetPixels();
@@ -128,5 +160,77 @@ public class ImgLoaderTest : MonoBehaviour
 	}
 
 
+
+
+
+	//Method for CALLING Images
+	IEnumerator GetConfigImgData(string url)
+	{
+		//Data Request
+		UnityWebRequest request = UnityWebRequest.Get(url);
+		yield return request.SendWebRequest();
+
+		//Check Connection
+		if (request.isNetworkError || request.isHttpError)
+		{
+			//error...
+		}
+		else
+		{
+			//success...
+
+			//Pull JSON Data
+			ConfigImgData data = JsonUtility.FromJson<ConfigImgData>(request.downloadHandler.text);
+
+			//Set Base URL
+			string baseURL = data.baseURL;
+			int numImgs = data.numImgs;
+
+			//jpeg file extention
+			string jpgExt = ".jpg";
+			string currentURL;
+
+
+			//Cycle through Images
+			for (int i = 1; i <= numImgs; i++)
+			{
+				//Set Current URL and print for debug
+				currentURL = baseURL + i + jpgExt;
+				Debug.Log(currentURL);
+
+				//Set Current Index
+				index = i;
+
+				// Load image
+				StartCoroutine(GetImage(currentURL, index));
+
+				// Clean up any resources it is using.
+				request.Dispose();
+			}
+		}
+
+	}
+
+
+
+	//Method for SETTING Images
+	IEnumerator GetImage(string url, int index)
+	{
+		UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
+
+		yield return request.SendWebRequest();
+
+		if (request.isNetworkError || request.isHttpError)
+		{
+			//error...
+		}
+		else
+		{
+			//success...
+			Debug.Log("Success!");
+		}
+		// Clean up any resources it is using.
+		request.Dispose();
+	}
 
 }
