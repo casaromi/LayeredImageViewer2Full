@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
+
 public class ImgLoaderTest : MonoBehaviour
 {
+	//Image Paths
 	public int imageStart = 1;
 	public int imageStop = 47;
-	public GameObject imagePlanePRE;
 	public string path1 = "Images/Pole_cells_red/";
+
+
+	//Shaderes and Such
+	public GameObject imagePlanePRE;
 	public float cutoff = 0.3f;
 	public float alphaMultiplier = 1.0f;
 	public float sliceHeight = 0.02f;
@@ -17,11 +24,11 @@ public class ImgLoaderTest : MonoBehaviour
 	public float blueMultiplier = 1.0f;
 	float[] spacing;
 	GameObject[] thePlanes;
-	// Start is called before the first frame update
 	public bool edgeDetection = false;
 	public Material defaultMat;
 
 
+	//Height
 	float[] linspace(float min, float max, int n)
 	{
 		float[] return_value = new float[n];
@@ -35,6 +42,8 @@ public class ImgLoaderTest : MonoBehaviour
 		return return_value;
 	}
 
+
+
 	//Change the Alpha/ Transparency
 	public void changeAlpha(float alphaMultiplier)
 	{
@@ -45,6 +54,8 @@ public class ImgLoaderTest : MonoBehaviour
 			plane.GetComponent<Renderer>().material.SetFloat("_AlphaMult", alphaMultiplier);
 		}
 	}
+
+
 
 	//Change the Cutoff
 	public void changeCutoff(float cutoff)
@@ -57,12 +68,17 @@ public class ImgLoaderTest : MonoBehaviour
 		}
 	}
 
+
+
 	//Chage the spacing between images 
 	public void scaleHeight(float scale)
 	{
 		transform.localScale = new Vector3(1, scale / (spacing[1] - spacing[0]), 1);
 	}
 
+
+
+	//Chage the Height of the model 
 	/*
 	//Move the model up or down
 	public void changePosition(float modelPosition)
@@ -73,39 +89,44 @@ public class ImgLoaderTest : MonoBehaviour
 
 
 
+
 	void Start()
 	{
+		//Initialize plane and spacing 
 		thePlanes = new GameObject[imageStop - imageStart + 1];
 		spacing = linspace(0, 1, imageStop - imageStart + 1);
 
+		//Cycle though images
 		for (int i = imageStart; i <= imageStop; i++)
 		{
 			GameObject plane = Instantiate(imagePlanePRE);
+
+			//Load in Images
 			Texture2D myTexture1 = Resources.Load<Texture2D>(path1 + string.Format("{0:D5}", i)) as Texture2D;
+			
+
 			Color[] pixelArray1 = myTexture1.GetPixels();
 			plane.GetComponent<RenderImagePlane>().setRawPixels(pixelArray1);
 
 			plane.transform.parent = transform;
+			
 			Material mat = new Material(defaultMat.shader);
 			mat.mainTexture = myTexture1;
-			plane.transform.localPosition =
-					new Vector3(0.0f, spacing[i - imageStart], 0.0f);
+			
+			plane.transform.localPosition = new Vector3(0.0f, spacing[i - imageStart], 0.0f);
 			plane.GetComponent<MeshRenderer>().material = mat;
 			plane.GetComponent<RenderImagePlane>().setTexture(myTexture1);
+			
 			thePlanes[i - imageStart] = plane;
 			thePlanes[i - imageStart].GetComponent<Renderer>().material.SetFloat("_AlphaMult", alphaMultiplier);
 			thePlanes[i - imageStart].GetComponent<Renderer>().material.SetFloat("_Cutoff", cutoff);
 
-
-
 		}
+		//Change Height
 		scaleHeight(sliceHeight);
 
 	}
 
-	// Update is called once per frame
-	void Update()
-	{
 
-	}
+
 }
