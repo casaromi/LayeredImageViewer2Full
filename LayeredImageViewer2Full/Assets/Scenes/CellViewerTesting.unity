@@ -11574,7 +11574,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1026777172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18639,8 +18639,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
-  imageStart: 1
-  imageStop: 47
   imagePlanePRE: {fileID: 5549537630739903702, guid: 54792ddf848e69144b629c6389d3e1cf, type: 3}
   cutoff: 0.3
   alphaMultiplier: 1

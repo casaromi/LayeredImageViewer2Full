@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 // Json data format
 /*
@@ -29,12 +30,10 @@ public class ImgLoaderTest : MonoBehaviour
 	//Intialize Loop Indexing
 	public int index;
 
-	//Get JSON File
-	string jsonURL = "https://drive.google.com/uc?export=download&id=10g7MWCq2en2bufGgMC7mY0pvZt2diM0z";
 
 	//Image Start and Stop
-	public int imageStart = 1;
-	public int imageStop;
+	int imageStart = 1;
+	int imageStop;
 
 
 	//Shaderes and Such
@@ -116,7 +115,23 @@ public class ImgLoaderTest : MonoBehaviour
 	//Main Method to Create Model 
 	void Start()
 	{
-		//Call Web Loader 
+		//JSON URL Test
+		string jsonURL = "https://raw.githubusercontent.com/casaromi/LayeredImageViewerCellImages/main/ConfigFiles/Model3.json";
+
+
+		//JSON Base File
+		//string jsonURL = "https://raw.githubusercontent.com/casaromi/LayeredImageViewerCellImages/main/ConfigFiles/Model";
+
+		//Add .json to file link
+		string jn = ".json";
+
+
+		//Create Full JSON Link
+		int roomID = SceneManager.GetActiveScene().buildIndex;
+		string currentJSON = jsonURL + roomID + jn;
+
+
+		//Call Web Loader - FROM JSON 
 		StartCoroutine(GetConfigImgData(jsonURL));
 	}
 
