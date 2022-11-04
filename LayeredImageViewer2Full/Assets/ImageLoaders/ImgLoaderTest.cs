@@ -115,24 +115,24 @@ public class ImgLoaderTest : MonoBehaviour
 	//Main Method to Create Model 
 	void Start()
 	{
-		//JSON URL Test
-		string jsonURL = "https://raw.githubusercontent.com/casaromi/LayeredImageViewerCellImages/main/ConfigFiles/Model3.json";
-
-
 		//JSON Base File
-		//string jsonURL = "https://raw.githubusercontent.com/casaromi/LayeredImageViewerCellImages/main/ConfigFiles/Model";
-
+		string jsonURL = "https://raw.githubusercontent.com/casaromi/LayeredImageViewerCellImages/main/ConfigFiles/Model";
+		
 		//Add .json to file link
 		string jn = ".json";
 
+		//Get Room ID
+		int roomID = SceneManager.GetActiveScene().buildIndex;
+
 
 		//Create Full JSON Link
-		int roomID = SceneManager.GetActiveScene().buildIndex;
 		string currentJSON = jsonURL + roomID + jn;
+
+		Debug.Log(currentJSON);
 
 
 		//Call Web Loader - FROM JSON 
-		StartCoroutine(GetConfigImgData(jsonURL));
+		StartCoroutine(GetConfigImgData(currentJSON));
 	}
 
 
@@ -150,6 +150,7 @@ public class ImgLoaderTest : MonoBehaviour
 		if (request.isNetworkError || request.isHttpError)
 		{
 			//error...
+			Debug.Log("Connection Failed");
 		}
 		else
 		{
@@ -199,6 +200,7 @@ public class ImgLoaderTest : MonoBehaviour
 		if (request.isNetworkError || request.isHttpError)
 		{
 			//error...
+			Debug.Log("Download Failed");
 		}
 		else
 		{
