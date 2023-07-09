@@ -1,103 +1,96 @@
 using UnityEngine;
-using System.Collections;
 
 public class CombinedMouseLookAndCameraMove : MonoBehaviour
 {
-    //WASD: Basic movement
-    //Shift: Makes camera accelerate
-    //P: Moves camera up and down; camera gains height
+    float mainSpeed = 5.0f; // regular speed
+    float shiftAdd = 10.0f; // multiplied by how long shift is held. Basically running
+    float maxShift = 15.0f; // Maximum speed when holding shift
+    float camSens = 0.2f; // How sensitive it is with the mouse
 
+    private Vector3 lastMouse; // previous mouse position
+    private float totalRun = 1.0f;
 
-	float mainSpeed = 5.0f; //regular speed
-	float shiftAdd = 10.0f; //multiplied by how long shift is held.  Basically running
-	float maxShift = 15.0f; //Maximum speed when holdin gshift
-	float camSens = 0.2f; //How sensitive it with mouse
+    private void Start()
+    {
+        lastMouse = Input.mousePosition;
+    }
 
+    private void Update()
+    {
+        // Mouse camera angle
+        Vector3 mouseDelta = Input.mousePosition - lastMouse;
+        lastMouse = Input.mousePosition;
 
-	//kind of in the middle of the screen, rather than at the top (play)
-	private Vector3 lastMouse = new Vector3(255, 255, 255); 
-	private float totalRun = 1.0f;
+        Vector3 rotation = transform.rotation.eulerAngles;
+        rotation.x -= mouseDelta.y * camSens;
+        rotation.y += mouseDelta.x * camSens;
+        rotation.z = 0;
+        transform.rotation = Quaternion.Euler(rotation);
 
-	void Update()
-	{
-		//Mouse camera angle 
-		lastMouse = Input.mousePosition - lastMouse;
-		lastMouse = new Vector3(-lastMouse.y * camSens, lastMouse.x * camSens, 0);
-		lastMouse = new Vector3(transform.eulerAngles.x + lastMouse.x, transform.eulerAngles.y + lastMouse.y, 0);
-		transform.eulerAngles = lastMouse;
-		lastMouse = Input.mousePosition;
-		  
+        // Keyboard commands
+        Vector3 movement = GetBaseInput();
 
-		//Keyboard commands
-		//float f = 0.0f;
-		Vector3 p = GetBaseInput();
+        // Only move while a direction key is pressed
+        if (movement.sqrMagnitude > 0)
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                totalRun += Time.deltaTime;
+                movement *= totalRun * shiftAdd;
+                movement.x = Mathf.Clamp(movement.x, -maxShift, maxShift);
+                movement.y = Mathf.Clamp(movement.y, -maxShift, maxShift);
+                movement.z = Mathf.Clamp(movement.z, -maxShift, maxShift);
+            }
+            else
+            {
+                totalRun = Mathf.Clamp(totalRun * 1f, 2f, 1000f);
+                movement *= mainSpeed;
+            }
 
-		//Only move while a direction key is pressed
-		if (p.sqrMagnitude > 0)
-		{ 
-			if (Input.GetKey(KeyCode.LeftShift))
-			{
-				totalRun += Time.deltaTime;
-				p = p * totalRun * shiftAdd;
-				p.x = Mathf.Clamp(p.x, -maxShift, maxShift);
-				p.y = Mathf.Clamp(p.y, -maxShift, maxShift);
-				p.z = Mathf.Clamp(p.z, -maxShift, maxShift);
-			}
+            movement *= Time.deltaTime;
+            Vector3 newPosition = transform.position;
 
-			else
-			{
-				totalRun = Mathf.Clamp(totalRun * 1f, 2f, 1000f);
-				p = p * mainSpeed;
-			}
+            // If player wants to move up and down
+            if (!Input.GetKey(KeyCode.P))
+            {
+                transform.Translate(movement);
+                newPosition.x = transform.position.x;
+                newPosition.z = transform.position.z;
+                transform.position = newPosition;
+            }
+            else
+            {
+                transform.Translate(movement);
+            }
+        }
+    }
 
-			p = p * Time.deltaTime;
-			Vector3 newPosition = transform.position;
+    // Returns the basic movement values
+    private Vector3 GetBaseInput()
+    {
+        Vector3 velocity = new Vector3();
 
+        if (Input.GetKey(KeyCode.W))
+        {
+            velocity += new Vector3(0, 0, 1);
+        }
 
-			//If player wants to move up and down
-			if (!Input.GetKey(KeyCode.P))
-			{ 
-				transform.Translate(p);
-				newPosition.x = transform.position.x;
-				newPosition.z = transform.position.z;
-				transform.position = newPosition;
-			}
+        if (Input.GetKey(KeyCode.S))
+        {
+            velocity += new Vector3(0, 0, -1);
+        }
 
-			else
-			{
-				transform.Translate(p);
-			}
+        if (Input.GetKey(KeyCode.A))
+        {
+            velocity += new Vector3(-1, 0, 0);
+        }
 
-		}
-	}
+        if (Input.GetKey(KeyCode.D))
+        {
+            velocity += new Vector3(1, 0, 0);
+        }
 
-
-	//returns the basic values, if it's 0 than it's not active.
-	private Vector3 GetBaseInput()
-	{ 
-		Vector3 p_Velocity = new Vector3();
-
-		if (Input.GetKey(KeyCode.W))
-		{
-			p_Velocity += new Vector3(0, 0, 1);
-		}
-
-		if (Input.GetKey(KeyCode.S))
-		{
-			p_Velocity += new Vector3(0, 0, -1);
-		}
-
-		if (Input.GetKey(KeyCode.A))
-		{
-			p_Velocity += new Vector3(-1, 0, 0);
-		}
-
-		if (Input.GetKey(KeyCode.D))
-		{
-			p_Velocity += new Vector3(1, 0, 0);
-		}
-
-		return p_Velocity;
-	}
-
+        return velocity;
+    }
 }
+
