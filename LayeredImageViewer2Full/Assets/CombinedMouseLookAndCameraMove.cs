@@ -1,3 +1,4 @@
+/*
 using UnityEngine;
 
 public class CombinedMouseLookAndCameraMove : MonoBehaviour
@@ -91,6 +92,114 @@ public class CombinedMouseLookAndCameraMove : MonoBehaviour
         }
 
         return velocity;
+    }
+}
+
+*/
+
+
+
+using UnityEngine;
+
+public class CombinedMouseLookAndCameraMove : MonoBehaviour
+{
+    float mainSpeed = 5.0f; // regular speed
+    float shiftAdd = 8.0f; // multiplied by how long shift is held. Basically running
+    float maxShift = 10.0f; // Maximum speed when holding shift
+    float camSens = 0.2f; // How sensitive it is with the mouse
+
+    private Vector3 lastMouse; // previous mouse position
+    private float totalRun = 1.0f;
+
+    private CharacterController characterController;
+
+    private void Start()
+    {
+        lastMouse = Input.mousePosition;
+        characterController = GetComponent<CharacterController>();
+    }
+
+    private void Update()
+    {
+        // Mouse camera angle
+        Vector3 mouseDelta = Input.mousePosition - lastMouse;
+        lastMouse = Input.mousePosition;
+
+        Vector3 rotation = transform.rotation.eulerAngles;
+        rotation.x -= mouseDelta.y * camSens;
+        rotation.y += mouseDelta.x * camSens;
+        rotation.x = Mathf.Clamp(rotation.x, -90f, 90f);
+        rotation.z = 0;
+        transform.rotation = Quaternion.Euler(rotation);
+
+        // Keyboard commands
+        Vector3 movement = GetBaseInput();
+
+        // Only move while a direction key is pressed
+        if (movement.sqrMagnitude > 0)
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                totalRun += Time.deltaTime;
+                movement *= totalRun * shiftAdd;
+                movement.x = Mathf.Clamp(movement.x, -maxShift, maxShift);
+                movement.z = Mathf.Clamp(movement.z, -maxShift, maxShift);
+            }
+            else
+            {
+                totalRun = Mathf.Clamp(totalRun * 1f, 2f, 1000f);
+                movement *= mainSpeed;
+            }
+
+            movement *= Time.deltaTime;
+
+            // Set the y component of the movement vector to 0
+            movement.y = 0f;
+
+            // Get the player's forward direction without considering the y-axis
+            Vector3 forwardDirection = transform.forward;
+            forwardDirection.y = 0f;
+            forwardDirection.Normalize();
+
+            // Get the player's right direction without considering the y-axis
+            Vector3 rightDirection = transform.right;
+            rightDirection.y = 0f;
+            rightDirection.Normalize();
+
+            // Calculate the movement vector in the x-z plane
+            Vector3 movementXZ = (forwardDirection * movement.z) + (rightDirection * movement.x);
+
+            // Move the character using the Character Controller component
+            characterController.Move(movementXZ);
+        }
+    }
+
+    // Returns the basic movement values
+    private Vector3 GetBaseInput()
+    {
+        Vector3 velocity = Vector3.zero;
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            velocity += new Vector3(0, 0, 1);
+        }
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            velocity += new Vector3(0, 0, -1);
+        }
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            velocity += new Vector3(-1, 0, 0);
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            velocity += new Vector3(1, 0, 0);
+        }
+
+        return velocity.normalized;
     }
 }
 
