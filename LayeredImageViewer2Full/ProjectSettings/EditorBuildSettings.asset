@@ -5,22 +5,22 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Lobby.unity
     guid: c7ab51222131d2844944205387845cfb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/CellLab1.unity
     guid: dbea62389d73e2a4aa4d78fc96ccb4b1
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/CellLab2.unity
     guid: f63bb1cd349ec6d479db67481fec67ae
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/CellViewerTesting.unity
     guid: f694f54e3c680a24290c5390781a8277
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/NewLobby.unity
     guid: 68cc4ed30a1f0a343b28313f2e32f00e
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/NewLab.unity
     guid: 2e8ea5e6c5c0ed74cae786e59776de5a
   m_configObjects:
