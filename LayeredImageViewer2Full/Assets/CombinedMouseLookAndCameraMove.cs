@@ -1,4 +1,4 @@
-/*
+
 using UnityEngine;
 
 public class CombinedMouseLookAndCameraMove : MonoBehaviour
@@ -95,10 +95,10 @@ public class CombinedMouseLookAndCameraMove : MonoBehaviour
     }
 }
 
-*/
 
 
 
+/*
 using UnityEngine;
 
 public class CombinedMouseLookAndCameraMove : MonoBehaviour
@@ -203,3 +203,4 @@ public class CombinedMouseLookAndCameraMove : MonoBehaviour
     }
 }
 
+*/
