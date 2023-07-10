@@ -19,7 +19,7 @@ EditorBuildSettings:
     guid: f694f54e3c680a24290c5390781a8277
   - enabled: 1
     path: Assets/Scenes/NewLobby.unity
-    guid: 68cc4ed30a1f0a343b28313f2e32f00e
+    guid: 52b43d3359002264e84d7bb1accc0696
   - enabled: 1
     path: Assets/Scenes/NewLab.unity
     guid: 2e8ea5e6c5c0ed74cae786e59776de5a
