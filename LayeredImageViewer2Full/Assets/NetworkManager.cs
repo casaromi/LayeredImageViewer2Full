@@ -217,6 +217,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private IEnumerator LoadRoomAsync(DefaultRoom roomSettings)
     {
         loadingScreen.SetActive(true); // Show the loading screen
+        loadingBar.value = 0f; // Set the initial value of the loading bar to 0
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(roomSettings.sceneIndex); // Load the room scene asynchronously
         asyncLoad.allowSceneActivation = false; // Prevent the scene from activating immediately
@@ -251,6 +252,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             yield return null;
         }
     }
+
+
 
     public override void OnJoinedRoom()
     {
