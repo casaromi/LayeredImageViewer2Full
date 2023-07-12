@@ -1,4 +1,4 @@
-/*
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -70,7 +70,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         base.OnPlayerEnteredRoom(newPlayer);
     }
 }
-*/
+
 
 /*
 using System.Collections;
@@ -161,7 +161,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 }
 */
 
-
+/*
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -267,3 +267,4 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         base.OnPlayerEnteredRoom(newPlayer);
     }
 }
+*/
