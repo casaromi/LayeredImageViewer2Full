@@ -23677,6 +23677,7 @@ GameObject:
   - component: {fileID: 1634934869}
   - component: {fileID: 1634934871}
   - component: {fileID: 1634934870}
+  - component: {fileID: 1634934872}
   m_Layer: 0
   m_Name: Glass.007 (1)
   m_TagString: Untagged
@@ -23747,6 +23748,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1634934868}
   m_Mesh: {fileID: 1609267803837934268, guid: cd0bf29c9c9af6f4098b74076d25f0cd, type: 3}
+--- !u!65 &1634934872
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1634934868}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.053187598, y: 1.0173156, z: 1.7533895}
+  m_Center: {x: 0.0000019073486, y: 0.0000004172325, z: -0.0000010728836}
 --- !u!1 &1642629857
 GameObject:
   m_ObjectHideFlags: 0
