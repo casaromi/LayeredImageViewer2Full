@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+using System.Collections;
 using UnityEngine.UI;
 
 public class Auth : MonoBehaviour
@@ -10,6 +10,8 @@ public class Auth : MonoBehaviour
 
     public Text resultText;
 
+    // The URL of your PHP file on the server
+    private string phpURL = "https://davidjoiner.net/~confocal/uAuth.php";
 
     public void CallAuth()
     {
@@ -18,30 +20,32 @@ public class Auth : MonoBehaviour
 
     IEnumerator Register()
     {
+        // Create a WWWForm to send data to the PHP script
         WWWForm form = new WWWForm();
+
+        // Add any parameters you need to send to the PHP script
         form.AddField("AuthCode", AuthCodeInput.text);
 
-        //WWW www = new WWW("https://davidjoiner.net/home/confocal/public_html/Auth.php");
-       
-        WWW www = new WWW("https://davidjoiner.net/~confocal/uAuth.php");
-    
-        yield return www;
+        // Create a UnityWebRequest instance
+        UnityWebRequest request = UnityWebRequest.Post(phpURL, form);
 
-        if (www.text == "0")
+        // Send the web request
+        yield return request.SendWebRequest();
+
+        // Check for errors
+        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
         {
-            Debug.Log("Welcome");
-
+            Debug.LogError("Web request error: " + request.error);
         }
         else
         {
-            Debug.Log("Error!" + www.text);
+            // Get the response from the PHP script
+            string response = request.downloadHandler.text;
+
+            // Update the result text with the response
+            resultText.text = response;
+
+            // You can further process the response here as needed
         }
     }
-
-    public void VerifyInputs()
-    {
-        submitButton.interactable = (AuthCodeInput.text.Length == 6);
-    }
-
-
 }
