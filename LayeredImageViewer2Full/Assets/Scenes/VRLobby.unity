@@ -5123,6 +5123,10 @@ MonoBehaviour:
   AuthCodeInput: {fileID: 1263414867}
   submitButton: {fileID: 993164796}
   resultText: {fileID: 803116352}
+  HeaderFeild: {fileID: 1435451165}
+  AuthFeild: {fileID: 1263414865}
+  sButton: {fileID: 993164795}
+  ResultText: {fileID: 803116350}
 --- !u!1 &666540944
 GameObject:
   m_ObjectHideFlags: 0
@@ -6299,7 +6303,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &803116351
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6316,8 +6320,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -18.9, y: -112.1}
-  m_SizeDelta: {x: 160, y: 105.81}
+  m_AnchoredPosition: {x: 68.42, y: -23.42}
+  m_SizeDelta: {x: 334.65, y: 195.13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &803116352
 MonoBehaviour:

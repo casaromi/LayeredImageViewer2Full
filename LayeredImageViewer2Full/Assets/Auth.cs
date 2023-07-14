@@ -10,6 +10,11 @@ public class Auth : MonoBehaviour
 
     public Text resultText;
 
+    public GameObject HeaderFeild;
+    public GameObject AuthFeild;
+    public GameObject sButton;
+    public GameObject ResultText;
+
     // The URL of your PHP file on the server
     private string phpURL = "https://davidjoiner.net/~confocal/uAuth.php";
 
@@ -39,6 +44,14 @@ public class Auth : MonoBehaviour
         }
         else
         {
+            //Turn off login panel 
+            HeaderFeild.SetActive(false);
+            AuthFeild.SetActive(false);
+            sButton.SetActive(false);
+
+            //Show results
+            ResultText.SetActive(true);
+
             // Get the response from the PHP script
             string response = request.downloadHandler.text;
 
