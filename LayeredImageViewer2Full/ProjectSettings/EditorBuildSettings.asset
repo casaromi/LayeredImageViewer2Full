@@ -17,15 +17,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Old Labs/CellViewerTesting.unity
     guid: f694f54e3c680a24290c5390781a8277
-  - enabled: 0
-    path: Assets/Scenes/Old Labs/Test-NewLobby.unity
-    guid: 52b43d3359002264e84d7bb1accc0696
   - enabled: 1
-    path: Assets/Scenes/Old Labs/LobbyDecom.unity
-    guid: d97b022a3bd8a3743a3c9461241f7bf9
+    path: Assets/Scenes/PCLobby.unity
+    guid: 46054fe0ae5dd224bba6dffee755ab47
   - enabled: 1
-    path: Assets/Scenes/NewLab.unity
-    guid: 2e8ea5e6c5c0ed74cae786e59776de5a
+    path: Assets/Scenes/WebLab.unity
+    guid: bfea560e2129a0049a746a6e981517b8
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 5cbd7cf1436a8f54891e643b565588ba, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 34a60ed5433f359418988be8398e492f, type: 2}

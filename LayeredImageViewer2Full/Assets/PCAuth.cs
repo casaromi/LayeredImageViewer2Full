@@ -173,7 +173,9 @@ public class PCAuth : MonoBehaviour
     public GameObject ButtonPrefab;
     public Transform ButtonParent;
 
-    private string selectedJsonLink;
+    //private string selectedJsonLink;
+    public static string selectedJsonLink;
+
 
     // The URL of your PHP file on the server
     private string phpURL = "https://davidjoiner.net/~confocal/PCuAuth.php";
@@ -287,4 +289,5 @@ public class PCAuth : MonoBehaviour
         // You can assign the selectedJsonLink to your BuildScript variable here
         // For example: BuildScript.jsonLink = selectedJsonLink;
     }
+
 }

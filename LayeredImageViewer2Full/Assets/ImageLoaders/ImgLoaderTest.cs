@@ -123,7 +123,7 @@ public class ImgLoaderTest : MonoBehaviour
 	void Start()
 	{
 		//Call Web Loader 
-		StartCoroutine(GetConfigImgData(jsonManager.jsonURL));
+		StartCoroutine(GetConfigImgData(PCAuth.selectedJsonLink));
 	}
 
 
