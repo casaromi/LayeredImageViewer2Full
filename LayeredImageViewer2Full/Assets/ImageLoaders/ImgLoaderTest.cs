@@ -26,11 +26,17 @@ public class ImgLoaderTest : MonoBehaviour
 {
 	//Image Paths
 
+	//public GameObject buildFile;
+
 	//Intialize Loop Indexing
 	public int index;
 
 	//Get JSON File
-	string jsonURL = "https://davidjoiner.net/~confocal/UserBuildScripts/1_RedCellsTest";
+	//string jsonURL = "https://davidjoiner.net/~confocal/UserBuildScripts/1_RedCellsTest";
+
+	//string jsonURL = "https://drive.google.com/uc?export=download&id=10g7MWCq2en2bufGgMC7mY0pvZt2diM0z";
+	
+
 
 	//Image Start and Stop
 	public int imageStart = 1;
@@ -117,7 +123,7 @@ public class ImgLoaderTest : MonoBehaviour
 	void Start()
 	{
 		//Call Web Loader 
-		StartCoroutine(GetConfigImgData(jsonURL));
+		StartCoroutine(GetConfigImgData(jsonManager.jsonURL));
 	}
 
 
