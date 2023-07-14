@@ -1944,6 +1944,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 230256832}
   m_CullTransparentMesh: 0
+--- !u!1 &240284877
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 240284878}
+  - component: {fileID: 240284880}
+  - component: {fileID: 240284879}
+  m_Layer: 5
+  m_Name: Invalid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &240284878
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 240284877}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 666319558}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 38.71, y: 71.7}
+  m_SizeDelta: {x: 281.6, y: 23.88}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &240284879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 240284877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Invalid Emal or Password, Please Try Again
+--- !u!222 &240284880
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 240284877}
+  m_CullTransparentMesh: 1
 --- !u!1 &244675335
 GameObject:
   m_ObjectHideFlags: 0
@@ -5259,6 +5338,7 @@ RectTransform:
   - {fileID: 828139650}
   - {fileID: 993164799}
   - {fileID: 803116351}
+  - {fileID: 240284878}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -5283,11 +5363,16 @@ MonoBehaviour:
   Password: {fileID: 828139651}
   submitButton: {fileID: 993164796}
   resultText: {fileID: 803116352}
+  fName: 
+  modelNames: []
+  jsonLinks: []
+  creationDateTimes: []
   HeaderFeild: {fileID: 1435451165}
   EmailFeild: {fileID: 1263414865}
   PasswordFeild: {fileID: 828139649}
   sButton: {fileID: 993164795}
   ResultText: {fileID: 803116350}
+  Invalid: {fileID: 240284877}
 --- !u!1 &666540944
 GameObject:
   m_ObjectHideFlags: 0
@@ -10215,7 +10300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a3f3cc1e9abd7448a938fffe2c36c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuildScript: https://drive.google.com/uc?export=download&id=10g7MWCq2en2bufGgMC7mY0pvZt2diM0z
 --- !u!1001 &1191392223
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -24,6 +24,7 @@ public class PCAuth : MonoBehaviour
     public GameObject PasswordFeild;
     public GameObject sButton;
     public GameObject ResultText;
+    public GameObject Invalid;
 
     // The URL of your PHP file on the server
     private string phpURL = "https://davidjoiner.net/~confocal/PCuAuth.php";
@@ -55,15 +56,6 @@ public class PCAuth : MonoBehaviour
         }
         else
         {
-            //Turn off login panel 
-            HeaderFeild.SetActive(false);
-            EmailFeild.SetActive(false);
-            PasswordFeild.SetActive(false);
-            sButton.SetActive(false);
-
-            //Show results
-            ResultText.SetActive(true);
-
             // Get the response from the PHP script
             string response = request.downloadHandler.text;
 
@@ -101,20 +93,48 @@ public class PCAuth : MonoBehaviour
                 }
             }
 
-            // You can access the stored values as arrays
-            foreach (string modelName in modelNames)
+
+            // Check if the email and password are valid
+            if (fName != null && fName != "")
             {
-                Debug.Log("ModelName: " + modelName);
+                //Turn off login panel 
+                HeaderFeild.SetActive(false);
+                EmailFeild.SetActive(false);
+                PasswordFeild.SetActive(false);
+                sButton.SetActive(false);
+                Invalid.SetActive(false);
+                //Show results
+                ResultText.SetActive(true);
+                ResultText.SetActive(true);
+
+                // You can access the stored values as arrays
+                foreach (string modelName in modelNames)
+                {
+                    Debug.Log("ModelName: " + modelName);
+                }
+
+                foreach (string jsonLink in jsonLinks)
+                {
+                    Debug.Log("JsonLink: " + jsonLink);
+                }
+                foreach (string creationDateTime in creationDateTimes)
+                {
+                    Debug.Log("CreationDateTime: " + creationDateTime);
+                }
+
+                // You can further process the response here as needed
             }
 
-            foreach (string jsonLink in jsonLinks)
+            else
             {
-                Debug.Log("JsonLink: " + jsonLink);
+                // Invalid email or password
+                Debug.Log("Invalid email or password");
+
+                Invalid.SetActive(true);
             }
-            foreach (string creationDateTime in creationDateTimes)
-            {
-                Debug.Log("CreationDateTime: " + creationDateTime);
-            }
+
+
+            
 
         }
     }
