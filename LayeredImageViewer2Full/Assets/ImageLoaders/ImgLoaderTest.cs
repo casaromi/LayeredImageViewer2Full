@@ -124,6 +124,8 @@ public class ImgLoaderTest : MonoBehaviour
 	{
 		//Call Web Loader 
 		StartCoroutine(GetConfigImgData(PCAuth.selectedJsonLink));
+
+		Debug.Log(PCAuth.selectedJsonLink);
 	}
 
 
