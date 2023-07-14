@@ -157,7 +157,6 @@ public class PCAuth : MonoBehaviour
     public Text resultText;
 
     // Variables to store the data from PHP
-    public string ID;
     public string fName;
     public List<string> modelNames;
     public List<string> jsonLinks;
@@ -169,7 +168,7 @@ public class PCAuth : MonoBehaviour
     public GameObject sButton;
     public GameObject ResultText;
     public GameObject Invalid;
-    public GameObject ConnectButton;
+    public GameObject RoomUI;
 
     public GameObject ButtonPrefab;
     public Transform ButtonParent;
@@ -268,6 +267,7 @@ public class PCAuth : MonoBehaviour
                 PasswordFeild.SetActive(false);
                 sButton.SetActive(false);
                 Invalid.SetActive(false);
+                RoomUI.SetActive(false);
 
                 //Show results
                 //ResultText.SetActive(true);
@@ -278,6 +278,7 @@ public class PCAuth : MonoBehaviour
                 Debug.Log("Invalid email or password");
 
                 Invalid.SetActive(true);
+                RoomUI.SetActive(false);
             }
         }
     }
@@ -287,7 +288,7 @@ public class PCAuth : MonoBehaviour
     {
         selectedJsonLink = jsonLinks[index];
         Debug.Log("Selected JsonLink: " + selectedJsonLink);
-        ConnectButton.SetActive(true);
+        RoomUI.SetActive(true);
         // You can assign the selectedJsonLink to your BuildScript variable here
         // For example: BuildScript.jsonLink = selectedJsonLink;
     }

@@ -704,31 +704,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 64609395}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2136772610}
-        m_TargetAssemblyTypeName: NetworkManager, Assembly-CSharp
-        m_MethodName: ConnectToServer
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 64609392}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &64609395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5364,7 +5340,6 @@ MonoBehaviour:
   Password: {fileID: 828139651}
   submitButton: {fileID: 993164796}
   resultText: {fileID: 803116352}
-  ID: 
   fName: 
   modelNames: []
   jsonLinks: []
@@ -5375,7 +5350,7 @@ MonoBehaviour:
   sButton: {fileID: 993164795}
   ResultText: {fileID: 803116350}
   Invalid: {fileID: 240284877}
-  ConnectButton: {fileID: 64609392}
+  RoomUI: {fileID: 1629813672}
   ButtonPrefab: {fileID: 2084534839426273063, guid: a9330ff1ce9ffcd4a818a85a940ec93b, type: 3}
   ButtonParent: {fileID: 879000995}
 --- !u!1 &666540944
@@ -8296,6 +8271,18 @@ MonoBehaviour:
       - m_Target: {fileID: 666319559}
         m_TargetAssemblyTypeName: PCAuth, Assembly-CSharp
         m_MethodName: CallAuth
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2136772610}
+        m_TargetAssemblyTypeName: NetworkManager, Assembly-CSharp
+        m_MethodName: ConnectToServer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

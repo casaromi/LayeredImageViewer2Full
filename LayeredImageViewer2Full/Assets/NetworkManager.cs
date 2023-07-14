@@ -306,7 +306,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         base.OnJoinedLobby();
         Debug.Log("Joined the Lobby");
 
-        roomUI.SetActive(true);
+        //roomUI.SetActive(true);
     }
 
     public void InitiliazeRoom(int defaultRoomIndex)
