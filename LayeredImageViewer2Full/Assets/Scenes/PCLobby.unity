@@ -640,7 +640,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &64609393
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5375,6 +5375,7 @@ MonoBehaviour:
   sButton: {fileID: 993164795}
   ResultText: {fileID: 803116350}
   Invalid: {fileID: 240284877}
+  ConnectButton: {fileID: 64609392}
   ButtonPrefab: {fileID: 2084534839426273063, guid: a9330ff1ce9ffcd4a818a85a940ec93b, type: 3}
   ButtonParent: {fileID: 879000995}
 --- !u!1 &666540944

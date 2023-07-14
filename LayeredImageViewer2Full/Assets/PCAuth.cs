@@ -169,6 +169,7 @@ public class PCAuth : MonoBehaviour
     public GameObject sButton;
     public GameObject ResultText;
     public GameObject Invalid;
+    public GameObject ConnectButton;
 
     public GameObject ButtonPrefab;
     public Transform ButtonParent;
@@ -286,6 +287,7 @@ public class PCAuth : MonoBehaviour
     {
         selectedJsonLink = jsonLinks[index];
         Debug.Log("Selected JsonLink: " + selectedJsonLink);
+        ConnectButton.SetActive(true);
         // You can assign the selectedJsonLink to your BuildScript variable here
         // For example: BuildScript.jsonLink = selectedJsonLink;
     }
