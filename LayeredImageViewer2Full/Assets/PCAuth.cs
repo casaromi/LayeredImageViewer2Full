@@ -170,6 +170,9 @@ public class PCAuth : MonoBehaviour
     public GameObject Invalid;
     public GameObject RoomUI;
 
+    public GameObject instruct;
+    public GameObject JoinRoom;
+
     public GameObject ButtonPrefab;
     public Transform ButtonParent;
 
@@ -268,6 +271,9 @@ public class PCAuth : MonoBehaviour
                 sButton.SetActive(false);
                 Invalid.SetActive(false);
                 RoomUI.SetActive(false);
+
+                instruct.SetActive(false);
+                JoinRoom.SetActive(true);
 
                 //Show results
                 //ResultText.SetActive(true);
