@@ -110,6 +110,7 @@ public class CombinedMouseLookAndCameraMove : MonoBehaviour
 
 
 /*
+
 using UnityEngine;
 
 public class CombinedMouseLookAndCameraMove : MonoBehaviour
@@ -169,7 +170,7 @@ public class CombinedMouseLookAndCameraMove : MonoBehaviour
                 Vector3 targetPosition = transform.position + movement;
 
                 // Perform a collision check before moving
-                if (!IsColliding(targetPosition, out Vector3 adjustedMovement))
+                if (!IsColliding(targetPosition, movement, out Vector3 adjustedMovement))
                 {
                     transform.Translate(adjustedMovement);
                     newPosition.x = transform.position.x;
@@ -213,7 +214,7 @@ public class CombinedMouseLookAndCameraMove : MonoBehaviour
     }
 
     // Check for collision with objects that have box colliders
-    private bool IsColliding(Vector3 targetPosition, out Vector3 adjustedMovement)
+    private bool IsColliding(Vector3 targetPosition, Vector3 movement, out Vector3 adjustedMovement)
     {
         Collider[] colliders = Physics.OverlapSphere(targetPosition, 0.5f); // Use an appropriate radius
 
@@ -226,8 +227,13 @@ public class CombinedMouseLookAndCameraMove : MonoBehaviour
             BoxCollider boxCollider = collider.GetComponent<BoxCollider>();
             if (boxCollider != null)
             {
-                isColliding = true;
-                break;
+                // Check if the collider is blocking the movement direction
+                Vector3 direction = movement.normalized;
+                if (Vector3.Dot(direction, collider.transform.forward) < 0)
+                {
+                    isColliding = true;
+                    break;
+                }
             }
         }
 
@@ -247,13 +253,8 @@ public class CombinedMouseLookAndCameraMove : MonoBehaviour
 
 
 
-
-
-
-
-
-
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CombinedMouseLookAndCameraMove : MonoBehaviour
 {
@@ -264,6 +265,7 @@ public class CombinedMouseLookAndCameraMove : MonoBehaviour
 
     private Vector3 lastMouse; // previous mouse position
     private float totalRun = 1.0f;
+    private bool isInputFieldSelected = false;
 
     private void Start()
     {
@@ -272,6 +274,19 @@ public class CombinedMouseLookAndCameraMove : MonoBehaviour
 
     private void Update()
     {
+        // Check if an input field is currently selected
+        if (EventSystem.current.currentSelectedGameObject != null &&
+            EventSystem.current.currentSelectedGameObject.GetComponent<UnityEngine.UI.InputField>() != null)
+        {
+            // An input field is selected
+            isInputFieldSelected = true;
+        }
+        else
+        {
+            // No input field is selected
+            isInputFieldSelected = false;
+        }
+
         // Mouse camera angle
         Vector3 mouseDelta = Input.mousePosition - lastMouse;
         lastMouse = Input.mousePosition;
@@ -285,8 +300,8 @@ public class CombinedMouseLookAndCameraMove : MonoBehaviour
         // Keyboard commands
         Vector3 movement = GetBaseInput();
 
-        // Only move while a direction key is pressed
-        if (movement.sqrMagnitude > 0)
+        // Only move while a direction key is pressed and no input field is selected
+        if (movement.sqrMagnitude > 0 && !isInputFieldSelected)
         {
             if (Input.GetKey(KeyCode.LeftShift))
             {
