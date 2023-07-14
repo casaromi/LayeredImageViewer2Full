@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class PCAuth : MonoBehaviour
 {
@@ -10,6 +11,12 @@ public class PCAuth : MonoBehaviour
     public Button submitButton;
 
     public Text resultText;
+
+    // Variables to store the data from PHP
+    public string fName;
+    public List<string> modelNames;
+    public List<string> jsonLinks;
+    public List<string> creationDateTimes;
 
 
     public GameObject HeaderFeild;
@@ -63,7 +70,52 @@ public class PCAuth : MonoBehaviour
             // Update the result text with the response
             resultText.text = response;
 
-            // You can further process the response here as needed
+
+            // Clear the previous values
+            modelNames.Clear();
+            jsonLinks.Clear();
+            creationDateTimes.Clear();
+
+            // Parse the response and store the variables
+            string[] lines = response.Split('\n');
+            foreach (string line in lines)
+            {
+                if (line.StartsWith("FName: "))
+                {
+                    fName = line.Substring(7);
+                }
+                else if (line.StartsWith("ModelName: "))
+                {
+                    string modelName = line.Substring(11);
+                    modelNames.Add(modelName);
+                }
+                else if (line.StartsWith("JsonLink: "))
+                {
+                    string jsonLink = line.Substring(10);
+                    jsonLinks.Add(jsonLink);
+                }
+                else if (line.StartsWith("CreationDateTime: "))
+                {
+                    string creationDateTime = line.Substring(10);
+                    creationDateTimes.Add(creationDateTime);
+                }
+            }
+
+            // You can access the stored values as arrays
+            foreach (string modelName in modelNames)
+            {
+                Debug.Log("ModelName: " + modelName);
+            }
+
+            foreach (string jsonLink in jsonLinks)
+            {
+                Debug.Log("JsonLink: " + jsonLink);
+            }
+            foreach (string creationDateTime in creationDateTimes)
+            {
+                Debug.Log("CreationDateTime: " + creationDateTime);
+            }
+
         }
     }
 }
