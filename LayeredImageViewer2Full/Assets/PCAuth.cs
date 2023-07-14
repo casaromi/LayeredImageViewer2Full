@@ -11,6 +11,13 @@ public class PCAuth : MonoBehaviour
 
     public Text resultText;
 
+
+    public GameObject HeaderFeild;
+    public GameObject EmailFeild;
+    public GameObject PasswordFeild;
+    public GameObject sButton;
+    public GameObject ResultText;
+
     // The URL of your PHP file on the server
     private string phpURL = "https://davidjoiner.net/~confocal/PCuAuth.php";
 
@@ -41,6 +48,15 @@ public class PCAuth : MonoBehaviour
         }
         else
         {
+            //Turn off login panel 
+            HeaderFeild.SetActive(false);
+            EmailFeild.SetActive(false);
+            PasswordFeild.SetActive(false);
+            sButton.SetActive(false);
+
+            //Show results
+            ResultText.SetActive(true);
+
             // Get the response from the PHP script
             string response = request.downloadHandler.text;
 
