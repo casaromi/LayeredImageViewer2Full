@@ -30,7 +30,7 @@ public class ImgLoaderTest : MonoBehaviour
 	public int index;
 
 	//Get JSON File
-	string jsonURL = "https://drive.google.com/uc?export=download&id=10g7MWCq2en2bufGgMC7mY0pvZt2diM0z";
+	string jsonURL = "https://davidjoiner.net/~confocal/UserBuildScripts/1_RedCellsTest";
 
 	//Image Start and Stop
 	public int imageStart = 1;
