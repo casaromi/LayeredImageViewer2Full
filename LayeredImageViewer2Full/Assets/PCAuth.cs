@@ -142,6 +142,10 @@ public class PCAuth : MonoBehaviour
 }
 */
 
+
+
+
+/*
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
@@ -299,4 +303,204 @@ public class PCAuth : MonoBehaviour
         // For example: BuildScript.jsonLink = selectedJsonLink;
     }
 
+}
+*/
+
+
+
+
+
+
+using UnityEngine;
+using UnityEngine.Networking;
+using System.Collections;
+using UnityEngine.UI;
+using System.Collections.Generic;
+
+public class PCAuth : MonoBehaviour
+{
+    public InputField Email;
+    public InputField Password;
+    public Button submitButton;
+
+    public Text resultText;
+
+    // Variables to store the data from PHP
+    public string fName;
+    public List<string> modelNames;
+    public List<string> jsonLinks;
+    public List<string> creationDateTimes;
+
+    public GameObject HeaderFeild;
+    public GameObject EmailFeild;
+    public GameObject PasswordFeild;
+    public GameObject sButton;
+    public GameObject ResultText;
+    public GameObject Invalid;
+    public GameObject RoomUI;
+
+    public GameObject NextButton;
+    public GameObject PreviousButton;
+
+    public GameObject instruct;
+    public GameObject JoinRoom;
+
+    public GameObject ButtonPrefab;
+    public Transform ButtonParent;
+
+    public GameObject Holder;
+
+    private int currentPage = 0;
+    private int buttonsPerPage = 10;
+    private List<GameObject> instantiatedButtons = new List<GameObject>();
+
+    public static string selectedJsonLink;
+
+    private string phpURL = "https://davidjoiner.net/~confocal/PCuAuth.php";
+
+    public void CallAuth()
+    {
+        StartCoroutine(Register());
+    }
+
+    IEnumerator Register()
+    {
+        modelNames.Clear();
+        jsonLinks.Clear();
+        ClearButtons();
+
+        WWWForm form = new WWWForm();
+        form.AddField("Email", Email.text);
+        form.AddField("Password", Password.text);
+
+        UnityWebRequest request = UnityWebRequest.Post(phpURL, form);
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.LogError("Web request error: " + request.error);
+        }
+        else
+        {
+            string response = request.downloadHandler.text;
+            resultText.text = response;
+
+            string[] lines = response.Split('\n');
+            foreach (string line in lines)
+            {
+                if (line.StartsWith("FName: "))
+                {
+                    fName = line.Substring(7);
+                }
+                else if (line.StartsWith("ModelName: "))
+                {
+                    string modelName = line.Substring(11);
+                    modelNames.Add(modelName);
+                }
+                else if (line.StartsWith("JsonLink: "))
+                {
+                    string jsonLink = line.Substring(10);
+                    jsonLinks.Add(jsonLink);
+                }
+                else if (line.StartsWith("CreationDateTime: "))
+                {
+                    string creationDateTime = line.Substring(18);
+                    creationDateTimes.Add(creationDateTime);
+                }
+            }
+
+            modelNames.Sort();
+
+            if (fName != null && fName != "")
+            {
+                HeaderFeild.SetActive(false);
+                EmailFeild.SetActive(false);
+                PasswordFeild.SetActive(false);
+                sButton.SetActive(false);
+                Invalid.SetActive(false);
+                RoomUI.SetActive(false);
+
+                instruct.SetActive(false);
+                JoinRoom.SetActive(true);
+
+                NextButton.SetActive(true);
+                PreviousButton.SetActive(true);
+
+                Holder.SetActive(true);
+
+                DisplayButtons();
+            }
+            else
+            {
+                Debug.Log("Invalid email or password");
+                Invalid.SetActive(true);
+                RoomUI.SetActive(false);
+            }
+        }
+    }
+
+    private void DisplayButtons()
+    {
+        ClearButtons();
+
+        int startIndex = currentPage * buttonsPerPage;
+        int endIndex = Mathf.Min(startIndex + buttonsPerPage, modelNames.Count);
+
+        if (startIndex >= modelNames.Count)
+        {
+            currentPage = (modelNames.Count - 1) / buttonsPerPage;
+            startIndex = currentPage * buttonsPerPage;
+            endIndex = Mathf.Min(startIndex + buttonsPerPage, modelNames.Count);
+        }
+
+        for (int i = startIndex; i < endIndex; i++)
+        {
+            string modelName = modelNames[i];
+
+            GameObject buttonObj = Instantiate(ButtonPrefab, ButtonParent);
+            instantiatedButtons.Add(buttonObj);
+            Button button = buttonObj.GetComponent<Button>();
+            Text buttonText = buttonObj.GetComponentInChildren<Text>();
+            buttonText.text = modelName;
+
+            int index = i;
+            button.onClick.AddListener(() => SelectJsonLink(index));
+        }
+    }
+
+    private void ClearButtons()
+    {
+        foreach (GameObject buttonObj in instantiatedButtons)
+        {
+            Destroy(buttonObj);
+        }
+
+        instantiatedButtons.Clear();
+    }
+
+    private void SelectJsonLink(int index)
+    {
+        selectedJsonLink = jsonLinks[index];
+        Debug.Log("Selected JsonLink: " + selectedJsonLink);
+        RoomUI.SetActive(true);
+    }
+
+    public void NextPage()
+    {
+        currentPage++;
+        DisplayButtons();
+    }
+
+    public void PreviousPage()
+    {
+        currentPage--;
+        if (currentPage < 0)
+            currentPage = 0;
+        DisplayButtons();
+    }
+
+    private void OnDestroy()
+    {
+        ClearButtons();
+    }
 }
