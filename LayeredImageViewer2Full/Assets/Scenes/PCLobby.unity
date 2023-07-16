@@ -19976,6 +19976,7 @@ MonoBehaviour:
   loadingScreen: {fileID: 1128926517}
   LoginFeilds: {fileID: 170236469}
   ButtonParent: {fileID: 879000994}
+  pcAuthScript: {fileID: 666319559}
 --- !u!1 &2139473010
 GameObject:
   m_ObjectHideFlags: 0

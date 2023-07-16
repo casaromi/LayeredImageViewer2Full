@@ -366,6 +366,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public GameObject LoginFeilds;
     public GameObject ButtonParent;
 
+    public PCAuth pcAuthScript;
+
 
     // Update is called once per frame
     public void ConnectToServer()
@@ -388,6 +390,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         //roomUI.SetActive(true);
         //LoginFeilds.SetActive(false);
         //ButtonParent.SetActive(true);
+        //PCAuth.CallAuth();
+        pcAuthScript.CallAuth();
     }
 
     public void InitiliazeRoom(int defaultRoomIndex)

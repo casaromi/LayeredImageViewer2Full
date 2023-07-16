@@ -463,6 +463,11 @@ public class PCAuth : MonoBehaviour
 
     public static string selectedJsonLink;
 
+    public static string firstName;
+    public static string userEmail;
+    public static string userPassword;
+
+
     private string phpURL = "https://davidjoiner.net/~confocal/PCuAuth.php";
 
     private enum FilterType
@@ -488,8 +493,16 @@ public class PCAuth : MonoBehaviour
         ClearButtons();
 
         WWWForm form = new WWWForm();
-        form.AddField("Email", Email.text);
-        form.AddField("Password", Password.text);
+        if (string.IsNullOrEmpty(userEmail) && string.IsNullOrEmpty(userPassword))
+        {
+            form.AddField("Email", Email.text);
+            form.AddField("Password", Password.text);
+        }
+        else
+        {
+            form.AddField("Email", userEmail);
+            form.AddField("Password", userPassword);
+        }
 
         UnityWebRequest request = UnityWebRequest.Post(phpURL, form);
         yield return request.SendWebRequest();
@@ -629,6 +642,17 @@ public class PCAuth : MonoBehaviour
         Debug.Log("Selected JsonLink: " + selectedJsonLink);
         RoomUI.SetActive(true);
     }
+
+
+    private void StoreUserInfo(int index)
+    {
+        firstName = fName;
+        Debug.Log("Welcome user: " + selectedJsonLink);
+
+        userEmail = Email.text;
+        userPassword = Password.text;
+    }
+
 
     public void NextPage()
     {
