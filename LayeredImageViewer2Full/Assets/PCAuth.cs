@@ -497,11 +497,17 @@ public class PCAuth : MonoBehaviour
         {
             form.AddField("Email", Email.text);
             form.AddField("Password", Password.text);
+
+            Debug.Log("!!!NEW USER!!!");
         }
         else
         {
             form.AddField("Email", userEmail);
             form.AddField("Password", userPassword);
+            
+            Debug.Log("!?!? Welcome back to lobby");
+            Debug.Log("Email" + userEmail);
+            Debug.Log("Password" + userPassword);
         }
 
         UnityWebRequest request = UnityWebRequest.Post(phpURL, form);
