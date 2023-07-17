@@ -457,8 +457,10 @@ public class PCAuth : MonoBehaviour
 
     public GameObject Holder;
 
+
+    //BUTTONS Per-Page
     private int currentPage = 0;
-    private int buttonsPerPage = 2;
+    private int buttonsPerPage = 6;
     private List<GameObject> instantiatedButtons = new List<GameObject>();
 
     public static string selectedJsonLink;
