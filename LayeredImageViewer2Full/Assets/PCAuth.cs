@@ -468,6 +468,13 @@ public class PCAuth : MonoBehaviour
     public static string userPassword;
 
 
+    public Button AllButton;
+    public Button NumberButton;
+    public Button AtoGButton;
+    public Button HtoNButton;
+    public Button OtoZButton;
+
+
     private string phpURL = "https://davidjoiner.net/~confocal/PCuAuth.php";
 
     private enum FilterType
@@ -604,6 +611,14 @@ public class PCAuth : MonoBehaviour
             int index = i;
             button.onClick.AddListener(() => SelectJsonLink(index));
         }
+
+
+        // Set the color of the filter buttons based on the currentFilter
+        AllButton.GetComponent<Image>().color = currentFilter == FilterType.All ? Color.blue : Color.white;
+        NumberButton.GetComponent<Image>().color = currentFilter == FilterType.Number ? Color.blue : Color.white;
+        AtoGButton.GetComponent<Image>().color = currentFilter == FilterType.AtoG ? Color.blue : Color.white;
+        HtoNButton.GetComponent<Image>().color = currentFilter == FilterType.HtoN ? Color.blue : Color.white;
+        OtoZButton.GetComponent<Image>().color = currentFilter == FilterType.OtoZ ? Color.blue : Color.white;
     }
 
     private void ClearButtons()
