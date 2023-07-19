@@ -559,6 +559,10 @@ public class PCAuth : MonoBehaviour
 
             if (fName != null && fName != "")
             {
+                // Call StoreUserInfo to store user information in PlayerPrefs
+                StoreUserInfo(0);
+
+
                 HeaderFeild.SetActive(false);
                 EmailFeild.SetActive(false);
                 PasswordFeild.SetActive(false);
@@ -670,10 +674,13 @@ public class PCAuth : MonoBehaviour
     private void StoreUserInfo(int index)
     {
         firstName = fName;
-        Debug.Log("Welcome user: " + selectedJsonLink);
-
         userEmail = Email.text;
         userPassword = Password.text;
+
+        // Save the data using PlayerPrefs
+        PlayerPrefs.SetString("FirstName", firstName);
+        PlayerPrefs.SetString("UserEmail", userEmail);
+        PlayerPrefs.SetString("UserPassword", userPassword);
     }
 
 

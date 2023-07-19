@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class PullUserInfo : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private string firstName;
+    private string userEmail;
+    private string userPassword;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        // Retrieve the data from PlayerPrefs
+        firstName = PlayerPrefs.GetString("FirstName", "");
+        userEmail = PlayerPrefs.GetString("UserEmail", "");
+        userPassword = PlayerPrefs.GetString("UserPassword", "");
+
+        // Now you can use the retrieved data as needed
+        Debug.Log("Welcome, " + firstName);
+        //Debug.Log(userEmail);
+        //Debug.Log(userPassword);
     }
 }
