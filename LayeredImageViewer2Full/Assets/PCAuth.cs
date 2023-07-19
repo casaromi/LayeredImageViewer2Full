@@ -511,12 +511,17 @@ public class PCAuth : MonoBehaviour
         }
         else
         {
+            // Retrieve the data from PlayerPrefs
+            firstName = PlayerPrefs.GetString("FirstName", "");
+            userEmail = PlayerPrefs.GetString("UserEmail", "");
+            userPassword = PlayerPrefs.GetString("UserPassword", "");
+
             form.AddField("Email", userEmail);
             form.AddField("Password", userPassword);
             
             Debug.Log("!?!? Welcome back to lobby");
-            Debug.Log("Email" + userEmail);
-            Debug.Log("Password" + userPassword);
+            Debug.Log(userEmail);
+            Debug.Log(userPassword);
         }
 
         UnityWebRequest request = UnityWebRequest.Post(phpURL, form);
