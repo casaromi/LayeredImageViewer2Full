@@ -1,24 +1,17 @@
 using UnityEngine;
-using TMPro;
+using TMPro; // Ensure you have TextMeshPro installed (if not, you can import it through Unity's Package Manager)
 
 public class FirstNameText : MonoBehaviour
 {
-    public TextMeshProUGUI textMesh; // Reference to the TextMeshProUGUI component
+    // Reference to the 3D Text object
+    public TextMeshPro firstNameTextMesh;
 
-    public string variableToUpdate; // Variable to update the text with
-
-    private void Start()
+    void Start()
     {
-        // Make sure the TextMeshProUGUI component is assigned
-        if (textMesh == null)
-        {
-            Debug.LogError("TextMeshProUGUI component is not assigned!");
-        }
-    }
+        // Get the value of the FirstName variable from PlayerPrefs
+        string firstName = PlayerPrefs.GetString("FirstName", "");
 
-    private void Update()
-    {
-        // Update the text with the value of the variable
-        textMesh.text = variableToUpdate.ToString();
+        // Assign the value to the 3D Text component
+        firstNameTextMesh.text = firstName;
     }
 }
