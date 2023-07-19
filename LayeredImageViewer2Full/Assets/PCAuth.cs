@@ -423,6 +423,7 @@ using UnityEngine.Networking;
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System;
 
 public class PCAuth : MonoBehaviour
 {
@@ -608,17 +609,28 @@ public class PCAuth : MonoBehaviour
         for (int i = startIndex; i < endIndex; i++)
         {
             string modelName = filteredModelNames[i];
+            string creationDateTimeString = creationDateTimes[i];
 
-            GameObject buttonObj = Instantiate(ButtonPrefab, ButtonParent);
-            instantiatedButtons.Add(buttonObj);
-            Button button = buttonObj.GetComponent<Button>();
-            Text buttonText = buttonObj.GetComponentInChildren<Text>();
-            buttonText.text = modelName;
+            // Parse the CreationDateTime string into a DateTime object
+            if (DateTime.TryParse(creationDateTimeString, out DateTime creationDateTime))
+            {
+                // Format the date as "month, day, year"
+                string formattedDate = creationDateTime.ToString("MMMM dd, yyyy");
 
-            int index = i;
-            button.onClick.AddListener(() => SelectJsonLink(index));
+                GameObject buttonObj = Instantiate(ButtonPrefab, ButtonParent);
+                instantiatedButtons.Add(buttonObj);
+                Button button = buttonObj.GetComponent<Button>();
+                Text buttonText = buttonObj.GetComponentInChildren<Text>();
+                buttonText.text = modelName + "\n" + "Creation Date: " + formattedDate;
+
+                int index = i;
+                button.onClick.AddListener(() => SelectJsonLink(index));
+            }
+            else
+            {
+                Debug.LogWarning("Invalid date format: " + creationDateTimeString);
+            }
         }
-
 
         // Set the color of the filter buttons based on the currentFilter
         AllButton.GetComponent<Image>().color = currentFilter == FilterType.All ? Color.blue : Color.white;
@@ -627,6 +639,7 @@ public class PCAuth : MonoBehaviour
         HtoNButton.GetComponent<Image>().color = currentFilter == FilterType.HtoN ? Color.blue : Color.white;
         OtoZButton.GetComponent<Image>().color = currentFilter == FilterType.OtoZ ? Color.blue : Color.white;
     }
+
 
     private void ClearButtons()
     {
