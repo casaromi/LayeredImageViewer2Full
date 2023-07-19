@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PullUserInfo : MonoBehaviour
 {
-    private string firstName;
-    private string userEmail;
-    private string userPassword;
+    public static string firstName;
+    public static string userEmail;
+    public static string userPassword;
 
     private void Start()
     {
@@ -15,9 +15,10 @@ public class PullUserInfo : MonoBehaviour
         userEmail = PlayerPrefs.GetString("UserEmail", "");
         userPassword = PlayerPrefs.GetString("UserPassword", "");
 
+
         // Now you can use the retrieved data as needed
         Debug.Log("Welcome, " + firstName);
-        //Debug.Log(userEmail);
-        //Debug.Log(userPassword);
+        Debug.Log(userEmail);
+        Debug.Log(userPassword);
     }
 }

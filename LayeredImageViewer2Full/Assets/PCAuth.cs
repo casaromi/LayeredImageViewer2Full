@@ -512,10 +512,6 @@ public class PCAuth : MonoBehaviour
         else
         {
             // Retrieve the data from PlayerPrefs
-            firstName = PlayerPrefs.GetString("FirstName", "");
-            userEmail = PlayerPrefs.GetString("UserEmail", "");
-            userPassword = PlayerPrefs.GetString("UserPassword", "");
-
             form.AddField("Email", userEmail);
             form.AddField("Password", userPassword);
             
@@ -678,14 +674,24 @@ public class PCAuth : MonoBehaviour
 
     private void StoreUserInfo(int index)
     {
-        firstName = fName;
-        userEmail = Email.text;
-        userPassword = Password.text;
+        if (string.IsNullOrEmpty(userEmail) && string.IsNullOrEmpty(userPassword) && string.IsNullOrEmpty(firstName))
+        {
+            Debug.Log("!!!!!!!!!");
 
-        // Save the data using PlayerPrefs
-        PlayerPrefs.SetString("FirstName", firstName);
-        PlayerPrefs.SetString("UserEmail", userEmail);
-        PlayerPrefs.SetString("UserPassword", userPassword);
+            firstName = fName;
+            userEmail = Email.text;
+            userPassword = Password.text;
+
+            // Save the data using PlayerPrefs
+            PlayerPrefs.SetString("FirstName", firstName);
+            PlayerPrefs.SetString("UserEmail", userEmail);
+            PlayerPrefs.SetString("UserPassword", userPassword);
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            Debug.Log("!!!!!User Already logged in");
+        }
     }
 
 
