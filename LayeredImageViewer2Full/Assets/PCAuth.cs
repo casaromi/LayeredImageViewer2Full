@@ -761,4 +761,20 @@ public class PCAuth : MonoBehaviour
     {
         ClearButtons();
     }
+    
+
+
+    // Add this method to clear player preferences on application quit
+    private void OnApplicationQuit()
+    {
+        ClearPlayerPrefs();
+    }
+
+    // Method to clear player preferences
+    private void ClearPlayerPrefs()
+    {
+        // Clear all player preferences
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+    }
 }
