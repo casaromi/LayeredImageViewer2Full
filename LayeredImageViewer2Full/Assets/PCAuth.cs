@@ -844,6 +844,9 @@ public class PCAuth : MonoBehaviour
 
     public static string selectedJsonLink;
 
+    public static string selectedModelName;
+    public static string selectedModelDate;
+
     public static string firstName;
     public static string userEmail;
     public static string userPassword;
@@ -1077,6 +1080,11 @@ public class PCAuth : MonoBehaviour
         selectedJsonLink = jsonLinks[index];
         Debug.Log("Selected JsonLink: " + selectedJsonLink);
         RoomUI.SetActive(true);
+
+        selectedModelName = modelNames[index];
+        selectedModelDate = creationDateTimes[index];
+        Debug.Log("Selected Model Name: " + selectedModelName);
+        Debug.Log("Selected Model Date: " + selectedModelDate);
     }
 
 
