@@ -424,6 +424,7 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
+using TMPro;
 
 public class PCAuth : MonoBehaviour
 {
@@ -461,7 +462,7 @@ public class PCAuth : MonoBehaviour
 
     //BUTTONS Per-Page
     private int currentPage = 0;
-    private int buttonsPerPage = 6;
+    private int buttonsPerPage = 4;
     private List<GameObject> instantiatedButtons = new List<GameObject>();
 
     public static string selectedJsonLink;
@@ -591,6 +592,8 @@ public class PCAuth : MonoBehaviour
         }
     }
 
+
+
     private void DisplayButtons()
     {
         ClearButtons();
@@ -620,8 +623,11 @@ public class PCAuth : MonoBehaviour
                 GameObject buttonObj = Instantiate(ButtonPrefab, ButtonParent);
                 instantiatedButtons.Add(buttonObj);
                 Button button = buttonObj.GetComponent<Button>();
-                Text buttonText = buttonObj.GetComponentInChildren<Text>();
-                buttonText.text = modelName + "\n" + "Creation Date: " + formattedDate;
+                TMP_Text buttonText = buttonObj.GetComponentInChildren<TMP_Text>();
+
+                // Use rich text formatting to apply different colors and font size to modelName and formattedDate
+                string formattedText = $"<size=20><color=blue>{modelName}</color></size>\n<size=10><color=red>{formattedDate}</color></size>";
+                buttonText.text = formattedText;
 
                 int index = i;
                 button.onClick.AddListener(() => SelectJsonLink(index));
@@ -639,6 +645,7 @@ public class PCAuth : MonoBehaviour
         HtoNButton.GetComponent<Image>().color = currentFilter == FilterType.HtoN ? Color.blue : Color.white;
         OtoZButton.GetComponent<Image>().color = currentFilter == FilterType.OtoZ ? Color.blue : Color.white;
     }
+
 
 
     private void ClearButtons()
