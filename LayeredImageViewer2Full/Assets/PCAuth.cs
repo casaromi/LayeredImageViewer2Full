@@ -805,8 +805,8 @@ using TMPro;
 
 public class PCAuth : MonoBehaviour
 {
-    public InputField Email;
-    public InputField Password;
+    public TMP_InputField Email;    // Changed to TMP_InputField
+    public TMP_InputField Password; // Changed to TMP_InputField
     public Button submitButton;
 
     public Text resultText;
@@ -871,6 +871,7 @@ public class PCAuth : MonoBehaviour
     }
 
     private FilterType currentFilter = FilterType.All;
+    internal bool isInputFieldSelected;
 
     public void CallAuth()
     {

@@ -253,6 +253,7 @@ public class CombinedMouseLookAndCameraMove : MonoBehaviour
 
 
 
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -276,8 +277,9 @@ public class CombinedMouseLookAndCameraMove : MonoBehaviour
     {
         // Check if an input field is currently selected
         if (EventSystem.current.currentSelectedGameObject != null &&
-            EventSystem.current.currentSelectedGameObject.GetComponent<UnityEngine.UI.InputField>() != null)
+            EventSystem.current.currentSelectedGameObject.GetComponent<TMP_InputField>() != null)
         {
+
             // An input field is selected
             isInputFieldSelected = true;
         }
