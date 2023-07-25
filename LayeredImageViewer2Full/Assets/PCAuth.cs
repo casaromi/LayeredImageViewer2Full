@@ -802,6 +802,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
 using TMPro;
+using System.Linq;
 
 public class PCAuth : MonoBehaviour
 {
@@ -859,9 +860,15 @@ public class PCAuth : MonoBehaviour
     public Button OtoZButton;
 
 
+    public Button NameButton;
+    public Button DateButton;
+    public Button AscendingButton;
+    public Button DescendingButton;
+
+
     private string phpURL = "https://davidjoiner.net/~confocal/PCuAuth.php";
 
-    private enum FilterType
+    private enum PrimaryFilterType
     {
         All,
         Number,
@@ -870,7 +877,23 @@ public class PCAuth : MonoBehaviour
         OtoZ
     }
 
-    private FilterType currentFilter = FilterType.All;
+    private enum SecondaryFilterType
+    {
+        Date,
+        Name
+    }
+
+    private enum SortType
+    {
+        Ascending,
+        Descending
+    }
+
+    private PrimaryFilterType currentPrimaryFilter = PrimaryFilterType.All;
+    private SecondaryFilterType currentSecondaryFilter = SecondaryFilterType.Name; // Default to Name filter
+    private SortType currentSortType = SortType.Ascending; // Default to Ascending
+
+
     internal bool isInputFieldSelected;
 
     public void CallAuth()
@@ -1029,11 +1052,17 @@ public class PCAuth : MonoBehaviour
         }
 
         // Set the color of the filter buttons based on the currentFilter
-        AllButton.GetComponent<Image>().color = currentFilter == FilterType.All ? Color.blue : Color.white;
-        NumberButton.GetComponent<Image>().color = currentFilter == FilterType.Number ? Color.blue : Color.white;
-        AtoGButton.GetComponent<Image>().color = currentFilter == FilterType.AtoG ? Color.blue : Color.white;
-        HtoNButton.GetComponent<Image>().color = currentFilter == FilterType.HtoN ? Color.blue : Color.white;
-        OtoZButton.GetComponent<Image>().color = currentFilter == FilterType.OtoZ ? Color.blue : Color.white;
+        AllButton.GetComponent<Image>().color = currentPrimaryFilter == PrimaryFilterType.All ? Color.blue : Color.white;
+        NumberButton.GetComponent<Image>().color = currentPrimaryFilter == PrimaryFilterType.Number ? Color.blue : Color.white;
+        AtoGButton.GetComponent<Image>().color = currentPrimaryFilter == PrimaryFilterType.AtoG ? Color.blue : Color.white;
+        HtoNButton.GetComponent<Image>().color = currentPrimaryFilter == PrimaryFilterType.HtoN ? Color.blue : Color.white;
+        OtoZButton.GetComponent<Image>().color = currentPrimaryFilter == PrimaryFilterType.OtoZ ? Color.blue : Color.white;
+
+        NameButton.GetComponent<Image>().color = currentSecondaryFilter == SecondaryFilterType.Name ? Color.blue : Color.white;
+        DateButton.GetComponent<Image>().color = currentSecondaryFilter == SecondaryFilterType.Date ? Color.blue : Color.white;
+
+        AscendingButton.GetComponent<Image>().color = currentSortType == SortType.Ascending ? Color.blue : Color.white;
+        DescendingButton.GetComponent<Image>().color = currentSortType == SortType.Descending ? Color.blue : Color.white;
     }
 
 
@@ -1054,22 +1083,69 @@ public class PCAuth : MonoBehaviour
     {
         List<string> filteredModelNames = new List<string>();
 
-        switch (currentFilter)
+        switch (currentPrimaryFilter)
         {
-            case FilterType.All:
-                filteredModelNames = modelNames;
+            case PrimaryFilterType.All:
+                filteredModelNames = new List<string>(modelNames);
                 break;
-            case FilterType.Number:
+            case PrimaryFilterType.Number:
                 filteredModelNames = modelNames.FindAll(modelName => char.IsNumber(modelName[0]));
                 break;
-            case FilterType.AtoG:
+            case PrimaryFilterType.AtoG:
                 filteredModelNames = modelNames.FindAll(modelName => modelName[0] >= 'A' && modelName[0] <= 'G');
                 break;
-            case FilterType.HtoN:
+            case PrimaryFilterType.HtoN:
                 filteredModelNames = modelNames.FindAll(modelName => modelName[0] >= 'H' && modelName[0] <= 'N');
                 break;
-            case FilterType.OtoZ:
+            case PrimaryFilterType.OtoZ:
                 filteredModelNames = modelNames.FindAll(modelName => modelName[0] >= 'O' && modelName[0] <= 'Z');
+                break;
+        }
+
+        // Apply secondary filter
+        switch (currentSecondaryFilter)
+        {
+            case SecondaryFilterType.Date:
+                // Sort by date
+                List<KeyValuePair<string, DateTime>> modelNameDateTimePairs = new List<KeyValuePair<string, DateTime>>();
+
+                for (int i = 0; i < filteredModelNames.Count; i++)
+                {
+                    if (DateTime.TryParse(creationDateTimes[i], out DateTime creationDateTime))
+                    {
+                        modelNameDateTimePairs.Add(new KeyValuePair<string, DateTime>(filteredModelNames[i], creationDateTime));
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Invalid date format: " + creationDateTimes[i]);
+                    }
+                }
+
+                // Sort based on the SortType
+                if (currentSortType == SortType.Ascending)
+                {
+                    modelNameDateTimePairs.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
+                }
+                else
+                {
+                    modelNameDateTimePairs.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value));
+                }
+
+                // Extract the sorted model names from the sorted KeyValuePairs
+                filteredModelNames = modelNameDateTimePairs.Select(pair => pair.Key).ToList();
+                break;
+
+            case SecondaryFilterType.Name:
+                // Sort by model name
+                // Sort based on the SortType
+                if (currentSortType == SortType.Ascending)
+                {
+                    filteredModelNames.Sort();
+                }
+                else
+                {
+                    filteredModelNames.Sort((name1, name2) => name2.CompareTo(name1));
+                }
                 break;
         }
 
@@ -1128,38 +1204,67 @@ public class PCAuth : MonoBehaviour
 
     public void ShowAllModels()
     {
-        currentFilter = FilterType.All;
+        currentPrimaryFilter = PrimaryFilterType.All;
         currentPage = 0;
         DisplayButtons();
     }
 
     public void ShowModelsStartingWithNumber()
     {
-        currentFilter = FilterType.Number;
+        currentPrimaryFilter = PrimaryFilterType.Number;
         currentPage = 0;
         DisplayButtons();
     }
 
     public void ShowModelsStartingWithAtoG()
     {
-        currentFilter = FilterType.AtoG;
+        currentPrimaryFilter = PrimaryFilterType.AtoG;
         currentPage = 0;
         DisplayButtons();
     }
 
     public void ShowModelsStartingWithHtoN()
     {
-        currentFilter = FilterType.HtoN;
+        currentPrimaryFilter = PrimaryFilterType.HtoN;
         currentPage = 0;
         DisplayButtons();
     }
 
     public void ShowModelsStartingWithOtoZ()
     {
-        currentFilter = FilterType.OtoZ;
+        currentPrimaryFilter = PrimaryFilterType.OtoZ;
         currentPage = 0;
         DisplayButtons();
     }
+
+    public void ShowModelsByDate()
+    {
+        currentSecondaryFilter = SecondaryFilterType.Date;
+        currentPage = 0;
+        DisplayButtons();
+    }
+
+    public void ShowModelsByName()
+    {
+        currentSecondaryFilter = SecondaryFilterType.Name;
+        currentPage = 0;
+        DisplayButtons();
+    }
+
+    public void SortByAscending()
+    {
+        currentSortType = SortType.Ascending;
+        currentPage = 0;
+        DisplayButtons();
+    }
+
+    public void SortByDescending()
+    {
+        currentSortType = SortType.Descending;
+        currentPage = 0;
+        DisplayButtons();
+    }
+
 
     private void OnDestroy()
     {
