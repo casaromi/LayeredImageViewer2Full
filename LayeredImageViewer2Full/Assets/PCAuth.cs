@@ -905,6 +905,7 @@ public class PCAuth : MonoBehaviour
     {
         modelNames.Clear();
         jsonLinks.Clear();
+        creationDateTimes.Clear();
         ClearButtons();
 
         WWWForm form = new WWWForm();
@@ -998,28 +999,37 @@ public class PCAuth : MonoBehaviour
 
 
 
+    // Create a data structure to hold all relevant information together
+    private class ModelData
+    {
+        public string modelName;
+        public string creationDateTime;
+        public string jsonLink;
+    }
 
-    
+    private List<ModelData> modelDataList = new List<ModelData>();
+
 
     private void DisplayButtons()
     {
         ClearButtons();
 
-        List<string> filteredModelNames = GetFilteredModelNames();
+        List<ModelData> filteredModelData = GetFilteredModelData();
         int startIndex = currentPage * buttonsPerPage;
-        int endIndex = Mathf.Min(startIndex + buttonsPerPage, filteredModelNames.Count);
+        int endIndex = Mathf.Min(startIndex + buttonsPerPage, filteredModelData.Count);
 
-        if (startIndex >= filteredModelNames.Count)
+        if (startIndex >= filteredModelData.Count)
         {
-            currentPage = (filteredModelNames.Count - 1) / buttonsPerPage;
+            currentPage = (filteredModelData.Count - 1) / buttonsPerPage;
             startIndex = currentPage * buttonsPerPage;
-            endIndex = Mathf.Min(startIndex + buttonsPerPage, filteredModelNames.Count);
+            endIndex = Mathf.Min(startIndex + buttonsPerPage, filteredModelData.Count);
         }
 
         for (int i = startIndex; i < endIndex; i++)
         {
-            string modelName = filteredModelNames[i];
-            string creationDateTimeString = creationDateTimes[i];
+            ModelData modelData = filteredModelData[i];
+            string modelName = modelData.modelName;
+            string creationDateTimeString = modelData.creationDateTime;
 
             // Parse the CreationDateTime string into a DateTime object
             if (DateTime.TryParse(creationDateTimeString, out DateTime creationDateTime))
@@ -1079,30 +1089,121 @@ public class PCAuth : MonoBehaviour
         instantiatedButtons.Clear();
     }
 
-    private List<string> GetFilteredModelNames()
+    private List<ModelData> GetFilteredModelData()
     {
-        List<string> filteredModelNames = new List<string>();
+        List<ModelData> filteredModelData = new List<ModelData>();
 
+        // Apply the primary filter
         switch (currentPrimaryFilter)
         {
             case PrimaryFilterType.All:
-                filteredModelNames = new List<string>(modelNames);
+                filteredModelData.AddRange(modelDataList);
                 break;
             case PrimaryFilterType.Number:
-                filteredModelNames = modelNames.FindAll(modelName => char.IsNumber(modelName[0]));
+                filteredModelData.AddRange(modelDataList.FindAll(data => char.IsNumber(data.modelName[0])));
                 break;
             case PrimaryFilterType.AtoG:
-                filteredModelNames = modelNames.FindAll(modelName => modelName[0] >= 'A' && modelName[0] <= 'G');
+                filteredModelData.AddRange(modelDataList.FindAll(data => data.modelName[0] >= 'A' && data.modelName[0] <= 'G'));
                 break;
             case PrimaryFilterType.HtoN:
-                filteredModelNames = modelNames.FindAll(modelName => modelName[0] >= 'H' && modelName[0] <= 'N');
+                filteredModelData.AddRange(modelDataList.FindAll(data => data.modelName[0] >= 'H' && data.modelName[0] <= 'N'));
                 break;
             case PrimaryFilterType.OtoZ:
-                filteredModelNames = modelNames.FindAll(modelName => modelName[0] >= 'O' && modelName[0] <= 'Z');
+                filteredModelData.AddRange(modelDataList.FindAll(data => data.modelName[0] >= 'O' && data.modelName[0] <= 'Z'));
                 break;
         }
 
-        // Apply secondary filter
+        // Apply the secondary filter
+        switch (currentSecondaryFilter)
+        {
+            case SecondaryFilterType.Date:
+                filteredModelData.Sort((data1, data2) =>
+                {
+                    if (DateTime.TryParse(data1.creationDateTime, out DateTime date1) &&
+                        DateTime.TryParse(data2.creationDateTime, out DateTime date2))
+                    {
+                        return currentSortType == SortType.Ascending ? date1.CompareTo(date2) : date2.CompareTo(date1);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Invalid date format in model data.");
+                        return 0;
+                    }
+                });
+                break;
+
+            case SecondaryFilterType.Name:
+                filteredModelData.Sort((data1, data2) =>
+                {
+                    return currentSortType == SortType.Ascending ?
+                        string.Compare(data1.modelName, data2.modelName, StringComparison.OrdinalIgnoreCase) :
+                        string.Compare(data2.modelName, data1.modelName, StringComparison.OrdinalIgnoreCase);
+                });
+                break;
+        }
+
+        return filteredModelData;
+    }
+
+
+    private void StoreUserInfo(int index)
+    {
+        // ... Existing code ...
+
+        // Clear previous data to avoid duplicates
+        modelDataList.Clear();
+
+        for (int i = 0; i < modelNames.Count; i++)
+        {
+            ModelData modelData = new ModelData();
+            modelData.modelName = modelNames[i];
+            modelData.creationDateTime = i < creationDateTimes.Count ? creationDateTimes[i] : string.Empty;
+            modelData.jsonLink = i < jsonLinks.Count ? jsonLinks[i] : string.Empty;
+            modelDataList.Add(modelData);
+        }
+
+
+        // Add the corresponding dates and JSON links
+        for (int i = 0; i < modelDataList.Count; i++)
+        {
+            if (i < creationDateTimes.Count)
+            {
+                modelDataList[i].creationDateTime = creationDateTimes[i];
+            }
+
+            if (i < jsonLinks.Count)
+            {
+                modelDataList[i].jsonLink = jsonLinks[i];
+            }
+        }
+    }
+
+
+
+
+
+    private List<string> GetFilteredModelNames()
+    {
+        List<string> filteredModelNames = new List<string>(modelNames);
+
+        // Apply the primary filter
+        switch (currentPrimaryFilter)
+        {
+            case PrimaryFilterType.Number:
+                filteredModelNames = filteredModelNames.FindAll(modelName => char.IsNumber(modelName[0]));
+                break;
+            case PrimaryFilterType.AtoG:
+                filteredModelNames = filteredModelNames.FindAll(modelName => modelName[0] >= 'A' && modelName[0] <= 'G');
+                break;
+            case PrimaryFilterType.HtoN:
+                filteredModelNames = filteredModelNames.FindAll(modelName => modelName[0] >= 'H' && modelName[0] <= 'N');
+                break;
+            case PrimaryFilterType.OtoZ:
+                filteredModelNames = filteredModelNames.FindAll(modelName => modelName[0] >= 'O' && modelName[0] <= 'Z');
+                break;
+        }
+
+        // Apply the secondary filter
         switch (currentSecondaryFilter)
         {
             case SecondaryFilterType.Date:
@@ -1152,6 +1253,11 @@ public class PCAuth : MonoBehaviour
         return filteredModelNames;
     }
 
+
+
+
+
+
     private void SelectJsonLink(int index)
     {
         selectedJsonLink = jsonLinks[index];
@@ -1165,27 +1271,6 @@ public class PCAuth : MonoBehaviour
     }
 
 
-    private void StoreUserInfo(int index)
-    {
-        if (string.IsNullOrEmpty(userEmail) && string.IsNullOrEmpty(userPassword) && string.IsNullOrEmpty(firstName))
-        {
-            Debug.Log("!!!!!!!!!");
-
-            firstName = fName;
-            userEmail = Email.text;
-            userPassword = Password.text;
-
-            // Save the data using PlayerPrefs
-            PlayerPrefs.SetString("FirstName", firstName);
-            PlayerPrefs.SetString("UserEmail", userEmail);
-            PlayerPrefs.SetString("UserPassword", userPassword);
-            PlayerPrefs.Save();
-        }
-        else
-        {
-            Debug.Log("!!!!!User Already logged in");
-        }
-    }
 
 
     public void NextPage()
