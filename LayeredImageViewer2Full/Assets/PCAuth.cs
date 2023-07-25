@@ -1053,7 +1053,7 @@ public class PCAuth : MonoBehaviour
                 buttonText.margin = new Vector4(20f, 5f, 20f, 5f); // Adjust the values as needed
 
                 int index = i;
-                button.onClick.AddListener(() => SelectJsonLink(index));
+                button.onClick.AddListener(() => StoreUserInfo(index));
             }
             else
             {
@@ -1149,6 +1149,14 @@ public class PCAuth : MonoBehaviour
     private void StoreUserInfo(int index)
     {
         // ... Existing code ...
+        selectedJsonLink = jsonLinks[index];
+        Debug.Log("Selected JsonLink: " + selectedJsonLink);
+        RoomUI.SetActive(true);
+
+        selectedModelName = modelNames[index];
+        selectedModelDate = creationDateTimes[index];
+        Debug.Log("Selected Model Name: " + selectedModelName);
+        Debug.Log("Selected Model Date: " + selectedModelDate);
 
         // Clear previous data to avoid duplicates
         modelDataList.Clear();
@@ -1260,6 +1268,7 @@ public class PCAuth : MonoBehaviour
 
     private void SelectJsonLink(int index)
     {
+        /*
         selectedJsonLink = jsonLinks[index];
         Debug.Log("Selected JsonLink: " + selectedJsonLink);
         RoomUI.SetActive(true);
@@ -1268,6 +1277,7 @@ public class PCAuth : MonoBehaviour
         selectedModelDate = creationDateTimes[index];
         Debug.Log("Selected Model Name: " + selectedModelName);
         Debug.Log("Selected Model Date: " + selectedModelDate);
+        */
     }
 
 
