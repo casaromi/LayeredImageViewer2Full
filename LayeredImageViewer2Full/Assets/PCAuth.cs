@@ -1575,8 +1575,9 @@ public class PCAuth : MonoBehaviour
         {
             ModelData modelData = new ModelData(modelNames[i], jsonLinks[i], creationDateTimes[i]);
             //string buttonText = $"{modelData.modelName}\nJsonLink: {modelData.jsonLink}\nCreationDate: {modelData.creationDate}";
+            //string buttonText = $"{modelData.modelName}\n{modelData.creationDate}";
 
-            string buttonText = $"{modelData.modelName}\n{modelData.creationDate}";
+            string buttonText = $"<size=20><color=blue>{modelData.modelName}</color></size>\n<size=10><color=red>{modelData.creationDate}</color></size>";
 
             GameObject buttonObj = Instantiate(ButtonPrefab, ButtonParent);
             buttonObj.name = modelData.modelName;
@@ -1585,10 +1586,17 @@ public class PCAuth : MonoBehaviour
             TMP_Text buttonTextComponent = buttonObj.GetComponentInChildren<TMP_Text>();
             buttonTextComponent.text = buttonText;
 
+            // Set the text overflow mode to truncate
+            buttonTextComponent.overflowMode = TextOverflowModes.Truncate;
+
+            // Set the margin for the truncation area (left, right, top, bottom)
+            buttonTextComponent.margin = new Vector4(20f, 5f, 20f, 5f); // Adjust the values as needed
+
             int index = i;
             button.onClick.AddListener(() => SelectJsonLink(index));
         }
     }
+
 
 
 
