@@ -1,44 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR;
-using UnityEngine.XR.Interaction.Toolkit;
+using TMPro; // Ensure you have TextMeshPro installed (if not, you can import it through Unity's Package Manager)
 using Photon.Pun;
-using Unity.XR.CoreUtils;
 
-public class NetworkPlayer : MonoBehaviour
+public class NetworkPlayer : MonoBehaviourPun
 {
     public Transform head;
-    public Transform leftHand;
-    public Transform rightHand;
-
-    public Animator leftHandAnimator;
-    public Animator rightHandAnimator;
-
-    private PhotonView photonView;
-
-    private Transform headRig;
-    private Transform leftHandRig;
-    private Transform rightHandRig;
+    public TextMeshPro firstNameTextMesh;
 
     // Start is called before the first frame update
     void Start()
     {
-        photonView = GetComponent<PhotonView>();
-
-        //XRRig rig = FindObjectOfType<XRRig>();
-        XROrigin rig = FindObjectOfType<XROrigin>();
-
-        headRig = rig.transform.Find("Camera Offset/Main Camera");
-        leftHandRig = rig.transform.Find("Camera Offset/LeftHand Controller");
-        rightHandRig = rig.transform.Find("Camera Offset/RightHand Controller");
-
-        if (photonView.IsMine)
+        if (!photonView.IsMine)
         {
+            // Disable the rendering of the player's model for remote players
             foreach (var item in GetComponentsInChildren<Renderer>())
             {
                 item.enabled = false;
             }
+        }
+        else
+        {
+            // Get the value of the FirstName variable from PlayerPrefs
+            string firstName = PlayerPrefs.GetString("FirstName", "");
+
+            // Assign the value to the TextMeshPro component
+            firstNameTextMesh.text = firstName;
         }
     }
 
@@ -47,40 +33,14 @@ public class NetworkPlayer : MonoBehaviour
     {
         if (photonView.IsMine)
         {
-            MapPosition(head, headRig);
-            MapPosition(leftHand, leftHandRig);
-            MapPosition(rightHand, rightHandRig);
-
-            UpdateHandAnimation(InputDevices.GetDeviceAtXRNode(XRNode.LeftHand), leftHandAnimator);
-            UpdateHandAnimation(InputDevices.GetDeviceAtXRNode(XRNode.RightHand), rightHandAnimator);
+            // Update the position and rotation of the local player's name text
+            MapPosition(firstNameTextMesh.transform, head);
         }
     }
 
-    void UpdateHandAnimation(InputDevice targetDevice, Animator handAnimator)
+    void MapPosition(Transform target, Transform source)
     {
-        if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue))
-        {
-            handAnimator.SetFloat("Trigger", triggerValue);
-        }
-        else
-        {
-            handAnimator.SetFloat("Trigger", 0);
-        }
-
-        if (targetDevice.TryGetFeatureValue(CommonUsages.grip, out float gripValue))
-        {
-            handAnimator.SetFloat("Grip", gripValue);
-        }
-        else
-        {
-            handAnimator.SetFloat("Grip", 0);
-        }
-    }
-
-    void MapPosition(Transform target, Transform rigTransform)
-    {
-        target.position = rigTransform.position;
-        target.rotation = rigTransform.rotation;
+        target.position = source.position + Vector3.up * 2.0f; // You may need to adjust the height offset here
+        target.rotation = Quaternion.LookRotation(target.position - Camera.main.transform.position);
     }
 }
-
