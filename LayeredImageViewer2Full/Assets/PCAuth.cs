@@ -1431,8 +1431,8 @@ public class PCAuth : MonoBehaviour
 
     public static string selectedJsonLink;
 
-    public static string selectedModelDate;
     public static string selectedModelName;
+    public static string selectedModelDate;
 
     private string phpURL = "https://davidjoiner.net/~confocal/PCuAuth.php";
 
@@ -1587,6 +1587,13 @@ public class PCAuth : MonoBehaviour
             selectedJsonLink = jsonLinks[index];
             Debug.Log("Selected JsonLink: " + selectedJsonLink);
             RoomUI.SetActive(true);
+
+
+            selectedModelName = modelNames[index];
+            Debug.Log("Selected JsonLink: " + selectedModelName);
+
+            selectedModelDate = creationDateTimes[index];
+            Debug.Log("Selected JsonLink: " + selectedModelDate);
         }
         else
         {
