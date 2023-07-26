@@ -1493,6 +1493,22 @@ public class PCAuth : MonoBehaviour
                 if (fName != null && fName != "")
                 {
                     // ... Rest of the code
+                    HeaderFeild.SetActive(false);
+                    EmailFeild.SetActive(false);
+                    PasswordFeild.SetActive(false);
+                    sButton.SetActive(false);
+                    Invalid.SetActive(false);
+                    RoomUI.SetActive(false);
+
+                    instruct.SetActive(false);
+                    JoinRoom.SetActive(true);
+
+                    ModelMenu.SetActive(true);
+
+
+                    Holder.SetActive(true);
+
+                    DisplayButtons();
                 }
                 else
                 {
