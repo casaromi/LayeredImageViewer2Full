@@ -1392,6 +1392,8 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
+using System;
+using System.Globalization;
 
 public class PCAuth : MonoBehaviour
 {
@@ -1536,13 +1538,23 @@ public class PCAuth : MonoBehaviour
         public string jsonLink;
         public string creationDate;
 
-        public ModelData(string modelName, string jsonLink, string creationDate)
+        public ModelData(string name, string link, string date)
         {
-            this.modelName = modelName;
-            this.jsonLink = jsonLink;
-            this.creationDate = creationDate;
+            modelName = name;
+            jsonLink = link;
+            DateTime parsedDate;
+            if (DateTime.TryParseExact(date, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate))
+            {
+                creationDate = parsedDate.ToString("MMMM dd, yyyy");
+            }
+            else
+            {
+                creationDate = "Invalid Date";
+                Debug.LogError("Invalid date format: " + date);
+            }
         }
     }
+
 
 
     private void DisplayButtons()
@@ -1562,7 +1574,9 @@ public class PCAuth : MonoBehaviour
         for (int i = startIndex; i < endIndex; i++)
         {
             ModelData modelData = new ModelData(modelNames[i], jsonLinks[i], creationDateTimes[i]);
-            string buttonText = $"{modelData.modelName}\nJsonLink: {modelData.jsonLink}\nCreationDate: {modelData.creationDate}";
+            //string buttonText = $"{modelData.modelName}\nJsonLink: {modelData.jsonLink}\nCreationDate: {modelData.creationDate}";
+
+            string buttonText = $"{modelData.modelName}\n{modelData.creationDate}";
 
             GameObject buttonObj = Instantiate(ButtonPrefab, ButtonParent);
             buttonObj.name = modelData.modelName;
