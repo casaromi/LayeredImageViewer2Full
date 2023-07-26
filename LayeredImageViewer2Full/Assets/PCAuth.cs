@@ -1585,13 +1585,25 @@ public class PCAuth : MonoBehaviour
     {
         public string modelName;
         public string jsonLink;
-        public string creationDate;
+        public DateTime creationDate;
 
         public ModelData(string name, string link, string date)
         {
             modelName = name;
             jsonLink = link;
-            creationDate = date;
+            if (DateTime.TryParseExact(date, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate))
+            {
+                creationDate = parsedDate;
+            }
+            else
+            {
+                Debug.LogError("Invalid date format: " + date);
+            }
+        }
+
+        public string GetFormattedDate()
+        {
+            return creationDate.ToString("MMMM dd, yyyy");
         }
     }
 
@@ -1653,7 +1665,8 @@ public class PCAuth : MonoBehaviour
 
             ModelData modelData = new ModelData(modelNames[originalIndex], jsonLinks[originalIndex], creationDateTimes[originalIndex]);
 
-            string buttonText = $"<size=20><color=blue>{modelData.modelName}</color></size>\n<size=10><color=red>{modelData.creationDate}</color></size>";
+            // Update the button text to show the formatted date
+            string buttonText = $"<size=20><color=blue>{modelData.modelName}</color></size>\n<size=10><color=red>{modelData.GetFormattedDate()}</color></size>";
 
             GameObject buttonObj = Instantiate(ButtonPrefab, ButtonParent);
             buttonObj.name = modelData.modelName;
@@ -1681,38 +1694,26 @@ public class PCAuth : MonoBehaviour
 
 
         // Disable the "Previous Page" button if the current page is the first page
-        if (currentPage <= totalPages - totalPages)
+        if (currentPage <= 0)
         {
-            // Disable the "Next Page" button
-            // Replace "NextButton" with the actual reference to the "Next Page" button in your scene
-            // For example: NextButton.interactable = false;
             PreButton.interactable = false;
         }
         else
         {
-            // Enable the "Next Page" button
-            // Replace "NextButton" with the actual reference to the "Next Page" button in your scene
-            // For example: NextButton.interactable = true;
             PreButton.interactable = true;
         }
-
 
         // Disable the "Next Page" button if the current page is the last page
         if (currentPage >= totalPages - 1)
         {
-            // Disable the "Next Page" button
-            // Replace "NextButton" with the actual reference to the "Next Page" button in your scene
-            // For example: NextButton.interactable = false;
             NextButton.interactable = false;
         }
         else
         {
-            // Enable the "Next Page" button
-            // Replace "NextButton" with the actual reference to the "Next Page" button in your scene
-            // For example: NextButton.interactable = true;
             NextButton.interactable = true;
         }
     }
+
 
 
 
