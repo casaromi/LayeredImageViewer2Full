@@ -1385,6 +1385,7 @@ public class PCAuth : MonoBehaviour
 */
 
 
+//Latest Script Version
 
 using UnityEngine;
 using UnityEngine.Networking;
@@ -1909,7 +1910,6 @@ public class PCAuth : MonoBehaviour
 
 
 
-
     private void OnDestroy()
     {
         ClearButtons();
@@ -1929,4 +1929,3 @@ public class PCAuth : MonoBehaviour
         PlayerPrefs.Save();
     }
 }
-
