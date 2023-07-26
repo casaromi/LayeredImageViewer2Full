@@ -1450,6 +1450,7 @@ public class PCAuth : MonoBehaviour
 
     private string phpURL = "https://davidjoiner.net/~confocal/PCuAuth.php";
 
+    private List<int> filteredIndices = new List<int>();
 
     private enum FilterType
     {
@@ -1587,40 +1588,61 @@ public class PCAuth : MonoBehaviour
         {
             modelName = name;
             jsonLink = link;
-            DateTime parsedDate;
-            if (DateTime.TryParseExact(date, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate))
-            {
-                creationDate = parsedDate.ToString("MMMM dd, yyyy");
-            }
-            else
-            {
-                creationDate = "Invalid Date";
-                Debug.LogError("Invalid date format: " + date);
-            }
+            creationDate = date;
         }
     }
+
 
 
 
     private void DisplayButtons()
     {
         ClearButtons();
+        filteredIndices.Clear();
 
-        int startIndex = currentPage * buttonsPerPage;
-        int endIndex = Mathf.Min(startIndex + buttonsPerPage, modelNames.Count);
-
-        if (startIndex >= modelNames.Count)
+        // Filter the models based on the current filter
+        for (int i = 0; i < modelNames.Count; i++)
         {
-            currentPage = (modelNames.Count - 1) / buttonsPerPage;
-            startIndex = currentPage * buttonsPerPage;
-            endIndex = Mathf.Min(startIndex + buttonsPerPage, modelNames.Count);
+            bool modelPassesFilter = false;
+
+            switch (currentFilter)
+            {
+                case FilterType.All:
+                    modelPassesFilter = true;
+                    break;
+                case FilterType.Number:
+                    modelPassesFilter = char.IsNumber(modelNames[i][0]);
+                    break;
+                case FilterType.AtoG:
+                    modelPassesFilter = modelNames[i][0] >= 'A' && modelNames[i][0] <= 'G';
+                    break;
+                case FilterType.HtoN:
+                    modelPassesFilter = modelNames[i][0] >= 'H' && modelNames[i][0] <= 'N';
+                    break;
+                case FilterType.OtoZ:
+                    modelPassesFilter = modelNames[i][0] >= 'O' && modelNames[i][0] <= 'Z';
+                    break;
+            }
+
+            if (modelPassesFilter)
+            {
+                filteredIndices.Add(i);
+            }
         }
+
+        // Calculate the total number of pages based on the filtered indices count and buttons per page
+        int totalPages = (filteredIndices.Count - 1) / buttonsPerPage + 1;
+
+        // Calculate the start and end indices based on the current page
+        int startIndex = currentPage * buttonsPerPage;
+        int endIndex = Mathf.Min(startIndex + buttonsPerPage, filteredIndices.Count);
 
         for (int i = startIndex; i < endIndex; i++)
         {
-            ModelData modelData = new ModelData(modelNames[i], jsonLinks[i], creationDateTimes[i]);
-            //string buttonText = $"{modelData.modelName}\nJsonLink: {modelData.jsonLink}\nCreationDate: {modelData.creationDate}";
-            //string buttonText = $"{modelData.modelName}\n{modelData.creationDate}";
+            // Get the original index from the filtered indices list
+            int originalIndex = filteredIndices[i];
+
+            ModelData modelData = new ModelData(modelNames[originalIndex], jsonLinks[originalIndex], creationDateTimes[originalIndex]);
 
             string buttonText = $"<size=20><color=blue>{modelData.modelName}</color></size>\n<size=10><color=red>{modelData.creationDate}</color></size>";
 
@@ -1641,7 +1663,6 @@ public class PCAuth : MonoBehaviour
             button.onClick.AddListener(() => SelectJsonLink(index));
         }
 
-
         // Set the color of the filter buttons based on the currentFilter
         AllButton.GetComponent<Image>().color = currentFilter == FilterType.All ? Color.blue : Color.white;
         NumberButton.GetComponent<Image>().color = currentFilter == FilterType.Number ? Color.blue : Color.white;
@@ -1652,29 +1673,97 @@ public class PCAuth : MonoBehaviour
 
 
 
-
-
-
-    private void SelectJsonLink(int index)
+    private List<ModelData> GetFilteredModels()
     {
-        if (index >= 0 && index < jsonLinks.Count)
+        List<ModelData> filteredModels = new List<ModelData>();
+
+        switch (currentFilter)
         {
-            selectedJsonLink = jsonLinks[index];
-            Debug.Log("Selected JsonLink: " + selectedJsonLink);
-            RoomUI.SetActive(true);
+            case FilterType.All:
+                filteredModels = GetModelsForFilter(modelNames);
+                break;
+            case FilterType.Number:
+                filteredModels = GetModelsForFilter(modelNames, '0', '9');
+                break;
+            case FilterType.AtoG:
+                filteredModels = GetModelsForFilter(modelNames, 'A', 'G');
+                break;
+            case FilterType.HtoN:
+                filteredModels = GetModelsForFilter(modelNames, 'H', 'N');
+                break;
+            case FilterType.OtoZ:
+                filteredModels = GetModelsForFilter(modelNames, 'O', 'Z');
+                break;
+        }
+
+        return filteredModels;
+    }
+
+    private List<ModelData> GetModelsForFilter(List<string> sourceList)
+    {
+        List<ModelData> filteredModels = new List<ModelData>();
+
+        for (int i = 0; i < sourceList.Count; i++)
+        {
+            ModelData modelData = new ModelData(modelNames[i], jsonLinks[i], creationDateTimes[i]);
+            filteredModels.Add(modelData);
+        }
+
+        return filteredModels;
+    }
+
+    private List<ModelData> GetModelsForFilter(List<string> sourceList, char startChar, char endChar)
+    {
+        List<ModelData> filteredModels = new List<ModelData>();
+
+        for (int i = 0; i < sourceList.Count; i++)
+        {
+            char firstChar = char.ToUpper(sourceList[i][0]);
+            if (firstChar >= startChar && firstChar <= endChar)
+            {
+                ModelData modelData = new ModelData(modelNames[i], jsonLinks[i], creationDateTimes[i]);
+                filteredModels.Add(modelData);
+            }
+        }
+
+        return filteredModels;
+    }
 
 
-            selectedModelName = modelNames[index];
-            Debug.Log("Selected JsonLink: " + selectedModelName);
 
-            selectedModelDate = creationDateTimes[index];
-            Debug.Log("Selected JsonLink: " + selectedModelDate);
+
+
+
+    private void SelectJsonLink(int filteredIndex)
+    {
+        if (filteredIndex >= 0 && filteredIndex < filteredIndices.Count)
+        {
+            int originalIndex = filteredIndices[filteredIndex];
+            if (originalIndex >= 0 && originalIndex < jsonLinks.Count)
+            {
+                selectedJsonLink = jsonLinks[originalIndex];
+                Debug.Log("Selected JsonLink: " + selectedJsonLink);
+                RoomUI.SetActive(true);
+
+                selectedModelName = modelNames[originalIndex];
+                Debug.Log("Selected ModelName: " + selectedModelName);
+
+                selectedModelDate = creationDateTimes[originalIndex];
+                Debug.Log("Selected ModelDate: " + selectedModelDate);
+            }
+            else
+            {
+                Debug.LogError("Invalid index in SelectJsonLink: " + originalIndex);
+            }
         }
         else
         {
-            Debug.LogError("Invalid index in SelectJsonLink: " + index);
+            Debug.LogError("Invalid filtered index in SelectJsonLink: " + filteredIndex);
         }
     }
+
+
+
 
 
 
