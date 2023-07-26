@@ -1448,6 +1448,9 @@ public class PCAuth : MonoBehaviour
     public Button HtoNButton;
     public Button OtoZButton;
 
+    public Button NextButton;
+    public Button PreButton;
+
     private string phpURL = "https://davidjoiner.net/~confocal/PCuAuth.php";
 
     private List<int> filteredIndices = new List<int>();
@@ -1633,6 +1636,12 @@ public class PCAuth : MonoBehaviour
         // Calculate the total number of pages based on the filtered indices count and buttons per page
         int totalPages = (filteredIndices.Count - 1) / buttonsPerPage + 1;
 
+        // Update the current page if it exceeds the total number of pages
+        if (currentPage >= totalPages)
+        {
+            currentPage = totalPages - 1;
+        }
+
         // Calculate the start and end indices based on the current page
         int startIndex = currentPage * buttonsPerPage;
         int endIndex = Mathf.Min(startIndex + buttonsPerPage, filteredIndices.Count);
@@ -1669,7 +1678,42 @@ public class PCAuth : MonoBehaviour
         AtoGButton.GetComponent<Image>().color = currentFilter == FilterType.AtoG ? Color.blue : Color.white;
         HtoNButton.GetComponent<Image>().color = currentFilter == FilterType.HtoN ? Color.blue : Color.white;
         OtoZButton.GetComponent<Image>().color = currentFilter == FilterType.OtoZ ? Color.blue : Color.white;
+
+
+        // Disable the "Previous Page" button if the current page is the first page
+        if (currentPage <= totalPages - totalPages)
+        {
+            // Disable the "Next Page" button
+            // Replace "NextButton" with the actual reference to the "Next Page" button in your scene
+            // For example: NextButton.interactable = false;
+            PreButton.interactable = false;
+        }
+        else
+        {
+            // Enable the "Next Page" button
+            // Replace "NextButton" with the actual reference to the "Next Page" button in your scene
+            // For example: NextButton.interactable = true;
+            PreButton.interactable = true;
+        }
+
+
+        // Disable the "Next Page" button if the current page is the last page
+        if (currentPage >= totalPages - 1)
+        {
+            // Disable the "Next Page" button
+            // Replace "NextButton" with the actual reference to the "Next Page" button in your scene
+            // For example: NextButton.interactable = false;
+            NextButton.interactable = false;
+        }
+        else
+        {
+            // Enable the "Next Page" button
+            // Replace "NextButton" with the actual reference to the "Next Page" button in your scene
+            // For example: NextButton.interactable = true;
+            NextButton.interactable = true;
+        }
     }
+
 
 
 

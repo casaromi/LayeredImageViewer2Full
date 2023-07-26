@@ -7019,6 +7019,8 @@ MonoBehaviour:
   AtoGButton: {fileID: 293025821}
   HtoNButton: {fileID: 1569478635}
   OtoZButton: {fileID: 1438168661}
+  NextButton: {fileID: 1294096899}
+  PreButton: {fileID: 1314705062}
 --- !u!1001 &666821189
 PrefabInstance:
   m_ObjectHideFlags: 0
