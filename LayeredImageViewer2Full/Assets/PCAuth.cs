@@ -1405,6 +1405,7 @@ public class PCAuth : MonoBehaviour
 
     // Variables to store the data from PHP
     public string fName;
+
     public List<string> modelNames;
     public List<string> jsonLinks;
     public List<string> creationDateTimes;
@@ -1436,6 +1437,10 @@ public class PCAuth : MonoBehaviour
     public static string selectedModelName;
     public static string selectedModelDate;
 
+    public static string firstName;
+    public static string userEmail;
+    public static string userPassword;
+
     private string phpURL = "https://davidjoiner.net/~confocal/PCuAuth.php";
 
     public void CallAuth()
@@ -1451,8 +1456,24 @@ public class PCAuth : MonoBehaviour
         ClearButtons();
 
         WWWForm form = new WWWForm();
-        form.AddField("Email", Email.text);
-        form.AddField("Password", Password.text);
+        if (string.IsNullOrEmpty(userEmail) && string.IsNullOrEmpty(userPassword))
+        {
+            form.AddField("Email", Email.text);
+            form.AddField("Password", Password.text);
+
+            Debug.Log("!!!NEW USER!!!");
+        }
+        else
+        {
+            // Retrieve the data from PlayerPrefs
+            form.AddField("Email", userEmail);
+            form.AddField("Password", userPassword);
+
+            Debug.Log("!?!? Welcome back to lobby");
+            Debug.Log(userEmail);
+            Debug.Log(userPassword);
+        }
+
 
         UnityWebRequest request = UnityWebRequest.Post(phpURL, form);
         yield return request.SendWebRequest();
@@ -1511,6 +1532,9 @@ public class PCAuth : MonoBehaviour
                     Holder.SetActive(true);
 
                     DisplayButtons();
+
+                    // Call StoreUserInfo to store user information in PlayerPrefs
+                    StoreUserInfo(0);
                 }
                 else
                 {
@@ -1625,6 +1649,33 @@ public class PCAuth : MonoBehaviour
 
 
 
+
+    private void StoreUserInfo(int index)
+    {
+        if (string.IsNullOrEmpty(userEmail) && string.IsNullOrEmpty(userPassword) && string.IsNullOrEmpty(firstName))
+        {
+            Debug.Log("!!!!!!!!!");
+
+            firstName = fName;
+            userEmail = Email.text;
+            userPassword = Password.text;
+
+            // Save the data using PlayerPrefs
+            PlayerPrefs.SetString("FirstName", firstName);
+            PlayerPrefs.SetString("UserEmail", userEmail);
+            PlayerPrefs.SetString("UserPassword", userPassword);
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            Debug.Log("!!!!!User Already logged in");
+        }
+    }
+
+
+
+
+
     private void ClearButtons()
     {
         foreach (GameObject buttonObj in instantiatedButtons)
@@ -1657,6 +1708,20 @@ public class PCAuth : MonoBehaviour
     private void OnDestroy()
     {
         ClearButtons();
+    }
+
+    
+    private void OnApplicationQuit()
+    {
+        ClearPlayerPrefs();
+    }
+
+    // Method to clear player preferences
+    private void ClearPlayerPrefs()
+    {
+        // Clear all player preferences
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
     }
 }
 
