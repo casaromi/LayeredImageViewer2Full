@@ -7014,6 +7014,11 @@ MonoBehaviour:
   ButtonPrefab: {fileID: 7347650516477465846, guid: 33671ee9c6b436f49ac85d430094ec34, type: 3}
   ButtonParent: {fileID: 244232143}
   Holder: {fileID: 263645562}
+  AllButton: {fileID: 1453815181}
+  NumberButton: {fileID: 1713809878}
+  AtoGButton: {fileID: 293025821}
+  HtoNButton: {fileID: 1569478635}
+  OtoZButton: {fileID: 1438168661}
 --- !u!1001 &666821189
 PrefabInstance:
   m_ObjectHideFlags: 0
