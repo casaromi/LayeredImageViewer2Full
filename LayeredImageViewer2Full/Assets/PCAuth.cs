@@ -1421,6 +1421,9 @@ public class PCAuth : MonoBehaviour
 
     public GameObject ModelMenu;
 
+    public GameObject waitMsg;
+    public GameObject loadingWheel;
+
     public GameObject instruct;
     public GameObject JoinRoom;
 
@@ -1789,7 +1792,10 @@ public class PCAuth : MonoBehaviour
             {
                 selectedJsonLink = jsonLinks[originalIndex];
                 Debug.Log("Selected JsonLink: " + selectedJsonLink);
-                RoomUI.SetActive(true);
+
+
+                // Start the coroutine with the delay
+                StartCoroutine(ActivateRoomUIWithDelay());
 
                 selectedModelName = modelNames[originalIndex];
                 Debug.Log("Selected ModelName: " + selectedModelName);
@@ -1809,7 +1815,18 @@ public class PCAuth : MonoBehaviour
     }
 
 
+    private IEnumerator ActivateRoomUIWithDelay()
+    {
+        waitMsg.SetActive(true);
 
+        // Wait for 4 seconds
+        yield return new WaitForSeconds(3f);
+
+        // Now, set the RoomUI active after the delay
+        waitMsg.SetActive(false);
+
+        RoomUI.SetActive(true);
+    }
 
 
 
