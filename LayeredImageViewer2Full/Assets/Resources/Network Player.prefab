@@ -288,6 +288,7 @@ MonoBehaviour:
   rightHand: {fileID: 8898593505720204144}
   leftHandAnimator: {fileID: 9184204008289095372}
   rightHandAnimator: {fileID: 668201197498926498}
+  firstNameTextMesh: {fileID: 9223344236109164001}
 --- !u!114 &2708513174038228752
 MonoBehaviour:
   m_ObjectHideFlags: 0
