@@ -202,6 +202,8 @@ public class NetworkPlayer : MonoBehaviourPun
 
 
 
+
+/*
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -237,6 +239,76 @@ public class NetworkPlayer : MonoBehaviourPun
             usernameTextObject.transform.SetParent(head); // Set the parent to the player's head
             usernameTextObject.transform.localPosition = Vector3.up * 0.2f; // Adjust the position above the player's head
             usernameTextObject.transform.localRotation = Quaternion.identity; // Ensure no rotation
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (photonView.IsMine)
+        {
+            MapPosition(head, Camera.main.transform);
+        }
+    }
+
+    void MapPosition(Transform target, Transform rigTransform)
+    {
+        target.position = rigTransform.position;
+        target.rotation = rigTransform.rotation;
+    }
+}
+*/
+
+
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit;
+using Photon.Pun;
+using Unity.XR.CoreUtils;
+using TMPro;
+
+public class NetworkPlayer : MonoBehaviourPun
+{
+    public Transform head;
+
+    // Dictionary to store username text objects associated with photonView.Owner.NickName
+    private Dictionary<string, GameObject> usernameTextObjects = new Dictionary<string, GameObject>();
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        XROrigin rig = FindObjectOfType<XROrigin>();
+
+        if (photonView.IsMine)
+        {
+            foreach (var item in GetComponentsInChildren<Renderer>())
+            {
+                item.enabled = false;
+            }
+        }
+        else
+        {
+            // Check if the username text object already exists for this player
+            if (usernameTextObjects.ContainsKey(photonView.Owner.NickName))
+            {
+                // If it exists, destroy the previous object to avoid duplicates
+                Destroy(usernameTextObjects[photonView.Owner.NickName]);
+            }
+
+            // Instantiate and set up the 3D text for the username for remote players
+            GameObject usernameTextObject = new GameObject("UsernameText");
+            TextMeshPro usernameTextMesh = usernameTextObject.AddComponent<TextMeshPro>();
+            usernameTextMesh.text = photonView.Owner.NickName;
+            usernameTextMesh.fontSize = 0.2f;
+            usernameTextObject.transform.SetParent(head); // Set the parent to the player's head
+            usernameTextObject.transform.localPosition = Vector3.up * 0.2f; // Adjust the position above the player's head
+            usernameTextObject.transform.localRotation = Quaternion.identity; // Ensure no rotation
+
+            // Add the username text object to the dictionary
+            usernameTextObjects.Add(photonView.Owner.NickName, usernameTextObject);
         }
     }
 

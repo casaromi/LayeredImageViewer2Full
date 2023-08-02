@@ -267,10 +267,19 @@ public class CombinedMouseLookAndCameraMove : MonoBehaviour
     private Vector3 lastMouse; // previous mouse position
     private float totalRun = 1.0f;
     private bool isInputFieldSelected = false;
+    private LeaveGameMenu leaveGameMenu; // Reference to the LeaveGameMenu script
 
     private void Start()
     {
         lastMouse = Input.mousePosition;
+
+        // Find the LeaveGameMenu script in the scene
+        leaveGameMenu = FindObjectOfType<LeaveGameMenu>();
+
+        if (leaveGameMenu == null)
+        {
+            Debug.LogWarning("CombinedMouseLookAndCameraMove: LeaveGameMenu script not found in the scene!");
+        }
     }
 
     private void Update()
@@ -279,7 +288,6 @@ public class CombinedMouseLookAndCameraMove : MonoBehaviour
         if (EventSystem.current.currentSelectedGameObject != null &&
             EventSystem.current.currentSelectedGameObject.GetComponent<TMP_InputField>() != null)
         {
-
             // An input field is selected
             isInputFieldSelected = true;
         }
@@ -289,21 +297,27 @@ public class CombinedMouseLookAndCameraMove : MonoBehaviour
             isInputFieldSelected = false;
         }
 
-        // Mouse camera angle
-        Vector3 mouseDelta = Input.mousePosition - lastMouse;
-        lastMouse = Input.mousePosition;
+        // Check if the leave game menu is active
+        bool isLeaveGameMenuActive = (leaveGameMenu != null) ? leaveGameMenu.leaveGamePanel.activeSelf : false;
 
-        Vector3 rotation = transform.rotation.eulerAngles;
-        rotation.x -= mouseDelta.y * camSens;
-        rotation.y += mouseDelta.x * camSens;
-        rotation.z = 0;
-        transform.rotation = Quaternion.Euler(rotation);
+        // Mouse camera angle
+        if (!isLeaveGameMenuActive) // Only update the rotation if the leave game menu is not active
+        {
+            Vector3 mouseDelta = Input.mousePosition - lastMouse;
+            lastMouse = Input.mousePosition;
+
+            Vector3 rotation = transform.rotation.eulerAngles;
+            rotation.x -= mouseDelta.y * camSens;
+            rotation.y += mouseDelta.x * camSens;
+            rotation.z = 0;
+            transform.rotation = Quaternion.Euler(rotation);
+        }
 
         // Keyboard commands
         Vector3 movement = GetBaseInput();
 
         // Only move while a direction key is pressed and no input field is selected
-        if (movement.sqrMagnitude > 0 && !isInputFieldSelected)
+        if (movement.sqrMagnitude > 0 && !isInputFieldSelected && !isLeaveGameMenuActive)
         {
             if (Input.GetKey(KeyCode.LeftShift))
             {

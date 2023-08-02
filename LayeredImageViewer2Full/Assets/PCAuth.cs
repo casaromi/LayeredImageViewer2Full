@@ -1422,7 +1422,6 @@ public class PCAuth : MonoBehaviour
     public GameObject ModelMenu;
 
     public GameObject waitMsg;
-    public GameObject loadingWheel;
 
     public GameObject instruct;
     public GameObject JoinRoom;
