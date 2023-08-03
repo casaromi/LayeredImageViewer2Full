@@ -1669,7 +1669,7 @@ public class PCAuth : MonoBehaviour
             ModelData modelData = new ModelData(modelNames[originalIndex], jsonLinks[originalIndex], creationDateTimes[originalIndex]);
 
             // Update the button text to show the formatted date
-            string buttonText = $"<size=20><color=blue>{modelData.modelName}</color></size>\n<size=10><color=red>{modelData.GetFormattedDate()}</color></size>";
+            string buttonText = $"<size=20><color=white>{modelData.modelName}</color></size>\n<size=10><color=red>{modelData.GetFormattedDate()}</color></size>";
 
             GameObject buttonObj = Instantiate(ButtonPrefab, ButtonParent);
             buttonObj.name = modelData.modelName;
