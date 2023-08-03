@@ -15,7 +15,7 @@ public class DisplayRoomInfo : MonoBehaviour
         string modelDate = PCAuth.selectedModelDate;
 
         // Format the text using Rich Text tags for size and color
-        string formattedText = $"<size=28><color=blue>{modelName}</color></size>\n<size=20><color=blue>{modelDate}</color></size>";
+        string formattedText = $"<size=28><color=white>{modelName}</color></size>\n<size=20><color=white>{modelDate}</color></size>";
 
         // Set the text of the TMP text component
         textField.text = formattedText;

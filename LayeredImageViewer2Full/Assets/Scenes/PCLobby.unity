@@ -457,7 +457,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &15138540
 RectTransform:
   m_ObjectHideFlags: 0
@@ -467,18 +467,18 @@ RectTransform:
   m_GameObject: {fileID: 15138539}
   m_LocalRotation: {x: -0.049325276, y: -0.7053843, z: -0.049325276, w: 0.7053843}
   m_LocalPosition: {x: 0, y: 0, z: -8.086}
-  m_LocalScale: {x: 0.004, y: 0.004, z: 0.2}
+  m_LocalScale: {x: 0.004, y: 0.0040000007, z: 0.2}
   m_Children:
   - {fileID: 1074107861}
   - {fileID: 506808055}
   - {fileID: 1057450787}
   - {fileID: 2000807880}
   m_Father: {fileID: 293919835}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: -8, y: -90, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -4.95, y: 0.286}
+  m_AnchoredPosition: {x: -4.941, y: 0.286}
   m_SizeDelta: {x: 800, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &15138541
@@ -3621,9 +3621,9 @@ Transform:
   - {fileID: 249175939}
   - {fileID: 1364952310}
   - {fileID: 796200469}
+  - {fileID: 1613071021}
   - {fileID: 1616354210}
   - {fileID: 15138540}
-  - {fileID: 1613071021}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5259,7 +5259,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 506808054}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.09}
+  m_LocalPosition: {x: 0, y: 0, z: 0.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 665390852}
@@ -5268,7 +5268,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.3, y: 71.8}
+  m_AnchoredPosition: {x: -2.3, y: 67.4}
   m_SizeDelta: {x: 343.12, y: 54.49}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &506808056
@@ -12282,7 +12282,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1057450786}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.07}
+  m_LocalPosition: {x: 0, y: 0, z: -0.08}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 936049492}
@@ -12291,7 +12291,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.7, y: -24.4}
+  m_AnchoredPosition: {x: -3.7, y: -28.800003}
   m_SizeDelta: {x: 521.29, y: 153.54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1057450788
@@ -12337,7 +12337,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1057450789}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2136772610}
+        m_TargetAssemblyTypeName: NetworkManager, Assembly-CSharp
+        m_MethodName: JoinRoom
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Lab_
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1057450789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14275,7 +14287,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2136772610}
         m_TargetAssemblyTypeName: NetworkManager, Assembly-CSharp
-        m_MethodName: InitiliazeRoom
+        m_MethodName: InitializeRoom
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -18622,7 +18634,7 @@ RectTransform:
   - {fileID: 1090349583}
   - {fileID: 794271961}
   m_Father: {fileID: 293919835}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -18781,7 +18793,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1616354210
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18798,7 +18810,7 @@ RectTransform:
   - {fileID: 501314666}
   - {fileID: 84197631}
   m_Father: {fileID: 293919835}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: -8, y: -90, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -22406,7 +22418,7 @@ GameObject:
   - component: {fileID: 2000807882}
   - component: {fileID: 2000807881}
   m_Layer: 5
-  m_Name: Invalid 1
+  m_Name: Invalid Join
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23946,7 +23958,9 @@ MonoBehaviour:
   loadingScreen: {fileID: 1128926517}
   LoginFeilds: {fileID: 170236469}
   ButtonParent: {fileID: 244232142}
+  invalidJoin: {fileID: 2000807879}
   pcAuthScript: {fileID: 666319559}
+  roomNumberText: {fileID: 0}
 --- !u!1 &2139473010
 GameObject:
   m_ObjectHideFlags: 0

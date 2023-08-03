@@ -348,6 +348,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.SceneManagement;
+using Photon.Realtime;
+using UnityEngine.UI;
+
 
 [System.Serializable]
 public class DefaultRoom
@@ -365,9 +369,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public GameObject loadingScreen;
     public GameObject LoginFeilds;
     public GameObject ButtonParent;
+    public GameObject invalidJoin;
 
     public PCAuth pcAuthScript;
 
+    public Text roomNumberText;
+
+    public static string roomName;
+
+    private Dictionary<string, RoomInfo> customRoomList = new Dictionary<string, RoomInfo>();
 
     // Update is called once per frame
     public void ConnectToServer()
@@ -394,13 +404,23 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         pcAuthScript.CallAuth();
     }
 
-    public void InitiliazeRoom(int defaultRoomIndex)
+
+
+
+
+    public void LoadNextScene()
+    {
+        SceneManager.LoadScene("NextSceneName"); // Replace "NextSceneName" with the name of your second scene
+    }
+
+    public void InitializeRoom(int defaultRoomIndex)
     {
         DefaultRoom roomSettings = defaultRooms[defaultRoomIndex];
 
-        // Load Scene
-        loadingScreen.SetActive(true);
-        PhotonNetwork.LoadLevel(roomSettings.sceneIndex);
+        // Generate a unique room name by appending a random 6-digit number
+        roomName = roomSettings.Name + "_" + Random.Range(100000, 1000000);
+
+        Debug.Log("Room Name: " + roomName);
 
         // Create Room
         RoomOptions roomOptions = new RoomOptions();
@@ -408,8 +428,67 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         roomOptions.IsVisible = true;
         roomOptions.IsOpen = true;
 
-        PhotonNetwork.JoinOrCreateRoom(roomSettings.Name, roomOptions, TypedLobby.Default);
+        PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
+
+
+        // Load Scene locally
+        StartCoroutine(LoadSceneAsync(roomSettings.sceneIndex));
     }
+
+
+    private IEnumerator LoadSceneAsync(int sceneIndex)
+    {
+        loadingScreen.SetActive(true);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
+
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
+        loadingScreen.SetActive(false);
+    }
+
+
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    {
+        customRoomList.Clear();
+        foreach (RoomInfo room in roomList)
+        {
+            if (room.CustomProperties.TryGetValue("RoomNumber", out object roomNumObj))
+            {
+                string roomNum = roomNumObj.ToString();
+                if (!customRoomList.ContainsKey(roomNum))
+                {
+                    customRoomList.Add(roomNum, room);
+                }
+            }
+        }
+    }
+
+    public void JoinRoom(string roomNumber)
+    {
+        if (!PhotonNetwork.IsConnectedAndReady)
+        {
+            Debug.LogWarning("Not connected to the server.");
+            return;
+        }
+
+        if (customRoomList.TryGetValue(roomNumber, out RoomInfo roomToJoin))
+        {
+            PhotonNetwork.JoinRoom(roomToJoin.Name);
+        }
+        else
+        {
+            Debug.LogWarning("Room with number " + roomNumber + " does not exist.");
+            invalidJoin.SetActive(true);
+        }
+    }
+
+
+
+
+
 
     public void LeaveRoomAndGoToLobby()
     {
@@ -428,6 +507,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Joined a Room");
         base.OnJoinedRoom();
+
+        if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue("RoomNumber", out object roomNumObj))
+        {
+            string roomNum = roomNumObj.ToString();
+            PlayerPrefs.SetString("RoomNumber", roomNum);
+            LoadNextScene(); // Load the next scene after storing the room number
+        }
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
