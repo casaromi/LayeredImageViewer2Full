@@ -1816,6 +1816,8 @@ public class PCAuth : MonoBehaviour
 
     private IEnumerator ActivateRoomUIWithDelay()
     {
+        RoomUI.SetActive(false);
+
         waitMsg.SetActive(true);
 
         // Wait for 4 seconds
