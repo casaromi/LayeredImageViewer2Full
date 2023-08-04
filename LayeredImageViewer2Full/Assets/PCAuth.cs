@@ -1551,11 +1551,12 @@ public class PCAuth : MonoBehaviour
                     Invalid.SetActive(false);
                     RoomUI.SetActive(false);
 
-                    instruct.SetActive(false);
 
                     waitMsg.SetActive(true);
 
                     yield return new WaitForSeconds(3f);
+
+                    instruct.SetActive(false);
 
                     waitMsg.SetActive(false);
 
