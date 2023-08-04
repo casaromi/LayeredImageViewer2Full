@@ -430,24 +430,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
 
-
-        // Load Scene locally
-        StartCoroutine(LoadSceneAsync(roomSettings.sceneIndex));
+        // Load Scene locally immediately after joining the room
+        PhotonNetwork.LoadLevel(roomSettings.sceneIndex);
     }
 
-
-    private IEnumerator LoadSceneAsync(int sceneIndex)
-    {
-        loadingScreen.SetActive(true);
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
-
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
-        }
-
-        loadingScreen.SetActive(false);
-    }
 
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
@@ -517,20 +503,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("Joined a Room");
         base.OnJoinedRoom();
 
-        // Store the room information in the customRoomList dictionary
-        RoomInfo roomInfo = PhotonNetwork.CurrentRoom;
-        if (!customRoomList.ContainsKey(roomInfo.Name))
-        {
-            customRoomList.Add(roomInfo.Name, roomInfo);
-        }
-
         if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue("RoomNumber", out object roomNumObj))
         {
-            string roomNum = roomNumObj.ToString();
-            PlayerPrefs.SetString("RoomNumber", roomNum);
-            LoadNextScene(); // Load the next scene after storing the room number
+            // Remove the following line (you don't need it)
+            // PlayerPrefs.SetString("RoomNumber", roomNumObj.ToString());
+
+            // LoadNextScene(); // Don't load the next scene here, as it's already loaded in InitializeRoom method
         }
     }
+
 
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
