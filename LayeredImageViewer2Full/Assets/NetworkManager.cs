@@ -351,7 +351,7 @@ using Photon.Realtime;
 using UnityEngine.SceneManagement;
 using Photon.Realtime;
 using UnityEngine.UI;
-
+using TMPro;
 
 [System.Serializable]
 public class DefaultRoom
@@ -373,7 +373,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public PCAuth pcAuthScript;
 
-    public Text roomNumberText;
+    public TMP_InputField roomNumberText;
 
     public static string roomName;
 
@@ -452,35 +452,43 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
+        base.OnRoomListUpdate(roomList);
+
         customRoomList.Clear();
+
         foreach (RoomInfo room in roomList)
         {
-            if (room.CustomProperties.TryGetValue("RoomNumber", out object roomNumObj))
-            {
-                string roomNum = roomNumObj.ToString();
-                if (!customRoomList.ContainsKey(roomNum))
-                {
-                    customRoomList.Add(roomNum, room);
-                }
-            }
+            customRoomList.Add(room.Name, room);
         }
     }
 
-    public void JoinRoom(string roomNumber)
+
+    public void JoinRoom()
     {
-        if (!PhotonNetwork.IsConnectedAndReady)
+        // Get the 6-digit number from the TMP Input Field
+        string roomNumber = roomNumberText.text;
+
+        // Check if the room number is valid (6 digits)
+        if (roomNumber.Length != 6 || !int.TryParse(roomNumber, out int roomNumberInt))
         {
-            Debug.LogWarning("Not connected to the server.");
+            Debug.Log("Invalid room number format. Please enter a 6-digit number.");
             return;
         }
 
-        if (customRoomList.TryGetValue(roomNumber, out RoomInfo roomToJoin))
+        // Generate the room name by adding the 6 digits to the prefix
+        string roomNameToJoin = "Lab_" + roomNumber;
+        Debug.Log("Attempting to Join: " + roomNameToJoin);
+
+        // Check if the room exists in the customRoomList dictionary
+        if (customRoomList.TryGetValue(roomNameToJoin, out RoomInfo roomInfo))
         {
-            PhotonNetwork.JoinRoom(roomToJoin.Name);
+            // Join the existing room
+            PhotonNetwork.JoinRoom(roomNameToJoin);
         }
         else
         {
-            Debug.LogWarning("Room with number " + roomNumber + " does not exist.");
+            Debug.Log("Room does not exist.");
+            // Display a message to the user that the room does not exist (you can show/hide a UI element here)
             invalidJoin.SetActive(true);
         }
     }
@@ -508,6 +516,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("Joined a Room");
         base.OnJoinedRoom();
 
+        // Store the room information in the customRoomList dictionary
+        RoomInfo roomInfo = PhotonNetwork.CurrentRoom;
+        if (!customRoomList.ContainsKey(roomInfo.Name))
+        {
+            customRoomList.Add(roomInfo.Name, roomInfo);
+        }
+
         if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue("RoomNumber", out object roomNumObj))
         {
             string roomNum = roomNumObj.ToString();
@@ -515,6 +530,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             LoadNextScene(); // Load the next scene after storing the room number
         }
     }
+
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
