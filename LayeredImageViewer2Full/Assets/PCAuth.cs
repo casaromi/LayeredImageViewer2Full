@@ -1552,6 +1552,13 @@ public class PCAuth : MonoBehaviour
                     RoomUI.SetActive(false);
 
                     instruct.SetActive(false);
+
+                    waitMsg.SetActive(true);
+
+                    yield return new WaitForSeconds(3f);
+
+                    waitMsg.SetActive(false);
+
                     JoinRoom.SetActive(true);
 
                     ModelMenu.SetActive(true);
@@ -1793,8 +1800,7 @@ public class PCAuth : MonoBehaviour
                 Debug.Log("Selected JsonLink: " + selectedJsonLink);
 
 
-                // Start the coroutine with the delay
-                StartCoroutine(ActivateRoomUIWithDelay());
+                RoomUI.SetActive(true);
 
                 selectedModelName = modelNames[originalIndex];
                 Debug.Log("Selected ModelName: " + selectedModelName);
@@ -1812,23 +1818,6 @@ public class PCAuth : MonoBehaviour
             Debug.LogError("Invalid filtered index in SelectJsonLink: " + filteredIndex);
         }
     }
-
-
-    private IEnumerator ActivateRoomUIWithDelay()
-    {
-        RoomUI.SetActive(false);
-
-        waitMsg.SetActive(true);
-
-        // Wait for 4 seconds
-        yield return new WaitForSeconds(3f);
-
-        // Now, set the RoomUI active after the delay
-        waitMsg.SetActive(false);
-
-        RoomUI.SetActive(true);
-    }
-
 
 
 
