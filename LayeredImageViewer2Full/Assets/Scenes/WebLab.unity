@@ -19978,6 +19978,7 @@ MonoBehaviour:
   LoginFeilds: {fileID: 0}
   ButtonParent: {fileID: 0}
   invalidJoin: {fileID: 0}
+  leaveGamePanel: {fileID: 1548349067}
   pcAuthScript: {fileID: 0}
   roomNumberText: {fileID: 0}
 --- !u!4 &1176771785
