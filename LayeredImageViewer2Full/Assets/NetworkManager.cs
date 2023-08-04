@@ -472,6 +472,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         if (roomNumber.Length != 6 || !int.TryParse(roomNumber, out int roomNumberInt))
         {
             Debug.Log("Invalid room number format. Please enter a 6-digit number.");
+            invalidJoin.SetActive(true);
             return;
         }
 
