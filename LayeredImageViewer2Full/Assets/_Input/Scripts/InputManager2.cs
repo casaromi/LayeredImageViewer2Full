@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class InputManager : MonoBehaviour
+public class InputManager2 : MonoBehaviour
 {
     public List<ButtonHandler> allButtonHandlers = new List<ButtonHandler>();
 

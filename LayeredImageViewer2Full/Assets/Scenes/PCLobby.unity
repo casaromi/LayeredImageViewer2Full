@@ -6766,9 +6766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4ed948e727d574ea96fab6cffe83ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allButtonHandlers:
-  - {fileID: 11400000, guid: db883316f24c250439a6499fa095ff03, type: 2}
-  - {fileID: 11400000, guid: c3f2cc95869c6fe469fda5a55ca92908, type: 2}
+  allButtonHandlers: []
 --- !u!114 &636513856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9748,9 +9746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4ed948e727d574ea96fab6cffe83ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allButtonHandlers:
-  - {fileID: 11400000, guid: db883316f24c250439a6499fa095ff03, type: 2}
-  - {fileID: 11400000, guid: c3f2cc95869c6fe469fda5a55ca92908, type: 2}
+  allButtonHandlers: []
 --- !u!114 &827444145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21980,9 +21976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4ed948e727d574ea96fab6cffe83ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allButtonHandlers:
-  - {fileID: 11400000, guid: db883316f24c250439a6499fa095ff03, type: 2}
-  - {fileID: 11400000, guid: c3f2cc95869c6fe469fda5a55ca92908, type: 2}
+  allButtonHandlers: []
 --- !u!114 &1909980642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23933,9 +23927,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4ed948e727d574ea96fab6cffe83ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allButtonHandlers:
-  - {fileID: 11400000, guid: db883316f24c250439a6499fa095ff03, type: 2}
-  - {fileID: 11400000, guid: c3f2cc95869c6fe469fda5a55ca92908, type: 2}
+  allButtonHandlers: []
 --- !u!114 &2133753176
 MonoBehaviour:
   m_ObjectHideFlags: 0
