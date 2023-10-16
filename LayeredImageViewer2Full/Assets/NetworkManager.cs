@@ -449,10 +449,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
 
 
-    public void JoinRoom()
+    public void JoinRoom(int defaultRoomIndex)
     {
         // Get the 6-digit number from the TMP Input Field
         string roomNumber = roomNumberText.text;
+        DefaultRoom roomSettings = defaultRooms[defaultRoomIndex];
 
         // Check if the room number is valid (6 digits)
         if (roomNumber.Length != 6 || !int.TryParse(roomNumber, out int roomNumberInt))
@@ -471,6 +472,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             // Join the existing room
             PhotonNetwork.JoinRoom(roomNameToJoin);
+            PhotonNetwork.LoadLevel(roomSettings.sceneIndex);
         }
         else
         {
