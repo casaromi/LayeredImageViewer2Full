@@ -1572,13 +1572,13 @@ public class PCAuth : MonoBehaviour
                     // Call StoreUserInfo to store user information in PlayerPrefs
                     StoreUserInfo(0);
 
-                    selectedJsonLink = jsonLinks[0];
+                    selectedJsonLink = "01";
                     Debug.Log("Selected JsonLink: " + selectedJsonLink);
 
-                    selectedModelName = modelNames[0];
+                    selectedModelName = "01";
                     Debug.Log("Selected ModelName: " + selectedModelName);
 
-                    selectedModelDate = creationDateTimes[0];
+                    selectedModelDate = "2023-01-01 05:30:00";
                     Debug.Log("Selected ModelDate: " + selectedModelDate);
                 }
                 else
