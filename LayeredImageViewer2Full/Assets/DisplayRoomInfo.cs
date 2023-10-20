@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using Photon.Pun;
 using TMPro;
@@ -34,13 +33,22 @@ public class DisplayRoomInfo : MonoBehaviourPunCallbacks
         {
             // Access and display the values
             string modelName = (string)PhotonNetwork.CurrentRoom.CustomProperties["modelName"];
-            string modelDate = (string)PhotonNetwork.CurrentRoom.CustomProperties["modelDate"];
+            string modelDateString = (string)PhotonNetwork.CurrentRoom.CustomProperties["modelDate"];
             string modelJson = (string)PhotonNetwork.CurrentRoom.CustomProperties["modelJson"];
 
-            //Debug.Log($"Displaying room properties - Model Name: {modelName}, Model Date: {modelDate}, Model JSON Link: {modelJson}");
+            // Parse the date string into a DateTime object
+            if (DateTime.TryParse(modelDateString, out DateTime modelDate))
+            {
+                // Format the date in "Month Day, Year" format
+                modelDateString = modelDate.ToString("MMMM dd, yyyy");
+            }
+            else
+            {
+                Debug.LogError("Failed to parse the model date string.");
+            }
 
             // Format the text using Rich Text tags for size and color
-            string formattedText = $"<size=28><color=white>{modelName}</color></size>\n<size=20><color=white>{modelDate}</color></size>";
+            string formattedText = $"<size=28><color=white>{modelName}</color></size>\n<size=20><color=white>{modelDateString}</color></size>";
 
             // Set the text of the TMP text component
             textField.text = formattedText;

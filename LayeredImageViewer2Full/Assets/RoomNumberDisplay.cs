@@ -34,10 +34,10 @@ public class RoomNumberDisplay : MonoBehaviourPunCallbacks
             string roomName = (string)PhotonNetwork.CurrentRoom.CustomProperties["roomName"];
 
             //Debug.Log($"Displaying room properties - Model Name: {modelName}, Model Date: {modelDate}, Model JSON Link: {modelJson}");
-
+            string formattedText = $"<size=28><color=white>Room Name: </color></size> <size=28><b><color=lightblue>{roomName}</color></b></size>";
 
             // Set the text of the TMP text component
-            RN.text = "Room Name: " + roomName;
+            RN.text = formattedText;
         }
         else
         {
