@@ -378,6 +378,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public static string roomName;
 
     private Dictionary<string, RoomInfo> customRoomList = new Dictionary<string, RoomInfo>();
+    
+
+    public static string modelName;
+    public static string modelDate;
+    public static string modelJson;
+
 
     // Update is called once per frame
     public void ConnectToServer()
@@ -427,6 +433,25 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         roomOptions.MaxPlayers = (byte)roomSettings.maxPlayer;
         roomOptions.IsVisible = true;
         roomOptions.IsOpen = true;
+
+        //Room settings
+        modelName = PCAuth.selectedModelName;
+        modelDate = PCAuth.selectedModelDate;
+        modelJson = PCAuth.selectedJsonLink;
+
+        //Debug.Log("A1 !!! A2 " + modelName);
+
+
+        // Convert the variables to a Hashtable -> god tier command
+        ExitGames.Client.Photon.Hashtable customRoomProperties = new ExitGames.Client.Photon.Hashtable
+    {
+        { "modelName", modelName },
+        { "modelDate", modelDate },
+        { "modelJson", modelJson }
+    };
+
+        roomOptions.CustomRoomProperties = customRoomProperties;
+        roomOptions.CustomRoomPropertiesForLobby = new[] { "modelName", "modelDate", "modelJson" };
 
         PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
 
