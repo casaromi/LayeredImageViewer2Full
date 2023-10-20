@@ -29,12 +29,12 @@ public class DisplayRoomInfo : MonoBehaviourPunCallbacks
         // Check if the custom properties exist in the room
         if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("modelName") &&
             PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("modelDate") &&
-            PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("modelJson"))
+            PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("url"))
         {
             // Access and display the values
             string modelName = (string)PhotonNetwork.CurrentRoom.CustomProperties["modelName"];
             string modelDateString = (string)PhotonNetwork.CurrentRoom.CustomProperties["modelDate"];
-            string modelJson = (string)PhotonNetwork.CurrentRoom.CustomProperties["modelJson"];
+            string modelJson = (string)PhotonNetwork.CurrentRoom.CustomProperties["url"];
 
             // Parse the date string into a DateTime object
             if (DateTime.TryParse(modelDateString, out DateTime modelDate))

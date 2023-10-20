@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using Photon.Pun;
 
 // Json data format
 /*
@@ -22,7 +23,7 @@ public struct ConfigImgData
 
 
 //Main Class
-public class ImgLoaderTest : MonoBehaviour
+public class ImgLoaderTest : MonoBehaviourPunCallbacks
 {
 	//Image Paths
 
@@ -119,16 +120,52 @@ public class ImgLoaderTest : MonoBehaviour
 
 
 
+
+
+
+
+
 	//Main Method to Create Model 
 	void Start()
 	{
-		//Call Web Loader 
-		StartCoroutine(GetConfigImgData(PCAuth.selectedJsonLink));
+		//Check if we are in a room (IF JOINING)
+		if (PhotonNetwork.InRoom)
+		{
+			Debug.Log("YO PHASE 1 >>>> complete.");
+			GetRoomProperties();
+		}
+		//Else (IF CREATING)
+        else
+        {
+			StartCoroutine(GetConfigImgData(PCAuth.selectedJsonLink));
+			Debug.Log(PCAuth.selectedJsonLink);
+		}
+	}
 
-		Debug.Log(PCAuth.selectedJsonLink);
+	public override void OnJoinedRoom()
+	{
+		// Called when the local player successfully joins a room
+		Debug.Log("!!!YEET");
+		GetRoomProperties();
 	}
 
 
+	void GetRoomProperties()
+	{
+		//Check if the custom properties exist in the room
+		if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("url"))
+		{
+			//Access and display the values
+			string url = (string)PhotonNetwork.CurrentRoom.CustomProperties["url"];
+			Debug.Log("YO HERE YO LINK...." + url); 
+
+			GetConfigImgData(url);
+		}
+		else
+		{
+			Debug.Log("Room properties are missing or incomplete.");
+		}
+	}
 
 
 
