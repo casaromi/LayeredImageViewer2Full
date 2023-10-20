@@ -445,13 +445,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         // Convert the variables to a Hashtable -> god tier command
         ExitGames.Client.Photon.Hashtable customRoomProperties = new ExitGames.Client.Photon.Hashtable
     {
+        { "roomName", roomName },
         { "modelName", modelName },
         { "modelDate", modelDate },
         { "modelJson", modelJson }
     };
 
         roomOptions.CustomRoomProperties = customRoomProperties;
-        roomOptions.CustomRoomPropertiesForLobby = new[] { "modelName", "modelDate", "modelJson" };
+        roomOptions.CustomRoomPropertiesForLobby = new[] { "roomName", "modelName", "modelDate", "modelJson" };
 
         PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
 
