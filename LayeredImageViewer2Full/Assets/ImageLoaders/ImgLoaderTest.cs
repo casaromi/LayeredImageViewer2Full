@@ -126,60 +126,53 @@ public class ImgLoaderTest : MonoBehaviourPunCallbacks
 
 
 	//Main Method to Create Model 
-	void Start()
-	{
-		//Check if we are in a room (IF JOINING)
-		if (PhotonNetwork.InRoom)
-		{
-			Debug.Log("YO PHASE 1 >>>> complete.");
-			GetRoomProperties();
-		}
-		//Else (IF CREATING)
-        else
-        {
-			StartCoroutine(GetConfigImgData(PCAuth.selectedJsonLink));
-			Debug.Log(PCAuth.selectedJsonLink);
-		}
-	}
+
 
 	public override void OnJoinedRoom()
 	{
 		// Called when the local player successfully joins a room
-		Debug.Log("!!!YEET");
-		GetRoomProperties();
+		Debug.Log("Room OPEN!!!");
+		StartCoroutine(GetRoomProperties());
 	}
 
 
-	void GetRoomProperties()
+	IEnumerator GetRoomProperties()
 	{
 		//Check if the custom properties exist in the room
-		if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("url"))
+		
+		//Access and display the values
+		string modelJson = DisplayRoomInfo.modelJson;
+		
+		// Wait until modelJson is not empty
+		while (string.IsNullOrEmpty(modelJson))
 		{
-			//Access and display the values
-			string url = (string)PhotonNetwork.CurrentRoom.CustomProperties["url"];
-			Debug.Log("YO HERE YO LINK...." + url); 
+			yield return null; // Wait for one frame
+			modelJson = DisplayRoomInfo.modelJson; // Update modelJson
+		}
 
-			GetConfigImgData(url);
-		}
-		else
-		{
-			Debug.Log("Room properties are missing or incomplete.");
-		}
+
+		Debug.Log("YO HERE YO LINK: " + modelJson);
+
+		yield return StartCoroutine(GetConfigImgData(modelJson));
+
 	}
 
 
 
 	//Method for CALLING Images
-	IEnumerator GetConfigImgData(string url)
+	IEnumerator GetConfigImgData(string modelJson)
 	{
 		//Data Request
-		UnityWebRequest request = UnityWebRequest.Get(url);
+		Debug.Log("Starting Download: " + modelJson);
+
+		UnityWebRequest request = UnityWebRequest.Get(modelJson);
 		yield return request.SendWebRequest();
 
 		//Check Connection
 		if (request.isNetworkError || request.isHttpError)
 		{
 			//error...
+			Debug.Log("WEB ERROR: " + modelJson);
 		}
 		else
 		{
@@ -208,7 +201,7 @@ public class ImgLoaderTest : MonoBehaviourPunCallbacks
 				index = i;
 
 				// Load image
-				StartCoroutine(GetImage(currentURL, baseURL, index, numImgs));
+				yield return StartCoroutine(GetImage(currentURL, baseURL, index, numImgs));
 
 				// Clean up any resources it is using.
 				request.Dispose();
@@ -229,6 +222,7 @@ public class ImgLoaderTest : MonoBehaviourPunCallbacks
 		if (request.isNetworkError || request.isHttpError)
 		{
 			//error...
+			Debug.Log("WTF***");
 		}
 		else
 		{

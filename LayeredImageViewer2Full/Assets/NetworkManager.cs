@@ -448,11 +448,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         { "roomName", roomName },
         { "modelName", modelName },
         { "modelDate", modelDate },
-        { "url", modelJson }
+        { "modelJson", modelJson }
     };
 
         roomOptions.CustomRoomProperties = customRoomProperties;
-        roomOptions.CustomRoomPropertiesForLobby = new[] { "roomName", "modelName", "modelDate", "url" };
+        roomOptions.CustomRoomPropertiesForLobby = new[] { "roomName", "modelName", "modelDate", "modelJson" };
 
         PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
 

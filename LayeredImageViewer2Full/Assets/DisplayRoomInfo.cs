@@ -7,12 +7,15 @@ public class DisplayRoomInfo : MonoBehaviourPunCallbacks
 {
     public TextMeshProUGUI textField; // Reference to the TMP text component
 
+
+    public static string modelJson;
+
     void Start()
     {
         // Check if we are in a room
         if (PhotonNetwork.InRoom)
         {
-            Debug.Log("Player is in a room. Displaying room properties.");
+            Debug.Log("Player is in a room. Displaying RP.");
             DisplayRoomProperties();
         }
     }
@@ -20,7 +23,7 @@ public class DisplayRoomInfo : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         // Called when the local player successfully joins a room
-        Debug.Log("Local player joined the room. Displaying room properties.");
+        Debug.Log("Local player joined the room. Displaying RP.");
         DisplayRoomProperties();
     }
 
@@ -29,12 +32,12 @@ public class DisplayRoomInfo : MonoBehaviourPunCallbacks
         // Check if the custom properties exist in the room
         if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("modelName") &&
             PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("modelDate") &&
-            PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("url"))
+            PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("modelJson"))
         {
             // Access and display the values
             string modelName = (string)PhotonNetwork.CurrentRoom.CustomProperties["modelName"];
             string modelDateString = (string)PhotonNetwork.CurrentRoom.CustomProperties["modelDate"];
-            string modelJson = (string)PhotonNetwork.CurrentRoom.CustomProperties["url"];
+            modelJson = (string)PhotonNetwork.CurrentRoom.CustomProperties["modelJson"];
 
             // Parse the date string into a DateTime object
             if (DateTime.TryParse(modelDateString, out DateTime modelDate))
