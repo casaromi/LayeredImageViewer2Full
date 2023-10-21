@@ -1,21 +1,21 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Networking;
-
+using UnityEngine.UI;
 
 public class PointCloud : MonoBehaviour
 {
     public string url = "https://davidjoiner.net/~confocal/UserXYZdata/New.txt"; // Replace with your actual URL
 
-
     public Color sphereColor = Color.blue;
     public float sphereScale = 0.2f; // Adjust this value to change the size of the spheres
 
+    private Canvas popupCanvas;
+    private Text popupText;
 
     void Start()
     {
+        popupCanvas = CreatePopupCanvas();
         StartCoroutine(LoadFile());
     }
 
@@ -41,7 +41,7 @@ public class PointCloud : MonoBehaviour
                         float.TryParse(values[1], out y) &&
                         float.TryParse(values[2], out z))
                     {
-                        Vector3 position = new Vector3(x, y, z+2);
+                        Vector3 position = new Vector3(x, y, z + 2);
                         InstantiateSphere(position);
                     }
                     else
@@ -61,7 +61,6 @@ public class PointCloud : MonoBehaviour
         }
     }
 
-
     void InstantiateSphere(Vector3 position)
     {
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -73,5 +72,24 @@ public class PointCloud : MonoBehaviour
 
         // Adjust the scale of the sphere
         sphere.transform.localScale = new Vector3(sphereScale, sphereScale, sphereScale);
+
+        // Add a collider to the sphere to detect clicks
+        sphere.AddComponent<BoxCollider>();
+
+        // Add a script to handle click events on the sphere
+        SphereClickHandler clickHandler = sphere.AddComponent<SphereClickHandler>();
+        clickHandler.Initialize(popupCanvas, position);
+    }
+
+    Canvas CreatePopupCanvas()
+    {
+        GameObject canvasObject = new GameObject("PopupCanvas");
+        Canvas canvas = canvasObject.AddComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+
+        popupText = new GameObject("PopupText").AddComponent<Text>();
+        popupText.transform.SetParent(canvas.transform);
+
+        return canvas;
     }
 }
