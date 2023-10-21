@@ -151,7 +151,7 @@ public class ImgLoaderTest : MonoBehaviourPunCallbacks
 		}
 
 
-		Debug.Log("YO HERE YO LINK: " + modelJson);
+		Debug.Log("HERE YO LINK: " + modelJson);
 
 		yield return StartCoroutine(GetConfigImgData(modelJson));
 
@@ -222,7 +222,7 @@ public class ImgLoaderTest : MonoBehaviourPunCallbacks
 		if (request.isNetworkError || request.isHttpError)
 		{
 			//error...
-			Debug.Log("WTF***");
+			Debug.Log("ERROR");
 		}
 		else
 		{
