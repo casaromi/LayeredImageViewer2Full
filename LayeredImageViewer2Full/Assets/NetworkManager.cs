@@ -384,6 +384,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public static string modelDate;
     public static string modelJson;
 
+    public static string XYZlink;
 
     // Update is called once per frame
     public void ConnectToServer()
@@ -439,8 +440,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         modelDate = PCAuth.selectedModelDate;
         modelJson = PCAuth.selectedJsonLink;
 
-        //Debug.Log("A1 !!! A2 " + modelName);
+        //Create XYZ link 
+        //string bURL = "https://davidjoiner.net/~confocal/UserXYZdata/";
+        
+        //XYZlink = bURL + PCAuth.UID + "_XYZ_" + PCAuth.selectedModelName + "/";
 
+
+
+
+        //Debug.Log("A1 !!! A2 " + modelName);
 
         // Convert the variables to a Hashtable -> god tier command
         ExitGames.Client.Photon.Hashtable customRoomProperties = new ExitGames.Client.Photon.Hashtable
