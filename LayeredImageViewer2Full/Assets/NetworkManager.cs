@@ -383,8 +383,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public static string modelName;
     public static string modelDate;
     public static string modelJson;
+    public static string modelXYZ;
 
-    public static string XYZlink;
 
     // Update is called once per frame
     public void ConnectToServer()
@@ -439,16 +439,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         modelName = PCAuth.selectedModelName;
         modelDate = PCAuth.selectedModelDate;
         modelJson = PCAuth.selectedJsonLink;
+        modelXYZ = PCAuth.selectedXYZLink;
 
-        //Create XYZ link 
-        //string bURL = "https://davidjoiner.net/~confocal/UserXYZdata/";
-        
-        //XYZlink = bURL + PCAuth.UID + "_XYZ_" + PCAuth.selectedModelName + "/";
-
-
-
-
-        //Debug.Log("A1 !!! A2 " + modelName);
 
         // Convert the variables to a Hashtable -> god tier command
         ExitGames.Client.Photon.Hashtable customRoomProperties = new ExitGames.Client.Photon.Hashtable
@@ -456,11 +448,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         { "roomName", roomName },
         { "modelName", modelName },
         { "modelDate", modelDate },
-        { "modelJson", modelJson }
+        { "modelJson", modelJson },
+        { "modelXYZ", modelXYZ }
     };
 
         roomOptions.CustomRoomProperties = customRoomProperties;
-        roomOptions.CustomRoomPropertiesForLobby = new[] { "roomName", "modelName", "modelDate", "modelJson" };
+        roomOptions.CustomRoomPropertiesForLobby = new[] { "roomName", "modelName", "modelDate", "modelJson", "modelXYZ" };
 
         PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
 

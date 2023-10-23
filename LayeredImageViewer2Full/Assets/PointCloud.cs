@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class PointCloud : MonoBehaviour
 {
-    public string url = "https://davidjoiner.net/~confocal/UserXYZdata/New.txt"; // Replace with your actual URL
+    //public string url = "https://davidjoiner.net/~confocal/UserXYZdata/New.txt"; // Replace with your actual URL
+    //public string url = DisplayRoomInfo.modelXYZ;
+
 
     public Color sphereColor = Color.blue;
     public float sphereScale = 0.2f; // Adjust this value to change the size of the spheres
@@ -16,12 +18,36 @@ public class PointCloud : MonoBehaviour
     void Start()
     {
         popupCanvas = CreatePopupCanvas();
-        StartCoroutine(LoadFile());
+
+        GRP();
     }
 
-    IEnumerator LoadFile()
+
+    IEnumerator GRP()
     {
-        UnityWebRequest www = UnityWebRequest.Get(url);
+        //Check if the custom properties exist in the room
+
+        //Access and display the values
+        string modelXYZ = DisplayRoomInfo.modelXYZ;
+
+        // Wait until modelJson is not empty
+        while (string.IsNullOrEmpty(modelXYZ))
+        {
+            yield return null; // Wait for one frame
+            modelXYZ = DisplayRoomInfo.modelJson; // Update modelJson
+        }
+
+
+        Debug.Log("XXXYYYZZZ LINK: " + modelXYZ);
+
+        yield return StartCoroutine(LoadFile(modelXYZ));
+
+    }
+
+
+    IEnumerator LoadFile(string modelXYZ)
+    {
+        UnityWebRequest www = UnityWebRequest.Get(modelXYZ);
 
         yield return www.SendWebRequest();
 
