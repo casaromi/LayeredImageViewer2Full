@@ -2,12 +2,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class PointCloud : MonoBehaviour
+public class PointCloud : MonoBehaviourPunCallbacks
 {
     //public string url = "https://davidjoiner.net/~confocal/UserXYZdata/New.txt"; // Replace with your actual URL
     //public string url = DisplayRoomInfo.modelXYZ;
-
 
     public Color sphereColor = Color.blue;
     public float sphereScale = 0.2f; // Adjust this value to change the size of the spheres
@@ -18,12 +18,18 @@ public class PointCloud : MonoBehaviour
     void Start()
     {
         popupCanvas = CreatePopupCanvas();
-
-        GRP();
     }
 
 
-    IEnumerator GRP()
+
+    public override void OnJoinedRoom()
+    {
+        // Called when the local player successfully joins a room
+        Debug.Log("Room OPEN!!!");
+        StartCoroutine(GetRoomProperties());
+    }
+
+    IEnumerator GetRoomProperties()
     {
         //Check if the custom properties exist in the room
 
@@ -34,7 +40,7 @@ public class PointCloud : MonoBehaviour
         while (string.IsNullOrEmpty(modelXYZ))
         {
             yield return null; // Wait for one frame
-            modelXYZ = DisplayRoomInfo.modelJson; // Update modelJson
+            modelXYZ = DisplayRoomInfo.modelXYZ; // Update modelJson
         }
 
 
@@ -47,6 +53,9 @@ public class PointCloud : MonoBehaviour
 
     IEnumerator LoadFile(string modelXYZ)
     {
+        //Data Request
+        Debug.Log("Starting Download: " + modelXYZ);
+
         UnityWebRequest www = UnityWebRequest.Get(modelXYZ);
 
         yield return www.SendWebRequest();
@@ -83,7 +92,7 @@ public class PointCloud : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Failed to download file. Error: " + www.error);
+            Debug.LogError("Failed to download XYZ file. Error: " + www.error);
         }
     }
 
