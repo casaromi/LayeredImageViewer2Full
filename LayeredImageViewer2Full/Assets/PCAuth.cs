@@ -1411,6 +1411,8 @@ public class PCAuth : MonoBehaviour
     public List<string> jsonLinks;
     public List<string> creationDateTimes;
 
+    public List<string> XYZLinks;
+
     public GameObject HeaderFeild;
     public GameObject EmailFeild;
     public GameObject PasswordFeild;
@@ -1518,6 +1520,8 @@ public class PCAuth : MonoBehaviour
                 resultText.text = response;
 
                 string[] lines = response.Split('\n');
+                XYZLinks.Clear();
+
                 foreach (string line in lines)
                 {
                     if (line.StartsWith("FName: "))
@@ -1533,6 +1537,20 @@ public class PCAuth : MonoBehaviour
                     {
                         string jsonLink = line.Substring(10);
                         jsonLinks.Add(jsonLink);
+                    }
+                    else if (line.StartsWith("XYZLink: "))
+                    {
+                        string XYZLink = line.Substring(9);
+                        if (!string.IsNullOrEmpty(XYZLink))
+                        {
+                            // Clear the list before populating it to avoid duplication
+                            XYZLinks.Add(XYZLink);
+                        }
+                        else
+                        {
+                            Debug.LogWarning("XYZLink value is null or empty in the response.");
+                            XYZLinks.Add("null");
+                        }
                     }
                     else if (line.StartsWith("CreationDateTime: "))
                     {
