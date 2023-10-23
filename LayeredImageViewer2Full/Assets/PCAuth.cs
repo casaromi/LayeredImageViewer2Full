@@ -1442,6 +1442,8 @@ public class PCAuth : MonoBehaviour
     public static string selectedModelName;
     public static string selectedModelDate;
 
+    public static string selectedXYZLink;
+
     public static string firstName;
     public static string userEmail;
     public static string userPassword;
@@ -1623,12 +1625,14 @@ public class PCAuth : MonoBehaviour
     {
         public string modelName;
         public string jsonLink;
+        public string xyzLink;
         public DateTime creationDate;
 
-        public ModelData(string name, string link, string date)
+        public ModelData(string name, string link, string xyz, string date)
         {
             modelName = name;
             jsonLink = link;
+            xyzLink = xyz;
             if (DateTime.TryParseExact(date, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate))
             {
                 creationDate = parsedDate;
@@ -1701,7 +1705,7 @@ public class PCAuth : MonoBehaviour
             // Get the original index from the filtered indices list
             int originalIndex = filteredIndices[i];
 
-            ModelData modelData = new ModelData(modelNames[originalIndex], jsonLinks[originalIndex], creationDateTimes[originalIndex]);
+            ModelData modelData = new ModelData(modelNames[originalIndex], jsonLinks[originalIndex], XYZLinks[originalIndex], creationDateTimes[originalIndex]);
 
             // Update the button text to show the formatted date
             string buttonText = $"<size=20><color=white>{modelData.modelName}</color></size>\n<size=10><color=red>{modelData.GetFormattedDate()}</color></size>";
@@ -1788,7 +1792,7 @@ public class PCAuth : MonoBehaviour
 
         for (int i = 0; i < sourceList.Count; i++)
         {
-            ModelData modelData = new ModelData(modelNames[i], jsonLinks[i], creationDateTimes[i]);
+            ModelData modelData = new ModelData(modelNames[i], jsonLinks[i], XYZLinks[i], creationDateTimes[i]);
             filteredModels.Add(modelData);
         }
 
@@ -1804,7 +1808,7 @@ public class PCAuth : MonoBehaviour
             char firstChar = char.ToUpper(sourceList[i][0]);
             if (firstChar >= startChar && firstChar <= endChar)
             {
-                ModelData modelData = new ModelData(modelNames[i], jsonLinks[i], creationDateTimes[i]);
+                ModelData modelData = new ModelData(modelNames[i], jsonLinks[i], XYZLinks[i], creationDateTimes[i]);
                 filteredModels.Add(modelData);
             }
         }
@@ -1835,6 +1839,9 @@ public class PCAuth : MonoBehaviour
 
                 selectedModelDate = creationDateTimes[originalIndex];
                 Debug.Log("Selected ModelDate: " + selectedModelDate);
+
+                selectedXYZLink = XYZLinks[originalIndex];
+                Debug.Log("Selected XYZLink: " + selectedXYZLink);
             }
             else
             {
