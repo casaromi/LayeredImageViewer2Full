@@ -66,7 +66,7 @@ public class VRAuth : MonoBehaviour
     public Button NextButton;
     public Button PreButton;
 
-    private string phpURL = "https://davidjoiner.net/~confocal/PCuAuth.php";
+    private string phpURL = "https://davidjoiner.net/~confocal/uAuth.php";
 
     private List<int> filteredIndices = new List<int>();
 
