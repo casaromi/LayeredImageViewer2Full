@@ -6546,11 +6546,11 @@ MonoBehaviour:
   sButton: {fileID: 280021561}
   ResultText: {fileID: 1173330855}
   Invalid: {fileID: 148559514}
-  RoomUI: {fileID: 0}
+  RoomUI: {fileID: 1629813672}
   ModelMenu: {fileID: 1081163623}
   waitMsg: {fileID: 1630215283}
-  instruct: {fileID: 0}
-  JoinRoom: {fileID: 0}
+  instruct: {fileID: 1616354209}
+  JoinRoom: {fileID: 15138539}
   ButtonPrefab: {fileID: 7347650516477465846, guid: 33671ee9c6b436f49ac85d430094ec34, type: 3}
   ButtonParent: {fileID: 1300276126}
   Holder: {fileID: 313181690}
