@@ -244,7 +244,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 666319559}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PCAuth, Assembly-CSharp
         m_MethodName: ShowModelsByDate
         m_Mode: 1
@@ -2369,7 +2369,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 666319559}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PCAuth, Assembly-CSharp
         m_MethodName: SortByAscending
         m_Mode: 1
@@ -3917,7 +3917,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 666319559}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PCAuth, Assembly-CSharp
         m_MethodName: SortByDescending
         m_Mode: 1
@@ -4232,7 +4232,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 666319559}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PCAuth, Assembly-CSharp
         m_MethodName: ShowModelsStartingWithAtoG
         m_Mode: 1
@@ -8744,39 +8744,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 666319554}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a7a5170bcdf1044abb7fc5ee2e85f77, type: 3}
+  m_Script: {fileID: 11500000, guid: e1e601cb36838d743bdcbf0559a18a45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Email: {fileID: 1646250068}
-  Password: {fileID: 448812914}
-  submitButton: {fileID: 1424202472}
-  resultText: {fileID: 803116352}
-  fName: 
-  modelNames: []
-  jsonLinks: []
-  creationDateTimes: []
-  XYZLinks: []
-  HeaderFeild: {fileID: 1734620260}
-  EmailFeild: {fileID: 1646250064}
-  PasswordFeild: {fileID: 448812910}
-  sButton: {fileID: 1424202468}
-  ResultText: {fileID: 803116350}
-  Invalid: {fileID: 172043841}
-  RoomUI: {fileID: 1629813672}
-  ModelMenu: {fileID: 48076361}
-  waitMsg: {fileID: 816809203}
-  instruct: {fileID: 1616354209}
-  JoinRoom: {fileID: 15138539}
-  ButtonPrefab: {fileID: 7347650516477465846, guid: 33671ee9c6b436f49ac85d430094ec34, type: 3}
-  ButtonParent: {fileID: 244232143}
-  Holder: {fileID: 263645562}
-  AllButton: {fileID: 1453815181}
-  NumberButton: {fileID: 1713809878}
-  AtoGButton: {fileID: 293025821}
-  HtoNButton: {fileID: 1569478635}
-  OtoZButton: {fileID: 1438168661}
-  NextButton: {fileID: 1294096899}
-  PreButton: {fileID: 1314705062}
+  AuthCodeInput: {fileID: 0}
+  submitButton: {fileID: 1301844829}
+  resultText: {fileID: 0}
+  HeaderFeild: {fileID: 1108689138}
+  AuthFeild: {fileID: 0}
+  sButton: {fileID: 0}
+  ResultText: {fileID: 0}
 --- !u!1 &666374485
 GameObject:
   m_ObjectHideFlags: 0
@@ -18332,7 +18309,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 666319559}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PCAuth, Assembly-CSharp
         m_MethodName: NextPage
         m_Mode: 1
@@ -18649,9 +18626,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 768596297}
-        m_TargetAssemblyTypeName: Photon.Pun.MonoBehaviourPunCallbacks, PhotonUnityNetworking
-        m_MethodName: OnConnected
+      - m_Target: {fileID: 2136772610}
+        m_TargetAssemblyTypeName: NetworkManager, Assembly-CSharp
+        m_MethodName: ConnectToServer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19080,7 +19057,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 666319559}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PCAuth, Assembly-CSharp
         m_MethodName: PreviousPage
         m_Mode: 1
@@ -20202,7 +20179,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 666319559}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PCAuth, Assembly-CSharp
         m_MethodName: CallAuth
         m_Mode: 1
@@ -20517,7 +20494,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 666319559}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PCAuth, Assembly-CSharp
         m_MethodName: ShowModelsStartingWithOtoZ
         m_Mode: 1
@@ -21012,7 +20989,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 666319559}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PCAuth, Assembly-CSharp
         m_MethodName: ShowAllModels
         m_Mode: 1
@@ -22387,7 +22364,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 666319559}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PCAuth, Assembly-CSharp
         m_MethodName: ShowModelsStartingWithHtoN
         m_Mode: 1
@@ -23249,7 +23226,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 666319559}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PCAuth, Assembly-CSharp
         m_MethodName: ShowModelsByName
         m_Mode: 1
@@ -24052,7 +24029,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 666319559}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PCAuth, Assembly-CSharp
         m_MethodName: ShowModelsStartingWithNumber
         m_Mode: 1
@@ -28852,7 +28829,7 @@ MonoBehaviour:
   LoginFeilds: {fileID: 170236469}
   ButtonParent: {fileID: 244232142}
   invalidJoin: {fileID: 2000807879}
-  pcAuthScript: {fileID: 666319559}
+  pcAuthScript: {fileID: 0}
   roomNumberText: {fileID: 506808056}
 --- !u!1 &2139473010
 GameObject:
