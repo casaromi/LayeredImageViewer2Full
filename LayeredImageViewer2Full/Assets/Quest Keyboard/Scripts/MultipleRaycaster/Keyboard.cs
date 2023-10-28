@@ -30,7 +30,10 @@ public class Keyboard : MonoBehaviour
     // Adding a letter to the input
     public void AddChar(string c)
     {
-        objectiveInputField.text += c;
+        if (objectiveInputField.text.Length < 6)
+        {
+            objectiveInputField.text += c;
+        }
     }
 
     // Removing a letter from the input
