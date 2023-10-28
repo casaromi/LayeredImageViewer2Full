@@ -372,6 +372,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public GameObject invalidJoin;
 
     public PCAuth pcAuthScript;
+    public VRAuth vrAuthScript;
 
     public TMP_InputField roomNumberText;
 
@@ -408,7 +409,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         //LoginFeilds.SetActive(false);
         //ButtonParent.SetActive(true);
         //PCAuth.CallAuth();
-        pcAuthScript.CallAuth();
+        //pcAuthScript.CallAuth();
+        vrAuthScript.CallAuth();
     }
 
 
@@ -436,10 +438,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         roomOptions.IsOpen = true;
 
         //Room settings
-        modelName = PCAuth.selectedModelName;
-        modelDate = PCAuth.selectedModelDate;
-        modelJson = PCAuth.selectedJsonLink;
-        modelXYZ = PCAuth.selectedXYZLink;
+        //modelName = PCAuth.selectedModelName;
+        //modelDate = PCAuth.selectedModelDate;
+        //modelJson = PCAuth.selectedJsonLink;
+        //modelXYZ = PCAuth.selectedXYZLink;
+
+        modelName = VRAuth.selectedModelName;
+        modelDate = VRAuth.selectedModelDate;
+        modelJson = VRAuth.selectedJsonLink;
+        modelXYZ = VRAuth.selectedXYZLink;
 
 
         // Convert the variables to a Hashtable -> god tier command
