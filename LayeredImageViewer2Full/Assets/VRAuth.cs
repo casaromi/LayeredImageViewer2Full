@@ -30,6 +30,8 @@ public class VRAuth : MonoBehaviour
     public GameObject Invalid;
     public GameObject RoomUI;
 
+    public GameObject KB;
+
     public GameObject ModelMenu;
 
     public GameObject waitMsg;
@@ -174,6 +176,7 @@ public class VRAuth : MonoBehaviour
                     sButton.SetActive(false);
                     Invalid.SetActive(false);
                     RoomUI.SetActive(false);
+                    KB.SetActive(false);
 
 
                     waitMsg.SetActive(true);
