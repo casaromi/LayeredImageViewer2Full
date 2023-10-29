@@ -4870,8 +4870,8 @@ GameObject:
   - component: {fileID: 371514627}
   - component: {fileID: 371514626}
   - component: {fileID: 371514625}
-  - component: {fileID: 371514624}
   - component: {fileID: 371514629}
+  - component: {fileID: 371514624}
   m_Layer: 5
   m_Name: InputCanvas
   m_TagString: raycasterObjective
