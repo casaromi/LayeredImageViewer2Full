@@ -132,6 +132,19 @@ public class ImgLoaderTest : MonoBehaviourPunCallbacks
 	{
 		// Called when the local player successfully joins a room
 		Debug.Log("Room OPEN!!!");
+		StartCoroutine(WaitForScript1());
+	}
+
+	IEnumerator WaitForScript1()
+	{
+		// Wait until DisplayRoomInfo script has finished running
+		while (!DisplayRoomInfo.IsScript1Finished)
+		{
+			yield return null; // Wait for one frame
+		}
+		Debug.Log("DRI SCRIP COMPLETER imgs!!!");
+
+		// Continue with the rest of the script
 		StartCoroutine(GetRoomProperties());
 	}
 

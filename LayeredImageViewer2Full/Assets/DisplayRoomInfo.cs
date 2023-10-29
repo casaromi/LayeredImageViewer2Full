@@ -7,9 +7,15 @@ public class DisplayRoomInfo : MonoBehaviourPunCallbacks
 {
     public TextMeshProUGUI textField; // Reference to the TMP text component
 
-
     public static string modelJson;
     public static string modelXYZ;
+
+    private static bool isScript1Finished = false;
+
+    public static bool IsScript1Finished
+    {
+        get { return isScript1Finished; }
+    }
 
     void Start()
     {
@@ -63,5 +69,8 @@ public class DisplayRoomInfo : MonoBehaviourPunCallbacks
         {
             Debug.Log("Room properties are missing or incomplete.");
         }
+
+        // Set the flag to indicate that script 1 has finished running
+        isScript1Finished = true;
     }
 }
