@@ -11,8 +11,18 @@ public class DisplayRoomInfo : MonoBehaviourPunCallbacks
     public static string modelJson;
     public static string modelXYZ;
 
+    private static bool isScript1Finished = false;
+
+    public static bool IsScript1Finished
+    {
+        get { return isScript1Finished; }
+    }
+
+
     void Start()
     {
+        isScript1Finished = false;
+
         // Check if we are in a room
         if (PhotonNetwork.InRoom)
         {
@@ -23,6 +33,8 @@ public class DisplayRoomInfo : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+        isScript1Finished = false;
+
         // Called when the local player successfully joins a room
         Debug.Log("Local player joined the room. Displaying RP.");
         DisplayRoomProperties();
@@ -63,5 +75,7 @@ public class DisplayRoomInfo : MonoBehaviourPunCallbacks
         {
             Debug.Log("Room properties are missing or incomplete.");
         }
+
+        isScript1Finished = true;
     }
 }
