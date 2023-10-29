@@ -81,9 +81,18 @@ public class ImgLoaderTest : MonoBehaviourPunCallbacks
 
 		foreach (GameObject plane in thePlanes)
 		{
-			plane.GetComponent<Renderer>().material.SetFloat("_AlphaMult", alphaMultiplier);
+			if (plane != null)
+			{
+				Renderer renderer = plane.GetComponent<Renderer>();
+				if (renderer != null && renderer.material != null)
+				{
+					renderer.material.SetFloat("_AlphaMult", alphaMultiplier);
+				}
+			}
 		}
+
 	}
+
 
 
 
