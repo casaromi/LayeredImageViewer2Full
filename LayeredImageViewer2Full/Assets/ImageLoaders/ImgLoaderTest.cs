@@ -100,7 +100,7 @@ public class ImgLoaderTest : MonoBehaviourPunCallbacks
 
 
 
-	//Chage the spacing between images 
+	//Change the spacing between images 
 	public void scaleHeight(float scale)
 	{
 		transform.localScale = new Vector3(1, scale / (spacing[1] - spacing[0]), 1);
@@ -108,7 +108,7 @@ public class ImgLoaderTest : MonoBehaviourPunCallbacks
 
 
 
-	//Chage the Height of the model 
+	//Change the Height of the model 
 	/*
 	//Move the model up or down
 	public void changePosition(float modelPosition)
