@@ -97,15 +97,24 @@ public class ImgLoaderTest : MonoBehaviourPunCallbacks
 
 
 	//Change the Cutoff
+	// Change the Cutoff
 	public void changeCutoff(float cutoff)
 	{
 		this.cutoff = cutoff;
 
 		foreach (GameObject plane in thePlanes)
 		{
-			plane.GetComponent<Renderer>().material.SetFloat("_Cutoff", cutoff);
+			if (plane != null)
+			{
+				Renderer renderer = plane.GetComponent<Renderer>();
+				if (renderer != null && renderer.material != null)
+				{
+					renderer.material.SetFloat("_Cutoff", cutoff);
+				}
+			}
 		}
 	}
+
 
 
 
