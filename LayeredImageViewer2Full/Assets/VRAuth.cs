@@ -107,7 +107,7 @@ public class VRAuth : MonoBehaviour
         else
         {
             // Retrieve the data from PlayerPrefs
-            form.AddField("AuthCode", AuthCodeInput.text);
+            form.AddField("AuthCode", userAuthCode);
 
             Debug.Log("!?!? Welcome back to lobby");
             Debug.Log(userAuthCode);

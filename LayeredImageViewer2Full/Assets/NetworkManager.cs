@@ -411,7 +411,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         //PCAuth.CallAuth();
         //pcAuthScript.CallAuth();
         
-        //vrAuthScript.CallAuth();
+        vrAuthScript.CallAuth();
     }
 
 
