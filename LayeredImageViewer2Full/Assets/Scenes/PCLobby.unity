@@ -3648,8 +3648,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PCAuth, Assembly-CSharp
+      - m_Target: {fileID: 407508546}
+        m_TargetAssemblyTypeName: VRAuth, Assembly-CSharp
         m_MethodName: PreviousPage
         m_Mode: 1
         m_Arguments:
@@ -5908,8 +5908,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PCAuth, Assembly-CSharp
+      - m_Target: {fileID: 407508546}
+        m_TargetAssemblyTypeName: VRAuth, Assembly-CSharp
         m_MethodName: ShowAllModels
         m_Mode: 1
         m_Arguments:
@@ -8731,8 +8731,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PCAuth, Assembly-CSharp
+      - m_Target: {fileID: 407508546}
+        m_TargetAssemblyTypeName: VRAuth, Assembly-CSharp
         m_MethodName: NextPage
         m_Mode: 1
         m_Arguments:
@@ -10142,8 +10142,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PCAuth, Assembly-CSharp
+      - m_Target: {fileID: 407508546}
+        m_TargetAssemblyTypeName: VRAuth, Assembly-CSharp
         m_MethodName: ShowModelsStartingWithNumber
         m_Mode: 1
         m_Arguments:
@@ -20784,8 +20784,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PCAuth, Assembly-CSharp
+      - m_Target: {fileID: 407508546}
+        m_TargetAssemblyTypeName: VRAuth, Assembly-CSharp
         m_MethodName: ShowModelsStartingWithHtoN
         m_Mode: 1
         m_Arguments:
@@ -21521,8 +21521,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PCAuth, Assembly-CSharp
+      - m_Target: {fileID: 407508546}
+        m_TargetAssemblyTypeName: VRAuth, Assembly-CSharp
         m_MethodName: ShowModelsStartingWithOtoZ
         m_Mode: 1
         m_Arguments:
@@ -21749,8 +21749,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PCAuth, Assembly-CSharp
+      - m_Target: {fileID: 407508546}
+        m_TargetAssemblyTypeName: VRAuth, Assembly-CSharp
         m_MethodName: ShowModelsStartingWithAtoG
         m_Mode: 1
         m_Arguments:
