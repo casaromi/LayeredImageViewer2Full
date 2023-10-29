@@ -46,7 +46,14 @@ public class PointCloud : MonoBehaviourPunCallbacks
 
         Debug.Log("XXXYYYZZZ LINK: " + modelXYZ);
 
-        yield return StartCoroutine(LoadFile(modelXYZ));
+        if (modelXYZ != null && modelXYZ != "null")
+        {
+            yield return StartCoroutine(LoadFile(modelXYZ));
+        }
+        else
+        {
+            Debug.Log("No point cloud data!");
+        }
 
     }
 
