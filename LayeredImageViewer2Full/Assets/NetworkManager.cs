@@ -371,7 +371,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public GameObject ButtonParent;
     public GameObject invalidJoin;
 
-    public PCAuth pcAuthScript;
+    //public PCAuth pcAuthScript;
     public VRAuth vrAuthScript;
 
     public TMP_InputField roomNumberText;
