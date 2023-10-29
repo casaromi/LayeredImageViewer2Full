@@ -48,6 +48,9 @@ public class DisplayRoomInfo : MonoBehaviourPunCallbacks
             modelJson = (string)PhotonNetwork.CurrentRoom.CustomProperties["modelJson"];
             modelXYZ = (string)PhotonNetwork.CurrentRoom.CustomProperties["modelXYZ"];
 
+            Debug.Log("$$ ROOM model Json: " + modelJson);
+            Debug.Log("$$ ROOM mode lXYZ: " + modelXYZ);
+
             // Parse the date string into a DateTime object
             if (DateTime.TryParse(modelDateString, out DateTime modelDate))
             {
