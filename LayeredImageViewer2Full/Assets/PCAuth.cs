@@ -1560,6 +1560,8 @@ public class PCAuth : MonoBehaviour
                         creationDateTimes.Add(creationDateTime);
                     }
                 }
+                request.Dispose();
+
 
                 if (fName != null && fName != "")
                 {
