@@ -545,6 +545,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PointReader
       objectReference: {fileID: 0}
+    - target: {fileID: 936782792098629671, guid: 9c118138964157d4785f2a088da652ed, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c118138964157d4785f2a088da652ed, type: 3}
@@ -27764,7 +27768,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: LayeredImageLoader
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6741077738070839607, guid: e8cf2dab6a200354e8739af446e0a039, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8800795396213858552, guid: e8cf2dab6a200354e8739af446e0a039, type: 3}
       insertIndex: -1

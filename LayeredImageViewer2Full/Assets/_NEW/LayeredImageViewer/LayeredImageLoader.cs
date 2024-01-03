@@ -380,7 +380,7 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 			{
 				//Set Current URL and print for debug
 				currentURL = baseURL + i + jpgExt;
-				Debug.Log(currentURL);
+				//Debug.Log(currentURL);
 
 				//Set Current Index
 				index = i;
@@ -426,7 +426,10 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 			// Store the sprite in the array at the correct index
 			sprites[index - 1] = sprite;
 
-			// Now the sprites array is populated with downloaded images
+			// Print the length of the sprites array to the console
+			Debug.Log("!!ARRAY OF IMAGES - Sprites array length: " + sprites.Length);
+
+
 			// Clean up any resources it is using.
 			request.Dispose();
 		}
