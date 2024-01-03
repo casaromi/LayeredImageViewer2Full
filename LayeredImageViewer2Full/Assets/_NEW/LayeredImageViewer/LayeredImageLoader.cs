@@ -238,10 +238,27 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class LayeredImageLoader : MonoBehaviour
+
+
+//Intialize JSON Data Feilds
+public struct ConfigImgDataNew
+{
+	public string baseURL;
+	public int numImgs;
+}
+
+
+
+public class LayeredImageLoader : MonoBehaviourPunCallbacks
 {
 
+	//Intialize Loop Indexing
+	public int index;
+
+
+	//Intialize Vars
 	public int iSkip = 2;
 	public Sprite [] sprites;
 
@@ -276,9 +293,140 @@ public class LayeredImageLoader : MonoBehaviour
 	public Vector3 ClipOffset = Vector3.zero;
 	public Vector3 ClipNormal = Vector3.one;
 
+
+
+
+
+	//Main Method to Create Model 
+	public override void OnJoinedRoom()
+	{
+		// Called when the local player successfully joins a room
+		Debug.Log("Room OPEN!!!");
+		StartCoroutine(WaitForScript1());
+	}
+
+	IEnumerator WaitForScript1()
+	{
+		// Wait until DisplayRoomInfo script has finished running
+		while (!DisplayRoomInfo.IsScript1Finished)
+		{
+			yield return null; // Wait for one frame
+		}
+		Debug.Log("DRI SCRIP COMPLETER imgs!!!");
+
+		// Continue with the rest of the script
+		StartCoroutine(GetRoomProperties());
+	}
+
+
+	IEnumerator GetRoomProperties()
+	{
+		//Check if the custom properties exist in the room
+
+		//Access and display the values
+		string modelJson = DisplayRoomInfo.modelJson;
+
+		// Wait until modelJson is not empty
+		while (string.IsNullOrEmpty(modelJson))
+		{
+			yield return null; // Wait for one frame
+			modelJson = DisplayRoomInfo.modelJson; // Update modelJson
+		}
+
+
+		Debug.Log("HERE YO LINK: " + modelJson);
+
+		yield return StartCoroutine(GetConfigImgData(modelJson));
+
+	}
+
+
+
+	//Method for CALLING Images
+	IEnumerator GetConfigImgData(string modelJson)
+	{
+		//Data Request
+		Debug.Log("Starting Download: " + modelJson);
+
+		UnityWebRequest request = UnityWebRequest.Get(modelJson);
+		yield return request.SendWebRequest();
+
+		//Check Connection
+		if (request.isNetworkError || request.isHttpError)
+		{
+			//error...
+			Debug.Log("WEB ERROR: " + modelJson);
+		}
+		else
+		{
+			//success...
+
+			//Pull JSON Data
+			ConfigImgDataNew data = JsonUtility.FromJson<ConfigImgDataNew>(request.downloadHandler.text);
+
+			//Set Base URL
+			string baseURL = data.baseURL;
+			int numImgs = data.numImgs;
+
+			//jpeg file extention
+			string jpgExt = ".jpg";
+			string currentURL;
+
+
+			//Cycle through Images
+			for (int i = 1; i <= numImgs; i++)
+			{
+				//Set Current URL and print for debug
+				currentURL = baseURL + i + jpgExt;
+				Debug.Log(currentURL);
+
+				//Set Current Index
+				index = i;
+
+				// Load image
+				yield return StartCoroutine(GetImage(currentURL, baseURL, index, numImgs));
+
+				// Clean up any resources it is using.
+				request.Dispose();
+			}
+		}
+
+	}
+
+
+
+	//Method for SETTING Images
+	IEnumerator GetImage(string url, string baseURL, int index, int numImgs)
+	{
+		UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
+
+		yield return request.SendWebRequest();
+
+		if (request.isNetworkError || request.isHttpError)
+		{
+			//error...
+			Debug.Log("ERROR");
+		}
+		else
+		{
+			//success...
+			Debug.Log("Success!");
+
+
+			//Populate Sprit Array
+			Sprite[] sprites;
+
+
+}
+		// Clean up any resources it is using.
+		request.Dispose();
+	}
+
+
+
 	void Start()
 	{
-
+		//Intialize Vars
 		showSide = extraPlanes;
 		showFront = extraPlanes;
 		topView = new GameObject();
@@ -287,6 +435,9 @@ public class LayeredImageLoader : MonoBehaviour
 		topView.transform.localScale = Vector3.one;
 		topView.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
+
+
+		//Set up model
 		bool firstPass = true;
 		nImages=sprites.Length/iSkip;
 		if(sprites.Length%iSkip!=0) nImages += 1;
@@ -329,6 +480,9 @@ public class LayeredImageLoader : MonoBehaviour
 			layeredImagesObjects[k].GetComponent<Renderer>().material.mainTexture = images[k];
 		}
 
+
+
+		//Function to show Front of cells
 		if(showFront) { 
 			// front view
 			frontImages = new Texture2D[height];
@@ -361,7 +515,10 @@ public class LayeredImageLoader : MonoBehaviour
 			}
 		}
 
-		if(showSide) { 
+
+
+		//Function to show Sides of cells
+		if (showSide) { 
 			// side view
 			sideImages = new Texture2D[width];
 			sideImagesObjects = new GameObject[width];
@@ -395,6 +552,9 @@ public class LayeredImageLoader : MonoBehaviour
 			}
 		}
 
+
+
+		//Set changable values 
 		alphaSlider.value = alphaInit;
 		cutoffSlider.value = cutoffInit;
 		setAlpha(alphaInit);
@@ -404,8 +564,11 @@ public class LayeredImageLoader : MonoBehaviour
 
 		setAllRenderers("_ClipBase", transform.position+ClipOffset);
 		setAllRenderers("_ClipNormal", ClipNormal);
-
 	}
+
+
+
+
 
 
 	public void setAllRenderers(string property, Vector3 value)
@@ -417,6 +580,7 @@ public class LayeredImageLoader : MonoBehaviour
 		}
 	}
 
+
 	public void setAllRenderers(string property, float value)
 	{
 		Renderer[] renderers = GetComponentsInChildren<Renderer>();
@@ -426,11 +590,14 @@ public class LayeredImageLoader : MonoBehaviour
 		}
 	}
 
+
+
 	public void setSaturation(float saturation)
 	{
 		setAllRenderers("_Saturation", saturation);
 
 	}
+
 
 	public void setNormal(float normal)
 	{
@@ -438,11 +605,13 @@ public class LayeredImageLoader : MonoBehaviour
 
 	}
 
+
 	public void setAlpha(float alpha)
 	{
 
 		setAllRenderers("_Alpha", alpha);
 	}
+
 
 	public void setCutoff(float cutoff)
 	{
@@ -451,6 +620,8 @@ public class LayeredImageLoader : MonoBehaviour
 
 		
 	}
+
+
 
 	// Update is called once per frame
 	void Update()
