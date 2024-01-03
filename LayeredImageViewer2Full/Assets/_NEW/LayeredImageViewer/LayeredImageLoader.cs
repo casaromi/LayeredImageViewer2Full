@@ -297,7 +297,7 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 
 
 
-	//Main Method to Create Model 
+	//Intialize Room Settings  
 	public override void OnJoinedRoom()
 	{
 		// Called when the local player successfully joins a room
@@ -342,7 +342,9 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 
 
 
-	//Method for CALLING Images
+
+
+	//Get Images from Web
 	IEnumerator GetConfigImgData(string modelJson)
 	{
 		//Data Request
@@ -394,8 +396,7 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 	}
 
 
-
-	//Method for SETTING Images
+	//Populate Sprite array with images
 	IEnumerator GetImage(string url, string baseURL, int index, int numImgs)
 	{
 		UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
@@ -412,18 +413,30 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 			//success...
 			Debug.Log("Success!");
 
+			// Convert the downloaded texture to a Sprite
+			Texture2D texture = DownloadHandlerTexture.GetContent(request);
+			Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
 
-			//Populate Sprit Array
-			Sprite[] sprites;
+			// Check if the sprites array is initialized and has enough space for the new sprite
+			if (sprites == null || sprites.Length < numImgs)
+			{
+				sprites = new Sprite[numImgs];
+			}
 
+			// Store the sprite in the array at the correct index
+			sprites[index - 1] = sprite;
 
-}
-		// Clean up any resources it is using.
-		request.Dispose();
+			// Now the sprites array is populated with downloaded images
+			// Clean up any resources it is using.
+			request.Dispose();
+		}
 	}
 
 
 
+
+
+	//Create and Configure Model
 	void Start()
 	{
 		//Intialize Vars
