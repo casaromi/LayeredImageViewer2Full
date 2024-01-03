@@ -20,8 +20,8 @@ public class LayeredImageLoader : MonoBehaviour
 	GameObject[] frontImagesObjects;
 	GameObject[] sideImagesObjects;
 	int nImages;
-	//public Slider alphaSlider;
-	//public Slider cutoffSlider;
+	public Slider alphaSlider;
+	public Slider cutoffSlider;
 	int width = 0;
 	int height = 0;
 
@@ -32,11 +32,15 @@ public class LayeredImageLoader : MonoBehaviour
 	public float alphaInit = 0.3f;
 	public float cutoffInit = 1.0f;
 	public float normalInit = 1.0f;
+	public float saturationInit = 1.0f;
 
 	public bool extraPlanes = false;
 
 	bool showSide;
 	bool showFront;
+
+	public Vector3 ClipOffset = Vector3.zero;
+	public Vector3 ClipNormal = Vector3.one;
 
 	void Start()
 	{
@@ -157,12 +161,26 @@ public class LayeredImageLoader : MonoBehaviour
 			}
 		}
 
-		//alphaSlider.value = alphaInit;
-		//cutoffSlider.value = cutoffInit;
+		alphaSlider.value = alphaInit;
+		cutoffSlider.value = cutoffInit;
 		setAlpha(alphaInit);
 		setCutoff(cutoffInit);
 		setNormal(normalInit);
+		setSaturation(saturationInit);
 
+		setAllRenderers("_ClipBase", transform.position+ClipOffset);
+		setAllRenderers("_ClipNormal", ClipNormal);
+
+	}
+
+
+	public void setAllRenderers(string property, Vector3 value)
+	{
+		Renderer[] renderers = GetComponentsInChildren<Renderer>();
+		foreach (Renderer rend in renderers)
+		{
+			rend.material.SetVector(property, value);
+		}
 	}
 
 	public void setAllRenderers(string property, float value)
@@ -172,6 +190,12 @@ public class LayeredImageLoader : MonoBehaviour
 		{
 			rend.material.SetFloat(property, value);
 		}
+	}
+
+	public void setSaturation(float saturation)
+	{
+		setAllRenderers("_Saturation", saturation);
+
 	}
 
 	public void setNormal(float normal)
