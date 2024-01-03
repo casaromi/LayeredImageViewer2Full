@@ -452,6 +452,7 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 		topView.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
 
+		Debug.Log("Creating Model - stand by... ");
 
 		//Set up model
 		bool firstPass = true;
