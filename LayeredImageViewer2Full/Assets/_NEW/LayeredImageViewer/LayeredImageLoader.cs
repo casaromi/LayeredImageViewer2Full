@@ -434,8 +434,9 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 			Debug.Log("!!ARRAY OF IMAGES - Sprites array length: " + sprites.Length);
 
 			// Set the spritesReady flag to true
-			if (sprites != null)
+			if (sprites.Length == numImgs)
 			{
+				Debug.Log("!!ARRAY Fully Populated ");
 				spritesReady = true;
 			}
             else
