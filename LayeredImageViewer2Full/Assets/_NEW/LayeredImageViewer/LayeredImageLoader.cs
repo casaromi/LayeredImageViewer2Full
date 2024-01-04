@@ -259,7 +259,7 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 
 
 	//Intialize Vars
-	public int iSkip = 2;
+	public int iSkip = 1;
 	public Sprite [] sprites;
 
 	Texture2D[] images;
@@ -287,8 +287,11 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 
 	public bool extraPlanes = false;
 
+	private bool spritesReady = false;
+
 	bool showSide;
 	bool showFront;
+
 
 	public Vector3 ClipOffset = Vector3.zero;
 	public Vector3 ClipNormal = Vector3.one;
@@ -426,8 +429,12 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 			// Store the sprite in the array at the correct index
 			sprites[index - 1] = sprite;
 
+
 			// Print the length of the sprites array to the console
 			Debug.Log("!!ARRAY OF IMAGES - Sprites array length: " + sprites.Length);
+			
+			// Set the spritesReady flag to true
+			spritesReady = true;
 
 
 			// Clean up any resources it is using.
@@ -442,6 +449,23 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 	//Create and Configure Model
 	void Start()
 	{
+		// Wait until the sprites array is ready
+		Debug.Log("Waiting for Sprites to populate... ");
+		StartCoroutine(WaitForSprites());
+	}
+
+
+	IEnumerator WaitForSprites()
+	{
+		while (sprites == null || !spritesReady)
+		{
+			yield return null;
+		}
+
+		// Continue with the rest of the Start function after the sprites array is populated
+		Debug.Log("Starting to Create Model - stand by... ");
+
+
 		//Intialize Vars
 		showSide = extraPlanes;
 		showFront = extraPlanes;
@@ -452,55 +476,61 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 		topView.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
 
-		Debug.Log("Creating Model - stand by... ");
 
 		//Set up model
 		bool firstPass = true;
-		nImages=sprites.Length/iSkip;
-		if(sprites.Length%iSkip!=0) nImages += 1;
-		
+		nImages = sprites.Length / iSkip;
+		if (sprites.Length % iSkip != 0) nImages += 1;
+
 		images = new Texture2D[nImages];
 		layeredImagesObjects = new GameObject[nImages];
-		
+
 		for (int k = 0; k < nImages; k++)
 		{
-			int imageNumber = iSkip*k;
-			
-			Texture2D spriteTex = sprites[imageNumber].texture;
-			images[k] = new Texture2D(spriteTex.width,spriteTex.height);
-			
+			int imageNumber = iSkip * k;
 
-			if (firstPass)
+			if (imageNumber < sprites.Length)
 			{
-				firstPass = false;
-				width = images[k].width;
-				height = images[k].height;
-				if(extraPlanes) allPixels = new Color[width,height,nImages];
-			}
-			Color [] pixels = spriteTex.GetPixels();
-			for(int i=0;i<width && extraPlanes;i++)
-			{
-				for(int j=0;j<height;j++)
+				Texture2D spriteTex = sprites[imageNumber].texture;
+				images[k] = new Texture2D(spriteTex.width, spriteTex.height);
+
+
+				if (firstPass)
 				{
-					allPixels[i,j,k] = pixels[j*width+i];
-
+					firstPass = false;
+					width = images[k].width;
+					height = images[k].height;
+					if (extraPlanes) allPixels = new Color[width, height, nImages];
 				}
-			}
-			images[k].SetPixels(pixels);
-			images[k].Apply();
-			layeredImagesObjects[k] = Instantiate(layeredImagePRE);
-			layeredImagesObjects[k].transform.parent = topView.transform;
-			layeredImagesObjects[k].transform.localPosition = new Vector3(0, (float)k / (float)(nImages - 1) - 0.5f, 0);
-			layeredImagesObjects[k].transform.localScale = Vector3.one;
-			layeredImagesObjects[k].transform.localRotation = Quaternion.Euler(90, 0, 0);
+				Color[] pixels = spriteTex.GetPixels();
+				for (int i = 0; i < width && extraPlanes; i++)
+				{
+					for (int j = 0; j < height; j++)
+					{
+						allPixels[i, j, k] = pixels[j * width + i];
 
-			layeredImagesObjects[k].GetComponent<Renderer>().material.mainTexture = images[k];
+					}
+				}
+				images[k].SetPixels(pixels);
+				images[k].Apply();
+				layeredImagesObjects[k] = Instantiate(layeredImagePRE);
+				layeredImagesObjects[k].transform.parent = topView.transform;
+				layeredImagesObjects[k].transform.localPosition = new Vector3(0, (float)k / (float)(nImages - 1) - 0.5f, 0);
+				layeredImagesObjects[k].transform.localScale = Vector3.one;
+				layeredImagesObjects[k].transform.localRotation = Quaternion.Euler(90, 0, 0);
+
+				layeredImagesObjects[k].GetComponent<Renderer>().material.mainTexture = images[k];
+			}
+			else
+			{
+				// Handle the case where imageNumber is out of bounds
+				Debug.LogError("Image number out of bounds: " + imageNumber);
+			}
 		}
 
-
-
 		//Function to show Front of cells
-		if(showFront) { 
+		if (showFront)
+		{
 			// front view
 			frontImages = new Texture2D[height];
 			frontImagesObjects = new GameObject[height];
@@ -510,22 +540,22 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 			frontView.transform.localScale = Vector3.one;
 			frontView.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
-			for (int j=0;j<height;j++)
+			for (int j = 0; j < height; j++)
 			{
-				frontImages[j] = new Texture2D(width,nImages);
-				Color []pixels = new Color[width*nImages];
-				for(int k=0;k<nImages;k++)
+				frontImages[j] = new Texture2D(width, nImages);
+				Color[] pixels = new Color[width * nImages];
+				for (int k = 0; k < nImages; k++)
 				{
-					for(int i=0;i<width;i++)
+					for (int i = 0; i < width; i++)
 					{
-						pixels[k*width+i] = allPixels[i, j, k];
+						pixels[k * width + i] = allPixels[i, j, k];
 					}
 				}
 				frontImages[j].SetPixels(pixels);
 				frontImages[j].Apply();
 				frontImagesObjects[j] = Instantiate(layeredImagePRE);
 				frontImagesObjects[j].transform.parent = frontView.transform;
-				frontImagesObjects[j].transform.localPosition = new Vector3(0, 0, (float)j / (float)(height - 1)-0.5f);
+				frontImagesObjects[j].transform.localPosition = new Vector3(0, 0, (float)j / (float)(height - 1) - 0.5f);
 				frontImagesObjects[j].transform.localRotation = Quaternion.Euler(0, 0, 0);
 				frontImagesObjects[j].transform.localScale = Vector3.one;
 				frontImagesObjects[j].GetComponent<Renderer>().material.mainTexture = frontImages[j];
@@ -535,7 +565,8 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 
 
 		//Function to show Sides of cells
-		if (showSide) { 
+		if (showSide)
+		{
 			// side view
 			sideImages = new Texture2D[width];
 			sideImagesObjects = new GameObject[width];
@@ -560,9 +591,9 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 				sideImages[i].Apply();
 				sideImagesObjects[i] = Instantiate(layeredImagePRE);
 				sideImagesObjects[i].transform.parent = sideView.transform;
-				sideImagesObjects[i].transform.localPosition = new Vector3((float)i / (float)(width - 1) - 0.5f,0,0);
+				sideImagesObjects[i].transform.localPosition = new Vector3((float)i / (float)(width - 1) - 0.5f, 0, 0);
 				sideImagesObjects[i].transform.localScale = Vector3.one;
-				sideImagesObjects[i].transform.localRotation = Quaternion.Euler(180,90,180);
+				sideImagesObjects[i].transform.localRotation = Quaternion.Euler(180, 90, 180);
 				//sideImagesObjects[i].transform.Rotate(sideImagesObjects[i].transform.right, 90);
 				//sideImagesObjects[i].transform.Rotate(sideImagesObjects[i].transform.up, -90);
 				sideImagesObjects[i].GetComponent<Renderer>().material.mainTexture = sideImages[i];
@@ -579,7 +610,7 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 		setNormal(normalInit);
 		setSaturation(saturationInit);
 
-		setAllRenderers("_ClipBase", transform.position+ClipOffset);
+		setAllRenderers("_ClipBase", transform.position + ClipOffset);
 		setAllRenderers("_ClipNormal", ClipNormal);
 	}
 
