@@ -496,10 +496,13 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 		{
 			int imageNumber = iSkip * k;
 
-			if (imageNumber < sprites.Length)
+
+			if (sprites[imageNumber] != null)
 			{
-				if (sprites[imageNumber] != null)
+
+				if (imageNumber < sprites.Length)
 				{
+
 					Texture2D spriteTex = sprites[imageNumber].texture;
 					images[k] = new Texture2D(spriteTex.width, spriteTex.height);
 
@@ -530,12 +533,15 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 
 					layeredImagesObjects[k].GetComponent<Renderer>().material.mainTexture = images[k];
 				}
+				//else: imageNumber < sprites.Length
 				else
 				{
 					// Handle the case where imageNumber is out of bounds
 					Debug.LogError("Image number out of bounds: " + imageNumber);
 				}
 			}
+
+			//sprites[imageNumber] != null
 			else
 			{
 				Debug.LogError("Sprite is null at index: " + imageNumber);
