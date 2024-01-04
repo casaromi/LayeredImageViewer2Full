@@ -441,7 +441,7 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 			}
             else
             {
-				Debug.Log("!! Sprite ERROR !! ");
+				yield return null;
 			}
 
 
