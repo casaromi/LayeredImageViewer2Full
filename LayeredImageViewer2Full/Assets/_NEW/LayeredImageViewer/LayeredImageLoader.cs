@@ -432,9 +432,16 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 
 			// Print the length of the sprites array to the console
 			Debug.Log("!!ARRAY OF IMAGES - Sprites array length: " + sprites.Length);
-			
+
 			// Set the spritesReady flag to true
-			spritesReady = true;
+			if (sprites == null || sprites.Length < numImgs)
+			{
+				spritesReady = true;
+			}
+            else
+            {
+				Debug.Log("!! Sprite ERROR !! ");
+			}
 
 
 			// Clean up any resources it is using.
@@ -491,40 +498,47 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 
 			if (imageNumber < sprites.Length)
 			{
-				Texture2D spriteTex = sprites[imageNumber].texture;
-				images[k] = new Texture2D(spriteTex.width, spriteTex.height);
+				if (sprites[imageNumber] != null)
+				{
+					Texture2D spriteTex = sprites[imageNumber].texture;
+					images[k] = new Texture2D(spriteTex.width, spriteTex.height);
 
 
-				if (firstPass)
-				{
-					firstPass = false;
-					width = images[k].width;
-					height = images[k].height;
-					if (extraPlanes) allPixels = new Color[width, height, nImages];
-				}
-				Color[] pixels = spriteTex.GetPixels();
-				for (int i = 0; i < width && extraPlanes; i++)
-				{
-					for (int j = 0; j < height; j++)
+					if (firstPass)
 					{
-						allPixels[i, j, k] = pixels[j * width + i];
-
+						firstPass = false;
+						width = images[k].width;
+						height = images[k].height;
+						if (extraPlanes) allPixels = new Color[width, height, nImages];
 					}
-				}
-				images[k].SetPixels(pixels);
-				images[k].Apply();
-				layeredImagesObjects[k] = Instantiate(layeredImagePRE);
-				layeredImagesObjects[k].transform.parent = topView.transform;
-				layeredImagesObjects[k].transform.localPosition = new Vector3(0, (float)k / (float)(nImages - 1) - 0.5f, 0);
-				layeredImagesObjects[k].transform.localScale = Vector3.one;
-				layeredImagesObjects[k].transform.localRotation = Quaternion.Euler(90, 0, 0);
+					Color[] pixels = spriteTex.GetPixels();
+					for (int i = 0; i < width && extraPlanes; i++)
+					{
+						for (int j = 0; j < height; j++)
+						{
+							allPixels[i, j, k] = pixels[j * width + i];
 
-				layeredImagesObjects[k].GetComponent<Renderer>().material.mainTexture = images[k];
+						}
+					}
+					images[k].SetPixels(pixels);
+					images[k].Apply();
+					layeredImagesObjects[k] = Instantiate(layeredImagePRE);
+					layeredImagesObjects[k].transform.parent = topView.transform;
+					layeredImagesObjects[k].transform.localPosition = new Vector3(0, (float)k / (float)(nImages - 1) - 0.5f, 0);
+					layeredImagesObjects[k].transform.localScale = Vector3.one;
+					layeredImagesObjects[k].transform.localRotation = Quaternion.Euler(90, 0, 0);
+
+					layeredImagesObjects[k].GetComponent<Renderer>().material.mainTexture = images[k];
+				}
+				else
+				{
+					// Handle the case where imageNumber is out of bounds
+					Debug.LogError("Image number out of bounds: " + imageNumber);
+				}
 			}
 			else
 			{
-				// Handle the case where imageNumber is out of bounds
-				Debug.LogError("Image number out of bounds: " + imageNumber);
+				Debug.LogError("Sprite is null at index: " + imageNumber);
 			}
 		}
 
