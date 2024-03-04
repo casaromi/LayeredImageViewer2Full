@@ -260,7 +260,7 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 
 	//Intialize Vars
 	public int iSkip = 1;
-	public Sprite [] sprites;
+	public static Sprite[] sprites;
 
 	Texture2D[] images;
 	Texture2D [] sideImages;

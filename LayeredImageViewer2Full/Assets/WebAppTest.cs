@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,8 +36,16 @@ public class WebAppTest : MonoBehaviour
         public string content;
     }
 
+
+
+
+
     // Array of sprites for input from editor
-    public Sprite[] sprites;
+    public Sprite[] sprites = LayeredImageLoader.sprites;
+
+
+
+
 
     // this is just for basic testing
     IEnumerator TestRequest(string url, RequestData requestData)
