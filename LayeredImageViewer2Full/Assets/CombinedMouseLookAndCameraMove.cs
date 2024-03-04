@@ -268,6 +268,7 @@ public class CombinedMouseLookAndCameraMove : MonoBehaviour
     private float totalRun = 1.0f;
     private bool isInputFieldSelected = false;
     private LeaveGameMenu leaveGameMenu; // Reference to the LeaveGameMenu script
+    private OpenChat chatMenu; // Reference to the chatmenue script
 
     private void Start()
     {
@@ -275,10 +276,15 @@ public class CombinedMouseLookAndCameraMove : MonoBehaviour
 
         // Find the LeaveGameMenu script in the scene
         leaveGameMenu = FindObjectOfType<LeaveGameMenu>();
+        chatMenu = FindObjectOfType<OpenChat>();
 
         if (leaveGameMenu == null)
         {
             Debug.LogWarning("CombinedMouseLookAndCameraMove: LeaveGameMenu script not found in the scene!");
+        }
+        if (chatMenu == null)
+        {
+            Debug.LogWarning("CombinedMouseLookAndCameraMove: chatMenu script not found in the scene!");
         }
     }
 
@@ -299,9 +305,10 @@ public class CombinedMouseLookAndCameraMove : MonoBehaviour
 
         // Check if the leave game menu is active
         bool isLeaveGameMenuActive = (leaveGameMenu != null) ? leaveGameMenu.leaveGamePanel.activeSelf : false;
-
+        bool isOpenChatActive = (chatMenu != null) ? chatMenu.ChatPanel.activeSelf : false;
+        
         // Mouse camera angle
-        if (!isLeaveGameMenuActive) // Only update the rotation if the leave game menu is not active
+        if (!isLeaveGameMenuActive && !isOpenChatActive) // Only update the rotation if the leave game menu is not active
         {
             Vector3 mouseDelta = Input.mousePosition - lastMouse;
             lastMouse = Input.mousePosition;
@@ -312,6 +319,7 @@ public class CombinedMouseLookAndCameraMove : MonoBehaviour
             rotation.z = 0;
             transform.rotation = Quaternion.Euler(rotation);
         }
+
 
         // Keyboard commands
         Vector3 movement = GetBaseInput();
