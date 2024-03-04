@@ -1,8 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+
 
 public class WebAppTest : MonoBehaviour
 {
@@ -36,16 +36,8 @@ public class WebAppTest : MonoBehaviour
         public string content;
     }
 
-
-
-
-
     // Array of sprites for input from editor
-    public Sprite[] sprites = LayeredImageLoader.sprites;
-
-
-
-
+    public Sprite[] sprites;
 
     // this is just for basic testing
     IEnumerator TestRequest(string url, RequestData requestData)
@@ -98,6 +90,7 @@ public class WebAppTest : MonoBehaviour
         StartCoroutine(TestRequest(url, requestData));
 
         // Here is the real test
+        Debug.Log(sprites.Length);
         ImagePayload payload = new ImagePayload();
         payload.modelName = "Foo";
         payload.images = new ImageItem[sprites.Length];
