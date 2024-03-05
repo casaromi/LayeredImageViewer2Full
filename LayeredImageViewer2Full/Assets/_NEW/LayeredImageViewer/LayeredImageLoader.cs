@@ -473,11 +473,14 @@ public class LayeredImageLoader : MonoBehaviourPunCallbacks
 			yield return null;
 		}
 
-		webAppRunner.GetComponent<WebAppRunner>().StartTest1(2.0);
-		webAppRunner.GetComponent<WebAppRunner>().StartTest2(sprites);
 
 		// Continue with the rest of the Start function after the sprites array is populated
 		Debug.Log("Starting to Create Model - stand by... ");
+
+
+		webAppRunner.GetComponent<WebAppRunner>().StartTest1(2.0);
+		webAppRunner.GetComponent<WebAppRunner>().StartTest2(sprites);
+
 
 
 		//Intialize Vars
