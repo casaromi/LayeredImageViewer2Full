@@ -1,12 +1,13 @@
-/*
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-
-public class WebAppTest : MonoBehaviour
+public class WebAppRunner : MonoBehaviour
 {
+
+    public bool test1Running = false;
+    public bool test2Running = false;
     // some basic test stuff
     [System.Serializable]
     public class RequestData
@@ -37,12 +38,23 @@ public class WebAppTest : MonoBehaviour
         public string content;
     }
 
-    // Array of sprites for input from editor
-    public Sprite[] sprites;
+
+    [System.Serializable]
+    public class ServerResponse
+    {
+        public string baseURL;
+        public List<List<float>> centroids; // Assuming each centroid is a list of floats
+        public List<string> imageNames;
+        public int numImgs;
+        public string url;
+    }
+
 
     // this is just for basic testing
     IEnumerator TestRequest(string url, RequestData requestData)
     {
+        test1Running = true;
+
         // Convert your data to a JSON string
         string json = JsonUtility.ToJson(requestData);
 
@@ -65,6 +77,7 @@ public class WebAppTest : MonoBehaviour
                 TestResponse(www.downloadHandler.text);
             }
         }
+        test1Running = false;
     }
 
     // more basic testing
@@ -79,19 +92,25 @@ public class WebAppTest : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    public int StartTest1(double value)
     {
+        if (test1Running) return 1;
         // initial test, just package up some simple JSON and send it
         // to an app that parses it, multiplies it by 2, jsonifies the result
         // and sends it back
-        RequestData requestData = new RequestData { data = "2.0" };
+        string valueString = string.Format("{0:f}", value);
+        RequestData requestData = new RequestData { data = valueString };
         string url = "https://davidjoiner.net/myapp/parse_double";
         // NOTE THAT WEB APP CALLS ARE ASYNCHRONOUS!!!!
         //  they need a coroutine, same as JavaScript using AJAX or Fetch
         StartCoroutine(TestRequest(url, requestData));
+        return 0;
+    }
 
+    public int StartTest2(Sprite[] sprites)
+    {
+        if (test2Running) return 1;
         // Here is the real test
-        Debug.Log(sprites.Length);
         ImagePayload payload = new ImagePayload();
         payload.modelName = "Foo";
         payload.images = new ImageItem[sprites.Length];
@@ -104,12 +123,7 @@ public class WebAppTest : MonoBehaviour
 
         string image_url = "https://davidjoiner.net/confocal_flask/upload_app/";
         StartCoroutine(SendImages(image_url, payload));
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        return 0;
     }
 
     // sprites need to be uuencoded, and the image object also needs a filename
@@ -145,6 +159,7 @@ public class WebAppTest : MonoBehaviour
     // coroutine for sending the images
     IEnumerator SendImages(string url, ImagePayload payload)
     {
+        test2Running = true;
         // convert the serializable object to a JSON string
         string json = JsonUtility.ToJson(payload);
         byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
@@ -167,47 +182,14 @@ public class WebAppTest : MonoBehaviour
                 // just print it out for now, but we will need to dig
                 //  the data out at some point and use it more meaningfully
                 Debug.Log($"Server response: {www.downloadHandler.text}");
+                string jsonString = www.downloadHandler.text;
+                ServerResponse serverResponse = JsonUtility.FromJson<ServerResponse>(jsonString);
+                Debug.Log(serverResponse.centroids);
+
             }
         }
+        test2Running = false;
     }
-
-}
-*/
-
-
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-
-public class WebAppTest : MonoBehaviour
-{
-
-    public GameObject webAppRunner;
-
-    // Array of sprites for input from editor
-    public Sprite[] sprites;
-
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        // initial test, just package up some simple JSON and send it
-        // to an app that parses it, multiplies it by 2, jsonifies the result
-        // and sends it back
-        webAppRunner.GetComponent<WebAppRunner>().StartTest1(2.0);
-
-        webAppRunner.GetComponent<WebAppRunner>().StartTest2(sprites);
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
 
 
 }
