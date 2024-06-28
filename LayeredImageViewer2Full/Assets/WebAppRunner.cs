@@ -43,11 +43,14 @@ public class WebAppRunner : MonoBehaviour
     public class ServerResponse
     {
         public string baseURL;
-        public List<List<float>> centroids; // Assuming each centroid is a list of floats
+        public List<string> centroids; // Assuming each centroid is a list of floats
         public List<string> imageNames;
         public int numImgs;
         public string url;
     }
+
+
+    public static List<float> Centroidnumbers = new List<float>();
 
 
     // this is just for basic testing
@@ -184,6 +187,30 @@ public class WebAppRunner : MonoBehaviour
                 Debug.Log($"Server response: {www.downloadHandler.text}");
                 string jsonString = www.downloadHandler.text;
                 ServerResponse serverResponse = JsonUtility.FromJson<ServerResponse>(jsonString);
+
+
+
+                // Extract and parse the numbers from centroids
+                //List<float> Centroidnumbers = new List<float>();
+
+                foreach (string centroid in serverResponse.centroids)
+                {
+                    string[] splitCentroid = centroid.Split(',');
+
+                    foreach (string number in splitCentroid)
+                    {
+                        if (float.TryParse(number.Trim(), out float parsedNumber))
+                        {
+                            Centroidnumbers.Add(parsedNumber);
+                        }
+                    }
+                }
+
+                // Log the numbers to verify
+                Debug.Log("Parsed Numbers: " + string.Join(", ", Centroidnumbers));
+
+
+
                 Debug.Log(serverResponse.centroids);
 
             }
