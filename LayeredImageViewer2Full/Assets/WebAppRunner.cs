@@ -22,7 +22,7 @@ public class WebAppRunner : MonoBehaviour
         public string message;
     }
 
-    // class to JSONify the web app payload
+    // class to JSONify the web app payload .
     [System.Serializable]
     public class ImagePayload
     {
