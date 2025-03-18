@@ -1,11 +1,10 @@
-/*
 using UnityEngine;
 
 public class SkyboxManager : MonoBehaviour
 {
 
     public Material morningSkybox;
-    public Material nightSkybox;s
+    public Material nightSkybox;
 
     private void Start()
     {
@@ -39,65 +38,3 @@ public class SkyboxManager : MonoBehaviour
         RenderSettings.skybox = skyboxMaterial;
     }
 }
-*/
-
-using UnityEngine;
-using UnityEngine.UI; // Required for UI elements
-
-public class SkyboxManager : MonoBehaviour
-{
-    public Material morningSkybox;
-    public Material nightSkybox;
-    public GameObject environment;
-    public GameObject bounds;
-    public bool enableSkybox = true; // Default ON
-    public Toggle skyboxToggle; // UI Toggle reference (Optional)
-
-    private Camera mainCamera;
-
-    private void Start()
-    {
-        mainCamera = Camera.main; // Get the main camera
-
-        if (skyboxToggle != null)
-        {
-            skyboxToggle.isOn = enableSkybox;
-            skyboxToggle.onValueChanged.AddListener(ToggleSkybox);
-        }
-
-        UpdateSkybox();
-    }
-
-    private void ToggleSkybox(bool isOn)
-    {
-        enableSkybox = isOn;
-        UpdateSkybox();
-    }
-
-    private void UpdateSkybox()
-    {
-        if (!enableSkybox)
-        {
-            RenderSettings.skybox = null; // Remove skybox
-            if (mainCamera != null)
-                mainCamera.clearFlags = CameraClearFlags.SolidColor; // Set background to solid color
-
-            if (environment != null)
-                environment.SetActive(false); // Hide environment objects
-                bounds.SetActive(true);// enable bounds
-            return;
-        }
-
-        if (mainCamera != null)
-            mainCamera.clearFlags = CameraClearFlags.Skybox; // Enable skybox
-
-        if (environment != null)
-            environment.SetActive(true); // Show environment objects
-            bounds.SetActive(false);// remove bounds
-
-        float currentHour = System.DateTime.Now.Hour;
-        RenderSettings.skybox = (currentHour >= 9 && currentHour < 18) ? morningSkybox : nightSkybox;
-    }
-}
-
-
