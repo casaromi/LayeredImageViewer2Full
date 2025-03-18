@@ -1,4 +1,4 @@
-
+/*
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -149,9 +149,8 @@ public class PointCloud : MonoBehaviourPunCallbacks
         return canvas;
     }
 }
+*/
 
-
-/*
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -171,6 +170,7 @@ public class PointCloud : MonoBehaviourPunCallbacks
     private Canvas popupCanvas;
     private Text popupText;
     private List<GameObject> spawnedSpheres = new List<GameObject>(); // Track all spheres
+    private Dictionary<GameObject, Vector3> originalPositions = new Dictionary<GameObject, Vector3>(); // Store original positions
 
     private float heightAdjustment = 0f; // Default Y offset
     private float xPositionAdjustment = 0f; // Default X offset
@@ -185,15 +185,15 @@ public class PointCloud : MonoBehaviourPunCallbacks
         if (heightSlider != null)
         {
             heightSlider.minValue = 0.1f;
-            heightSlider.maxValue = 2.5f;
+            heightSlider.maxValue = 2.25f;
             heightSlider.value = 0f;
             heightSlider.onValueChanged.AddListener(UpdateHeightAdjustment);
         }
 
         if (xPositionSlider != null)
         {
-            xPositionSlider.minValue = -1f;
-            xPositionSlider.maxValue = 1f;
+            xPositionSlider.minValue = -1.25f;
+            xPositionSlider.maxValue = 2f;
             xPositionSlider.value = 0f;
             xPositionSlider.onValueChanged.AddListener(UpdateXPositionAdjustment);
         }
@@ -201,7 +201,7 @@ public class PointCloud : MonoBehaviourPunCallbacks
         if (sizeSlider != null)
         {
             sizeSlider.minValue = 0.1f;
-            sizeSlider.maxValue = 0.5f;
+            sizeSlider.maxValue = 0.4f;
             sizeSlider.value = 0.2f;
             sizeSlider.onValueChanged.AddListener(UpdateSizeAdjustment);
         }
@@ -243,7 +243,7 @@ public class PointCloud : MonoBehaviourPunCallbacks
 
         Debug.Log("XYZ LINK: " + modelXYZ);
 
-        if (modelXYZ != null && modelXYZ != "null")
+        if (!string.IsNullOrEmpty(modelXYZ) && modelXYZ != "null")
         {
             yield return StartCoroutine(LoadFile(modelXYZ));
         }
@@ -296,7 +296,9 @@ public class PointCloud : MonoBehaviourPunCallbacks
     void InstantiateSphere(Vector3 position)
     {
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        sphere.transform.position = new Vector3(position.x + xPositionAdjustment, position.y + heightAdjustment, position.z);
+
+        // Store the original position (without any slider modifications)
+        sphere.transform.position = position;
 
         Renderer sphereRenderer = sphere.GetComponent<Renderer>();
         sphereRenderer.material.color = sphereColor;
@@ -308,6 +310,7 @@ public class PointCloud : MonoBehaviourPunCallbacks
         clickHandler.Initialize(popupCanvas, position);
 
         spawnedSpheres.Add(sphere); // Track spawned spheres
+        originalPositions[sphere] = position; // Store original position
     }
 
     void UpdateHeightAdjustment(float newHeight)
@@ -332,12 +335,15 @@ public class PointCloud : MonoBehaviourPunCallbacks
     {
         foreach (GameObject sphere in spawnedSpheres)
         {
-            if (sphere != null)
+            if (sphere != null && originalPositions.ContainsKey(sphere))
             {
+                Vector3 originalPos = originalPositions[sphere]; // Get original position
+
+                // Apply adjustments based on stored original positions
                 sphere.transform.position = new Vector3(
-                    sphere.transform.position.x + xPositionAdjustment,
-                    sphere.transform.position.y + heightAdjustment,
-                    sphere.transform.position.z
+                    originalPos.x + xPositionAdjustment,
+                    originalPos.y + heightAdjustment,
+                    originalPos.z
                 );
 
                 sphere.transform.localScale = Vector3.one * sphereSize; // Adjust sphere size
@@ -369,4 +375,3 @@ public class PointCloud : MonoBehaviourPunCallbacks
         return canvas;
     }
 }
-*/
