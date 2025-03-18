@@ -176,6 +176,7 @@ public class PointCloud : MonoBehaviourPunCallbacks
     private float xPositionAdjustment = 0f; // Default X offset
     private float sphereSize = 0.2f; // Default sphere size
     private bool isPointCloudActive = true; // Default ON
+    private float spacingFactor = 1.0f; // Default spacing
 
     void Start()
     {
@@ -193,7 +194,7 @@ public class PointCloud : MonoBehaviourPunCallbacks
         if (xPositionSlider != null)
         {
             xPositionSlider.minValue = -1.25f;
-            xPositionSlider.maxValue = 2f;
+            xPositionSlider.maxValue = 4f;
             xPositionSlider.value = 0f;
             xPositionSlider.onValueChanged.AddListener(UpdateXPositionAdjustment);
         }
@@ -327,7 +328,12 @@ public class PointCloud : MonoBehaviourPunCallbacks
 
     void UpdateSizeAdjustment(float newSize)
     {
+        float previousSize = sphereSize;
         sphereSize = newSize;
+
+        // Adjust spacing based on the size change
+        spacingFactor = sphereSize / previousSize;
+
         AdjustSpheres();
     }
 
@@ -341,9 +347,9 @@ public class PointCloud : MonoBehaviourPunCallbacks
 
                 // Apply adjustments based on stored original positions
                 sphere.transform.position = new Vector3(
-                    originalPos.x + xPositionAdjustment,
-                    originalPos.y + heightAdjustment,
-                    originalPos.z
+                    (originalPos.x + xPositionAdjustment) * spacingFactor,
+                    (originalPos.y + heightAdjustment) * spacingFactor,
+                    originalPos.z * spacingFactor
                 );
 
                 sphere.transform.localScale = Vector3.one * sphereSize; // Adjust sphere size
