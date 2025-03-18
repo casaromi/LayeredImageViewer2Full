@@ -1,4 +1,4 @@
-/*
+
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -149,9 +149,9 @@ public class PointCloud : MonoBehaviourPunCallbacks
         return canvas;
     }
 }
-*/
 
 
+/*
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -184,16 +184,16 @@ public class PointCloud : MonoBehaviourPunCallbacks
         // Setup sliders
         if (heightSlider != null)
         {
-            heightSlider.minValue = 0f;
-            heightSlider.maxValue = 2f;
+            heightSlider.minValue = 0.1f;
+            heightSlider.maxValue = 2.5f;
             heightSlider.value = 0f;
             heightSlider.onValueChanged.AddListener(UpdateHeightAdjustment);
         }
 
         if (xPositionSlider != null)
         {
-            xPositionSlider.minValue = -5f;
-            xPositionSlider.maxValue = 5f;
+            xPositionSlider.minValue = -1f;
+            xPositionSlider.maxValue = 1f;
             xPositionSlider.value = 0f;
             xPositionSlider.onValueChanged.AddListener(UpdateXPositionAdjustment);
         }
@@ -369,3 +369,4 @@ public class PointCloud : MonoBehaviourPunCallbacks
         return canvas;
     }
 }
+*/
