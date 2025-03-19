@@ -25,14 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8800795396213858554}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.3, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8800795396213858553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45,17 +44,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a736632477daf6b498053c74d2eb5890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imageStart: 1
-  imageStop: 47
-  iSkip: 2
-  path1: Images/Pole_cells_red/
-  extension: jpg
-  layeredImagePRE: {fileID: 601776525673469460, guid: 2a406e575996b3c468d3312168de5f09, type: 3}
+  iSkip: 1
+  sprites: []
+  layeredImagePRE: {fileID: 601776525673469460, guid: 2a406e575996b3c468d3312168de5f09,
+    type: 3}
   alphaSlider: {fileID: 0}
   cutoffSlider: {fileID: 0}
-  alphaInit: 0.3
-  cutoffInit: 0.7
-  normalInit: 0.1
+  alphaInit: 1
+  cutoffInit: 0.5
+  normalInit: 0
+  saturationInit: 0.3
+  extraPlanes: 1
+  ClipOffset: {x: 0, y: 0, z: 0}
+  ClipNormal: {x: 1, y: 1, z: 1}
 --- !u!114 &6741077738070839607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,3 +69,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21b81ea89e182b44cb93eeac25591592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wigglePeriod: 5
+  maxAngle: 15
+  doWiggle: 0

@@ -25,7 +25,7 @@ Shader "Unlit/LayeredImage"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-
+            #pragma multi_compile __ CLIPPING_ON
             #include "UnityCG.cginc"
 
             struct appdata
@@ -66,7 +66,9 @@ Shader "Unlit/LayeredImage"
 
             fixed4 frag(v2f i) : SV_Target
             {
-                clip(-dot((i.worldPos.xyz - _ClipBase.xyz),_ClipNormal)); 
+#ifdef CLIPPING_ON
+                clip(-dot((i.worldPos.xyz - _ClipBase.xyz),_ClipNormal));
+#endif
                 half camera_normal = abs(dot(normalize(_WorldSpaceCameraPos.xyz - i.worldPos.xyz), i.normal));
                 if (camera_normal < _NormalCutoff) return fixed4(0, 0, 0, 0);
                 fixed4 col = tex2D(_MainTex, i.uv);

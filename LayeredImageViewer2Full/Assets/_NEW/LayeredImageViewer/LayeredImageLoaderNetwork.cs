@@ -251,7 +251,7 @@ public struct ConfigImgDataNew
 
 
 
-public class LayeredImageLoader : MonoBehaviourPunCallbacks
+public class LayeredImageLoaderNetwork : MonoBehaviourPunCallbacks
 {
 
 	//Intialize Loop Indexing
