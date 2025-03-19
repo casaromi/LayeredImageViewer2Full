@@ -946,6 +946,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LayeredImageLoader
       objectReference: {fileID: 0}
+    - target: {fileID: 8800795396213858554, guid: e8cf2dab6a200354e8739af446e0a039, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8800795396213858553, guid: e8cf2dab6a200354e8739af446e0a039, type: 3}
     m_AddedGameObjects: []
@@ -1726,8 +1730,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LayeredImageLoader, Assembly-CSharp
+      - m_Target: {fileID: 2087247580}
+        m_TargetAssemblyTypeName: LIL, Assembly-CSharp
         m_MethodName: setCutoff
         m_Mode: 0
         m_Arguments:
@@ -1960,8 +1964,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LayeredImageLoader, Assembly-CSharp
+      - m_Target: {fileID: 2087247580}
+        m_TargetAssemblyTypeName: LIL, Assembly-CSharp
         m_MethodName: setAlpha
         m_Mode: 0
         m_Arguments:
@@ -2130,7 +2134,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
 --- !u!1 &1025079650
 GameObject:
@@ -2522,7 +2526,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1094645697
 MonoBehaviour:
@@ -2637,6 +2641,80 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1270561312
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1270561314}
+  - component: {fileID: 1270561313}
+  - component: {fileID: 1270561315}
+  m_Layer: 0
+  m_Name: LIL
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1270561313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270561312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf19443a407274f4cb3401e6e8039b69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iSkip: 1
+  sprites: []
+  layeredImagePRE: {fileID: 601776525673469460, guid: 9057f53c5d016c14192733a4eea946e6, type: 3}
+  alphaSlider: {fileID: 763687151}
+  cutoffSlider: {fileID: 673260843}
+  saturationSlider: {fileID: 1275614836}
+  alphaInit: 1
+  cutoffInit: 0.5
+  normalInit: 0
+  saturationInit: 1
+  extraPlanes: 1
+  ClipOffset: {x: 0, y: 0, z: 0}
+  ClipNormal: {x: 1, y: 1, z: 1}
+  useClipPlane: 0
+--- !u!4 &1270561314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270561312}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 0.6, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1270561315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270561312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21b81ea89e182b44cb93eeac25591592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wigglePeriod: 5
+  maxAngle: 15
+  doWiggle: 1
 --- !u!1 &1275614834
 GameObject:
   m_ObjectHideFlags: 0
@@ -2728,8 +2806,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LayeredImageLoader, Assembly-CSharp
+      - m_Target: {fileID: 2087247580}
+        m_TargetAssemblyTypeName: LIL, Assembly-CSharp
         m_MethodName: setSaturation
         m_Mode: 0
         m_Arguments:
@@ -3347,7 +3425,7 @@ Transform:
   - {fileID: 1033456991}
   - {fileID: 669758201}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2070255173
 GameObject:
@@ -3555,18 +3633,18 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e1f8d9f4a636ff54b97d3e10dac1b693, type: 3}
   - {fileID: 21300000, guid: 4ca8f41301ad7a34ba271b2dea550f37, type: 3}
   - {fileID: 21300000, guid: 17f6ffed31a42ba4b874ca9280a478ea, type: 3}
-  layeredImagePRE: {fileID: 601776525673469460, guid: 2a406e575996b3c468d3312168de5f09, type: 3}
+  layeredImagePRE: {fileID: 601776525673469460, guid: 9057f53c5d016c14192733a4eea946e6, type: 3}
   alphaSlider: {fileID: 763687151}
   cutoffSlider: {fileID: 673260843}
   saturationSlider: {fileID: 1275614836}
-  alphaInit: 0.3
-  cutoffInit: 0
-  normalInit: 1
+  alphaInit: 1
+  cutoffInit: 0.5
+  normalInit: 0
   saturationInit: 1
-  extraPlanes: 0
+  extraPlanes: 1
   ClipOffset: {x: 0, y: 0, z: 0}
   ClipNormal: {x: 1, y: 1, z: 1}
-  useClipPlane: 1
+  useClipPlane: 0
 --- !u!1 &2095509568
 GameObject:
   m_ObjectHideFlags: 0
