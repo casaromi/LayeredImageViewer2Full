@@ -42,7 +42,8 @@ public class SkyboxManager : MonoBehaviour
 */
 
 using UnityEngine;
-using UnityEngine.UI; // Required for UI elements
+using UnityEngine.UI;
+using UnityEngine.EventSystems; // Required for raycaster fix
 
 public class SkyboxManager : MonoBehaviour
 {
@@ -57,10 +58,11 @@ public class SkyboxManager : MonoBehaviour
 
     private void Start()
     {
-        mainCamera = Camera.main; // Get the main camera
+        mainCamera = Camera.main;
 
         if (skyboxToggle != null)
         {
+            // Set initial toggle state
             skyboxToggle.isOn = enableSkybox;
             skyboxToggle.onValueChanged.AddListener(ToggleSkybox);
         }
@@ -72,32 +74,41 @@ public class SkyboxManager : MonoBehaviour
     {
         enableSkybox = isOn;
         UpdateSkybox();
+
+        // **Fix VR raycaster sticking issue**
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     private void UpdateSkybox()
     {
         if (!enableSkybox)
         {
-            RenderSettings.skybox = null; // Remove skybox
+            RenderSettings.skybox = null;
             if (mainCamera != null)
-                mainCamera.clearFlags = CameraClearFlags.SolidColor; // Set background to solid color
+                mainCamera.clearFlags = CameraClearFlags.SolidColor;
 
             if (environment != null)
-                environment.SetActive(false); // Hide environment objects
-                bounds.SetActive(true);// enable bounds
+                environment.SetActive(false);
+
+            if (bounds != null)
+                bounds.SetActive(true); // Enable bounds
+
             return;
         }
 
         if (mainCamera != null)
-            mainCamera.clearFlags = CameraClearFlags.Skybox; // Enable skybox
+            mainCamera.clearFlags = CameraClearFlags.Skybox;
 
         if (environment != null)
-            environment.SetActive(true); // Show environment objects
-            bounds.SetActive(false);// remove bounds
+            environment.SetActive(true);
+
+        if (bounds != null)
+            bounds.SetActive(false); // Disable bounds
 
         float currentHour = System.DateTime.Now.Hour;
         RenderSettings.skybox = (currentHour >= 9 && currentHour < 18) ? morningSkybox : nightSkybox;
     }
 }
+
 
 
