@@ -34,6 +34,9 @@ public class WebAppCentroids : WebAppCaller<WebAppCentroids.ImagePayload, WebApp
         public string url;
     }
 
+
+
+
     public int StartCentroidsCall(Sprite[] sprites)
     {
         if (CallRunning) return 1;
@@ -52,6 +55,8 @@ public class WebAppCentroids : WebAppCaller<WebAppCentroids.ImagePayload, WebApp
         StartRequest(image_url, payload);
         return 0;
     }
+
+
 
     // sprites need to be uuencoded, and the image object also needs a filename
     // because currently the web app wants a file name for temporary storage purposes
@@ -82,6 +87,8 @@ public class WebAppCentroids : WebAppCaller<WebAppCentroids.ImagePayload, WebApp
         };
     }
 
+
+
     Vector4 getCentroidValues(string centroid_string)
     {
         string[] values = centroid_string.Split(',');
@@ -108,6 +115,8 @@ public class WebAppCentroids : WebAppCaller<WebAppCentroids.ImagePayload, WebApp
         }
         return Vector4.zero;
     }
+
+
 
     public override void ParseResponse() { 
         centroids = new Vector4[responseData.centroids.Count];

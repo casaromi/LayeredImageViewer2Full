@@ -21,10 +21,38 @@ public class ManageApp : MonoBehaviour
 
     bool centroidsRequested = false;
 
-    
+
+    private DownloadImages downloadImages;
+
+
+
+    IEnumerator Start()
+    {
+        // Get reference to DownloadImages script
+        downloadImages = FindObjectOfType<DownloadImages>();
+
+        // Wait until DownloadImages has finished downloading and populating sprites
+        while (downloadImages == null || !downloadImages.spritesReady)
+        {
+            yield return null;
+        }
+
+        // Assign sprites from DownloadImages
+        sprites = downloadImages.sprites;
+
+        // Ensure sprites array is properly assigned
+        if (sprites == null || sprites.Length == 0)
+        {
+            Debug.LogError("No sprites available from DownloadImages!");
+            yield break;
+        }
+
+        InitializePC();
+    }
+
 
     // Start is called before the first frame update
-    void Start()
+    void InitializePC()
     {
         // initial test, just package up some simple JSON and send it
         // to an app that parses it, multiplies it by 2, jsonifies the result
