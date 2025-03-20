@@ -29,7 +29,7 @@ public class DownloadImages : MonoBehaviourPunCallbacks
 	public Sprite[] sprites;
 
 
-	private bool spritesReady = false;
+	public bool spritesReady = false;
 
 	//public GameObject webAppRunner;
 
@@ -226,3 +226,4 @@ public class DownloadImages : MonoBehaviourPunCallbacks
 
 	}
 }
+

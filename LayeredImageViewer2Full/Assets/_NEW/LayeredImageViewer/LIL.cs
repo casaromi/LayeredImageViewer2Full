@@ -44,9 +44,37 @@ public class LIL : MonoBehaviour
 	public Vector3 ClipNormal = Vector3.one;
 	public bool useClipPlane = true;
 
-	void Start()
-	{
 
+	private DownloadImages downloadImages;
+
+
+	IEnumerator Start()
+	{
+		// Get reference to DownloadImages script
+		downloadImages = FindObjectOfType<DownloadImages>();
+
+		// Wait until DownloadImages has finished downloading and populating sprites
+		while (downloadImages == null || !downloadImages.spritesReady)
+		{
+			yield return null;
+		}
+
+		// Assign sprites from DownloadImages
+		sprites = downloadImages.sprites;
+
+		// Ensure sprites array is properly assigned
+		if (sprites == null || sprites.Length == 0)
+		{
+			Debug.LogError("No sprites available from DownloadImages!");
+			yield break;
+		}
+
+		InitializeLIL();
+	}
+
+
+	void InitializeLIL()
+	{
 		showSide = extraPlanes;
 		showFront = extraPlanes;
 		topView = new GameObject();
