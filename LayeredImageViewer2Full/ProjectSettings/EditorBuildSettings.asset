@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/PCLobby.unity
     guid: 46054fe0ae5dd224bba6dffee755ab47
   - enabled: 0
-    path: Assets/Scenes/WebLab.unity
+    path: Assets/Scenes/Extra Labs/WebLab.unity
     guid: bfea560e2129a0049a746a6e981517b8
   - enabled: 0
     path: Assets/Scenes/NMwebVR.unity
