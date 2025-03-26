@@ -37434,7 +37434,7 @@ MonoBehaviour:
   xMovementRange: 5
   yMovementRange: 3
   zMovementRange: 2
-  maxScale: 3
+  maxScale: 100
 --- !u!114 &1315601990
 MonoBehaviour:
   m_ObjectHideFlags: 0

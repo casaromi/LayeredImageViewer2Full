@@ -14,7 +14,7 @@ public class ObjectSliderControl : MonoBehaviour
     public float xMovementRange = 5f;
     public float yMovementRange = 3f;
     public float zMovementRange = 2f;
-    public float maxScale = 3f;
+    public float maxScale = 100f;
 
     private Vector3 originalPosition;
     private List<Transform> childSpheres = new List<Transform>();
