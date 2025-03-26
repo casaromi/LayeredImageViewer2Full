@@ -1,47 +1,101 @@
 using UnityEngine;
-using UnityEngine.UI; // Required for UI elements
+using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class ObjectSliderControl : MonoBehaviour
 {
-    public Slider xSlider; // Assign in Inspector
-    public Slider ySlider; // Assign in Inspector
-    public Slider zSlider; // Assign in Inspector (Height)
+    // Sliders to assign in Inspector
+    public Slider xSlider;
+    public Slider ySlider;
+    public Slider zSlider;
+    public Slider scaleSlider;
+    public Slider colorSlider;
 
-    private Vector3 originalPosition; // Stores the initial position
+    public float xMovementRange = 5f;
+    public float yMovementRange = 3f;
+    public float zMovementRange = 2f;
+    public float maxScale = 3f;
 
-    public float xMovementRange = 5f; // Max movement for X
-    public float yMovementRange = 3f; // Max movement for Y
-    public float zMovementRange = 2f; // Max movement for Z (Height)
+    private Vector3 originalPosition;
+    private List<Transform> childSpheres = new List<Transform>();
+    private List<Vector3> originalScales = new List<Vector3>();
+    private List<Renderer> renderers = new List<Renderer>();
 
     void Start()
     {
-        originalPosition = transform.position; // Store the original position
+        originalPosition = transform.position;
 
-        // Ensure sliders update position on change
+        // Set up slider listeners
         if (xSlider) xSlider.onValueChanged.AddListener(UpdatePosition);
         if (ySlider) ySlider.onValueChanged.AddListener(UpdatePosition);
         if (zSlider) zSlider.onValueChanged.AddListener(UpdatePosition);
+        if (scaleSlider) scaleSlider.onValueChanged.AddListener(UpdateScale);
+        if (colorSlider) colorSlider.onValueChanged.AddListener(UpdateColor);
 
-        // Set sliders to neutral position (0) to avoid resetting position
+        // Set initial values
         if (xSlider) xSlider.value = 0;
         if (ySlider) ySlider.value = 0;
         if (zSlider) zSlider.value = 0;
+        if (scaleSlider) scaleSlider.value = 0;
+        if (colorSlider) colorSlider.value = 0;
     }
 
-    void UpdatePosition(float value)
+    // ?? Call this method after spawning your spheres!
+    public void RefreshSpheres()
+    {
+        Debug.Log("Refreshing spheres under: " + gameObject.name);
+
+        childSpheres.Clear();
+        originalScales.Clear();
+        renderers.Clear();
+
+        foreach (Transform child in transform)
+        {
+            Renderer rend = child.GetComponent<Renderer>();
+            if (rend != null)
+            {
+                childSpheres.Add(child);
+                originalScales.Add(child.localScale);
+
+                // Create a unique material instance per object to control color
+                Material newMat = new Material(rend.material);
+                rend.material = newMat;
+                renderers.Add(rend);
+            }
+        }
+
+        Debug.Log("Found " + childSpheres.Count + " child spheres.");
+    }
+
+    void UpdatePosition(float _)
     {
         if (xSlider && ySlider && zSlider)
         {
-            // Move relative to the original position with independent movement ranges
             float xOffset = xSlider.value * xMovementRange;
             float yOffset = ySlider.value * yMovementRange;
             float zOffset = zSlider.value * zMovementRange;
 
-            transform.position = new Vector3(
-                originalPosition.x + xOffset,
-                originalPosition.y + yOffset,
-                originalPosition.z + zOffset
-            );
+            transform.position = originalPosition + new Vector3(xOffset, yOffset, zOffset);
+        }
+    }
+
+    void UpdateScale(float value)
+    {
+        float scale = Mathf.Lerp(1f, maxScale, value);
+
+        for (int i = 0; i < childSpheres.Count; i++)
+        {
+            childSpheres[i].localScale = originalScales[i] * scale;
+        }
+    }
+
+    void UpdateColor(float value)
+    {
+        Color color = Color.Lerp(Color.white, Color.black, value);
+
+        foreach (Renderer rend in renderers)
+        {
+            rend.material.color = color;
         }
     }
 }

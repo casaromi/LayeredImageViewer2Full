@@ -16462,9 +16462,12 @@ MonoBehaviour:
   xSlider: {fileID: 2135699413}
   ySlider: {fileID: 443431500}
   zSlider: {fileID: 2135699412}
+  scaleSlider: {fileID: 0}
+  colorSlider: {fileID: 0}
   xMovementRange: 4
   yMovementRange: 1.5
   zMovementRange: 3
+  maxScale: 3
 --- !u!1 &519796867
 GameObject:
   m_ObjectHideFlags: 0
@@ -37424,11 +37427,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xSlider: {fileID: 1669636240}
-  ySlider: {fileID: 1669636241}
-  zSlider: {fileID: 1348047837}
+  ySlider: {fileID: 1348047837}
+  zSlider: {fileID: 1669636241}
+  scaleSlider: {fileID: 2115578873}
+  colorSlider: {fileID: 373991373}
   xMovementRange: 5
   yMovementRange: 3
   zMovementRange: 2
+  maxScale: 3
 --- !u!114 &1315601990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49674,6 +49680,7 @@ MonoBehaviour:
   nx: 152
   ny: 152
   nz: 89
+  parentTransform: {fileID: 1315601988}
   sprites: []
 --- !u!114 &1689407582
 MonoBehaviour:

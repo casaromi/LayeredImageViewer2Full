@@ -15,7 +15,8 @@ public class ManageApp : MonoBehaviour
     public int nx = 152;
     public int ny = 152;
     public int nz = 89;
-    
+
+    public Transform parentTransform;
 
     // Array of sprites for input from editor
     public Sprite [] sprites;
@@ -100,6 +101,7 @@ public class ManageApp : MonoBehaviour
                 Debug.Log("Number of points generated: " + centroids.Length);
                 pointsCountText.gameObject.SetActive(true);
                 pointsCountText.text = "Points Generated: " + centroids.Length;
+                parentTransform.GetComponent<ObjectSliderControl>().RefreshSpheres();
 
                 centroidsRequested = false;
                 warning.enabled = false;
