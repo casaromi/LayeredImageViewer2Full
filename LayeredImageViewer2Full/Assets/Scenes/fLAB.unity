@@ -34084,6 +34084,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1468975329}
+  - {fileID: 2045161451}
   - {fileID: 129538406}
   - {fileID: 1122498028}
   - {fileID: 1666741988}
@@ -36259,8 +36261,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1468975329}
-  - {fileID: 2045161451}
   - {fileID: 1376879726}
   - {fileID: 1364952310}
   - {fileID: 796200469}
@@ -41961,7 +41961,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1468975328}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 53.618694, y: 26.01018, z: 21.51493}
+  m_LocalPosition: {x: 62.341187, y: 17.117384, z: 23.931845}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -41975,8 +41975,8 @@ Transform:
   - {fileID: 1083971744}
   - {fileID: 1728553464}
   - {fileID: 154170627}
-  m_Father: {fileID: 1271483780}
-  m_RootOrder: 0
+  m_Father: {fileID: 1202462421}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1469963254
 GameObject:
@@ -45099,7 +45099,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1548349068
 RectTransform:
   m_ObjectHideFlags: 0
@@ -46254,7 +46254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1571148095
 RectTransform:
   m_ObjectHideFlags: 0
@@ -57483,12 +57483,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2045161450}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 50.894764, y: 28.536043, z: -5.2414455}
+  m_LocalPosition: {x: 59.617256, y: 19.643248, z: -2.8245308}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1271483780}
-  m_RootOrder: 1
+  m_Father: {fileID: 1202462421}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2045161452
 MonoBehaviour:
@@ -57504,6 +57504,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   morningSkybox: {fileID: 2100000, guid: 922f3fe5216150a4fbd75f94b09ac8ce, type: 2}
   nightSkybox: {fileID: 2100000, guid: 14df67bc3befa0f41a1e460da559e099, type: 2}
+  environment: {fileID: 490622914}
+  bounds: {fileID: 0}
+  enableSkybox: 1
+  skyboxToggle: {fileID: 199861700}
 --- !u!1 &2051963962
 GameObject:
   m_ObjectHideFlags: 0
