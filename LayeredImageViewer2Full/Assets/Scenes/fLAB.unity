@@ -11386,10 +11386,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 322387225}
   m_HandleRect: {fileID: 425286380}
   m_Direction: 0
-  m_MinValue: 0.1
-  m_MaxValue: 0.5
+  m_MinValue: 0
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.25
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -37434,7 +37434,7 @@ MonoBehaviour:
   xMovementRange: 5
   yMovementRange: 3
   zMovementRange: 2
-  maxScale: 100
+  maxScale: 75
 --- !u!114 &1315601990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59938,10 +59938,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1386320195}
   m_HandleRect: {fileID: 436662506}
   m_Direction: 0
-  m_MinValue: 0.1
-  m_MaxValue: 0.5
+  m_MinValue: 0
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.25
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:

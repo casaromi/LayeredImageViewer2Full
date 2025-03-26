@@ -14,7 +14,7 @@ public class ObjectSliderControl : MonoBehaviour
     public float xMovementRange = 5f;
     public float yMovementRange = 3f;
     public float zMovementRange = 2f;
-    public float maxScale = 100f;
+    public float maxScale = 75f;
 
     private Vector3 originalPosition;
     private List<Transform> childSpheres = new List<Transform>();
@@ -81,13 +81,28 @@ public class ObjectSliderControl : MonoBehaviour
 
     void UpdateScale(float value)
     {
-        float scale = Mathf.Lerp(1f, maxScale, value);
+        if (childSpheres.Count != originalScales.Count)
+        {
+            Debug.LogWarning("Mismatch in sphere and scale data.");
+            return;
+        }
+
+        // Calculate the scale multiplier based on slider
+        float multiplier = Mathf.Lerp(1f, maxScale, value);
 
         for (int i = 0; i < childSpheres.Count; i++)
         {
-            childSpheres[i].localScale = originalScales[i] * scale;
+            Vector3 newScale = originalScales[i] * multiplier;
+
+            // Optional: Round to 6 decimal places to avoid float drift
+            newScale.x = Mathf.Round(newScale.x * 1_000_000f) / 1_000_000f;
+            newScale.y = Mathf.Round(newScale.y * 1_000_000f) / 1_000_000f;
+            newScale.z = Mathf.Round(newScale.z * 1_000_000f) / 1_000_000f;
+
+            childSpheres[i].localScale = newScale;
         }
     }
+
 
     void UpdateColor(float value)
     {
