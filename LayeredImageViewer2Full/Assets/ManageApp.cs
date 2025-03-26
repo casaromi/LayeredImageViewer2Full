@@ -95,6 +95,9 @@ public class ManageApp : MonoBehaviour
                     point.transform.localPosition = new Vector3(centroids[i].x/(nx-1)-0.5f,10*centroids[i].z/(nz-1)-0.5f,
                         -(centroids[i].y/(ny-1)-0.5f));
 				}
+
+                Debug.Log("Number of points generated: " + centroids.Length);
+
                 centroidsRequested = false;
                 warning.enabled = false;
             }
