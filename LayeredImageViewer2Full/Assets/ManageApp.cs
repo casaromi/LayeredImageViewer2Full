@@ -11,6 +11,7 @@ public class ManageApp : MonoBehaviour
     public GameObject pointPRE;
     public GameObject parentObject;
     public TextMeshProUGUI warning;
+    public TextMeshProUGUI pointsCountText;
     public int nx = 152;
     public int ny = 152;
     public int nz = 89;
@@ -97,6 +98,8 @@ public class ManageApp : MonoBehaviour
 				}
 
                 Debug.Log("Number of points generated: " + centroids.Length);
+                pointsCountText.gameObject.SetActive(true);
+                pointsCountText.text = "Points Generated: " + centroids.Length;
 
                 centroidsRequested = false;
                 warning.enabled = false;
