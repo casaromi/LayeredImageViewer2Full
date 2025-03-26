@@ -106,11 +106,32 @@ public class ObjectSliderControl : MonoBehaviour
 
     void UpdateColor(float value)
     {
-        Color color = Color.Lerp(Color.white, Color.black, value);
+        // Get grayscale color from white (0) to black (1)
+        Color grayscale = Color.Lerp(Color.white, Color.black, value);
 
         foreach (Renderer rend in renderers)
         {
-            rend.material.color = color;
+            if (rend != null)
+            {
+                Material mat = rend.material;
+
+                // Set Albedo (main color)
+                if (mat.HasProperty("_Color"))
+                {
+                    mat.SetColor("_Color", grayscale);
+                    mat.color = grayscale; // extra fallback
+                }
+
+                // Set Emission color
+                if (mat.HasProperty("_EmissionColor"))
+                {
+                    mat.SetColor("_EmissionColor", grayscale);
+                    mat.EnableKeyword("_EMISSION"); // Make sure emission is active
+                }
+            }
         }
     }
+
+
+
 }
