@@ -5196,6 +5196,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   morningSkybox: {fileID: 2100000, guid: 922f3fe5216150a4fbd75f94b09ac8ce, type: 2}
   nightSkybox: {fileID: 2100000, guid: 14df67bc3befa0f41a1e460da559e099, type: 2}
+  environment: {fileID: 0}
+  bounds: {fileID: 0}
+  enableSkybox: 1
+  skyboxToggle: {fileID: 0}
 --- !u!4 &249175939
 Transform:
   m_ObjectHideFlags: 0
@@ -17612,7 +17616,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &827444143
 Transform:
   m_ObjectHideFlags: 0
@@ -39818,7 +39822,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1909980638
 Transform:
   m_ObjectHideFlags: 0
@@ -39933,7 +39937,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1909980637}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe4ed948e727d574ea96fab6cffe83ce, type: 3}
   m_Name: 
@@ -39948,7 +39952,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1909980637}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e988983f96fe1dd48800bcdfc82f23e9, type: 3}
   m_Name: 
@@ -40051,7 +40055,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1909980637}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
