@@ -37008,6 +37008,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1315601988}
   - component: {fileID: 1315601989}
+  - component: {fileID: 1315601990}
   m_Layer: 0
   m_Name: Point Cloud
   m_TagString: Untagged
@@ -37048,6 +37049,20 @@ MonoBehaviour:
   xMovementRange: 5
   yMovementRange: 3
   zMovementRange: 2
+--- !u!114 &1315601990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315601987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0da91317b4e11da4581e15b55e116c5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointCloudToggle: {fileID: 360376050}
+  pointCloudParent: {fileID: 1315601987}
 --- !u!1 &1317301354
 GameObject:
   m_ObjectHideFlags: 0
