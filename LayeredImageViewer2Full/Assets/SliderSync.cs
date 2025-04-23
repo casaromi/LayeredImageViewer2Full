@@ -12,8 +12,10 @@ public class SliderSync : MonoBehaviourPunCallbacks, IPunObservable
         if (slider == null)
             slider = GetComponent<Slider>();
 
+        Debug.Log("Am I Master? " + PhotonNetwork.IsMasterClient);
+
         // Only let local player control the slider if they're the master
-        slider.interactable = PhotonNetwork.IsMasterClient;
+        // slider.interactable = PhotonNetwork.IsMasterClient;
 
         slider.onValueChanged.AddListener(OnSliderValueChanged);
     }
