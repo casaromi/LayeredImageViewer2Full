@@ -9,25 +9,30 @@ public class ToggleSync : MonoBehaviourPun
     void Start()
     {
         if (toggle == null)
+        {
             toggle = GetComponent<Toggle>();
+        }
 
-        // Always interactable
         toggle.interactable = true;
 
-        // Add listener to detect state changes
+        // Listen for toggle changes locally
         toggle.onValueChanged.AddListener(OnToggleValueChanged);
     }
 
     void OnToggleValueChanged(bool isOn)
     {
-        // Broadcast to others
+        Debug.Log("Local Toggle changed to: " + isOn);
+
+        // Send toggle state to all other clients
         photonView.RPC("SyncToggleState", RpcTarget.OthersBuffered, isOn);
     }
 
     [PunRPC]
     void SyncToggleState(bool isOn)
     {
-        // Update toggle state without triggering OnValueChanged again
+        Debug.Log("Received toggle sync RPC: " + isOn);
+
+        // Update toggle state without triggering another OnValueChanged
         toggle.SetIsOnWithoutNotify(isOn);
     }
 }
