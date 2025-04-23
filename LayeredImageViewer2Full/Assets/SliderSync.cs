@@ -48,3 +48,42 @@ public class SliderSync : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 }
+
+
+
+//Allow anyone to change slider value
+/*
+using Photon.Pun;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class SliderSync : MonoBehaviourPun
+{
+    public Slider slider;
+
+    void Start()
+    {
+        if (slider == null)
+            slider = GetComponent<Slider>();
+
+        // Make slider always interactable for all clients
+        slider.interactable = true;
+
+        // Add listener for when the slider value is changed
+        slider.onValueChanged.AddListener(OnSliderValueChanged);
+    }
+
+    void OnSliderValueChanged(float value)
+    {
+        // Send the updated slider value to all other clients
+        photonView.RPC("SyncSliderValue", RpcTarget.OthersBuffered, value);
+    }
+
+    [PunRPC]
+    void SyncSliderValue(float value)
+    {
+        // Update the slider value when an RPC is received
+        slider.SetValueWithoutNotify(value);
+    }
+}
+*/
